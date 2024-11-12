@@ -85,10 +85,6 @@
                             <!-- Campos de Alteração de Senha (inicialmente ocultos) -->
                             <div id="campos-senha" class="col-md-4 col-md-offset-4 mt-4" style="display: none;">
                                 <div class="form-group">
-                                    <label for="senha-atual">Senha Atual</label>
-                                    <input type="password" id="senha-atual" name="senha-atual" class="form-control" value="<?= $_SESSION['senha']?>" disabled required>
-                                </div>
-                                <div class="form-group">
                                     <label for="nova-senha">Nova Senha</label>
                                     <input type="password" id="nova-senha" name="nova-senha" class="form-control" placeholder="Digite a nova senha">
                                 </div>
