@@ -9,3 +9,6 @@
 
 #Igonar o diretório de config da ide
 /.idea/
+
+#Ignorar diretorio de armazenamento de fotos
+/storage/app/profile/photo/
