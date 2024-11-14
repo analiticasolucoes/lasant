@@ -1134,14 +1134,7 @@ $esfera = $row_esf['ds_esfera'];
                                         <select class="form-control" id="profissional-id" name="profissional-id">
                                             <option value="" selected>Selecione</option>
                                             <?php foreach ($profissionais as $profissional): ?>
-                                            <?php /*
-                                            $sql_grupo = mysql_query("SELECT * FROM ta_profissional WHERE status='Ativo' ORDER BY nm_profissional") or die (mysql_error());
-                                            while ($row_grupo = mysql_fetch_array($sql_grupo)) {
-                                                */ ?>
-                                                <option value="<?= $profissional->getId() /* echo $row_grupo['id'] */ ?>"><?= $profissional->getNome() /* echo $row_grupo['nm_profissional'] */ ?></option>
-                                                <?php /*
-                                            }
-                                            */ ?>
+                                            <option value="<?= $profissional->getId() ?>"><?= $profissional->getNome() ?></option>
                                             <?php endforeach; ?>
                                         </select>
                                     </div>

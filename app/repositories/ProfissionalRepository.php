@@ -38,7 +38,18 @@ class ProfissionalRepository
 
     public function all(): array
     {
-        $sql = "SELECT * FROM $this->table";
+        $sql = "SELECT * FROM $this->table ORDER BY nm_profissional";
+        $result = $this->db->consultar($sql, []);
+        if (count($result) > 0) {
+            return $this->generateObjectsList($result);
+        } else {
+            return [];
+        }
+    }
+
+    public function actives(): array
+    {
+        $sql = "SELECT * FROM $this->table WHERE status=\"Ativo\" ORDER BY nm_profissional";
         $result = $this->db->consultar($sql, []);
         if (count($result) > 0) {
             return $this->generateObjectsList($result);
@@ -83,8 +94,8 @@ class ProfissionalRepository
                 $data['cpf'],
                 $data['dt-nascimento'],
                 $data['telefone'],
-                $cargo,
                 "Ativo",
+                $cargo,
                 $data['tamanho-calcado'],
                 $data['tamanho-calca'],
                 $data['tamanho-camisa'],
@@ -184,7 +195,6 @@ class ProfissionalRepository
 
     private function generateObjectsList(array $profissionaisList): array
     {
-        //echo"<pre>";var_dump($profissionaisList);echo"</pre>";die;
         $profissionais = [];
         foreach ($profissionaisList as $profissional) {
             $profissionais[] = $this->generateObject($profissional);
@@ -196,6 +206,7 @@ class ProfissionalRepository
     {
         $cargoRepository = new CargoRepository($this->db);
         $cargo = $cargoRepository->find($profissionalReg['id_cargo']);
+        if(!$cargo) $cargo = new Cargo(0, "");
 
         return new Profissional(
             $profissionalReg['id'],
@@ -205,8 +216,8 @@ class ProfissionalRepository
             $profissionalReg['cpf'],
             $profissionalReg['dt_nascimento'],
             $profissionalReg['telefone'],
-            $cargo,
             $profissionalReg['status'],
+            $cargo,
             $profissionalReg['tamanho_pe'],
             $profissionalReg['tamanho_calca'],
             $profissionalReg['tamanho_camisa'],

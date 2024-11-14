@@ -53,7 +53,7 @@ class ClienteController
         $modelosImpressaoOS = $modeloOSRepository->all();
 
         $profissionalRepository = new ProfissionalRepository($this->conn);
-        $profissionais = $profissionalRepository->all();
+        $profissionais = $profissionalRepository->actives();
 
         $cliente = $this->clienteRepository->find($args['id']);
 

@@ -35,19 +35,19 @@ class Profissional
         string   $cpf,
         string   $dtNascimento,
         string   $telefone,
-        Cargo    $cargo,
         string   $status,
+        ?Cargo    $cargo = new Cargo(0, ""),
         ?string  $tamanhoCalcado = null,
         ?string  $tamanhoCalca = null,
         ?string  $tamanhoCamisa = null,
-        ?float   $valorPassagem = null,
-        ?float   $valorPassagem1 = null,
-        ?float   $valorPassagem2 = null,
-        ?float   $valorPassagem3 = null,
-        ?int $qtdPassagem = null,
-        ?int $qtdPassagem1 = null,
-        ?int $qtdPassagem2 = null,
-        ?int $qtdPassagem3 = null
+        ?float   $valorPassagem = 0,
+        ?float   $valorPassagem1 = 0,
+        ?float   $valorPassagem2 = 0,
+        ?float   $valorPassagem3 = 0,
+        ?int $qtdPassagem = 0,
+        ?int $qtdPassagem1 = 0,
+        ?int $qtdPassagem2 = 0,
+        ?int $qtdPassagem3 = 0
     ) {
         $this->id = $id;
         $this->folha = $folha;
@@ -108,7 +108,7 @@ class Profissional
         return $this->telefone;
     }
 
-    public function getCargo(): Cargo
+    public function getCargo(): ?Cargo
     {
         return $this->cargo;
     }
