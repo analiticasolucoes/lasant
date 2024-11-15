@@ -550,9 +550,9 @@ $esfera = $row_esf['ds_esfera'];
                                         <tbody>
                                         <?php foreach($locais as $local): ?>
                                             <tr>
-                                                <td><?= $local->getDescricao() /* echo $dados['ds_clienteLocal'] */ ?></td>
-                                                <td><?= $local->getBairro() /* echo $dados['bairro'] */ ?></td>
-                                                <td><?= $local->getCidade() /* echo $dados['cidade'] */ ?></td>
+                                                <td><?= $local->getDescricao() ?></td>
+                                                <td><?= $local->getBairro() ?></td>
+                                                <td><?= $local->getCidade() ?></td>
                                                 <td>
                                                     <a
                                                         href="javascript:void(0);"
@@ -560,22 +560,22 @@ $esfera = $row_esf['ds_esfera'];
                                                         class="btn btn-primary update-link"
                                                         data-toggle="modal"
                                                         data-update-modal="update-modal-locais"
-                                                        data-dados='{
-                                                            id: <?= $local->getId() ?>,
-                                                            descricao: "<?= $local->getDescricao() ?>",
-                                                            cep: "<?= $local->getCep() ?>",
-                                                            logradouro: "<?= $local->getLogradouro() ?>",
-                                                            numero: "<?= $local->getNumero() ?>",
-                                                            complemento: "<?= $local->getComplemento() ?>",
-                                                            bairro: "<?= $local->getBairro() ?>",
-                                                            cidade: "<?= $local->getCidade() ?>",
-                                                            uf: "<?= $local->getUf() ?>",
-                                                            latitude: "<?= $local->getLatitude() ?>",
-                                                            longitude: "<?= $local->getLongitude() ?>",
-                                                            areaTotal: <?= $local->getAreaTotal() ?>,
-                                                            areaConstruida: <?= $local->getAreaConstruida() ?>,
-                                                            contato: "<?= $local->getContato() ?>",
-                                                            telContato: "<?= $local->getTelefone() ?>"}'
+                                                        data-dados='<?= json_encode([
+                                                            "id" => $local->getId(),
+                                                            "descricao" => $local->getDescricao(),
+                                                            "cep" => $local->getCep(),
+                                                            "logradouro" => $local->getLogradouro(),
+                                                            "numero" => $local->getNumero(),
+                                                            "complemento" => $local->getComplemento(),
+                                                            "bairro" => $local->getBairro(),
+                                                            "cidade" => $local->getCidade(),
+                                                            "uf" => $local->getUf(),
+                                                            "latitude" => $local->getLatitude(),
+                                                            "longitude" => $local->getLongitude(),
+                                                            "areaTotal" => $local->getAreaTotal(),
+                                                            "areaConstruida" => $local->getAreaConstruida(),
+                                                            "contato" => $local->getContato(),
+                                                            "telContato" => $local->getTelefone()]) ?>'
                                                     >
                                                         <i class="fa fa-pencil"></i>
                                                     </a>
@@ -790,11 +790,7 @@ $esfera = $row_esf['ds_esfera'];
                                         <select class="form-control" id="cliente-local" name="cliente-local" required>
                                             <option value="" selected>Selecione</option>
                                             <?php foreach($locais as $local): ?>
-                                            <?php /*
-                                            $sql_grupo = mysql_query("SELECT * FROM ta_cliente_local WHERE id_cliente='".$_GET['id']."' ORDER BY ds_clienteLocal") or die (mysql_error());
-                                            while ($row_grupo = mysql_fetch_array($sql_grupo)) {
-                                                */ ?>
-                                                <option value="<?= $local->getId() ?>"><?= $local->getDescricao() ?></option>
+                                            <option value="<?= $local->getId() ?>"><?= $local->getDescricao() ?></option>
                                             <?php endforeach; ?>
                                         </select>
                                     </div>
@@ -1717,7 +1713,6 @@ $esfera = $row_esf['ds_esfera'];
 </script>
 <script>
     function carregarDados(dados, campos, modal) {
-        console.log(typeof dados);return false;
         // Itera sobre as chaves e valores de dados
         Object.entries(dados).forEach(([chave, item]) => {
             console.log(campos);
@@ -1748,8 +1743,7 @@ $esfera = $row_esf['ds_esfera'];
         $('.update-link').on('click', function() {
             var dados = $(this).data('dados');
             var modal = $(this).data('update-modal');
-            let dadosJSON = JSON.parse(dados);
-            console.log(dadosJSON);return true;
+
             if(modal === "update-modal-locais") {
                 var campos = {
                     id: 'input[name="id-local-modal"]',
@@ -1768,7 +1762,7 @@ $esfera = $row_esf['ds_esfera'];
                     contato: 'input[name="contato-local-modal"]',
                     telContato: 'input[name="tel-contato-local-modal"]'
                 };
-                carregarDados(dadosJSON, campos, modal);
+                carregarDados(dados, campos, modal);
             }
         });
     });

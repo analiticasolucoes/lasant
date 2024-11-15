@@ -60,14 +60,25 @@ class LocalController
      */
     public function alter(array $args = []): void
     {
-        $banco = $this->localRepository->find($args["id"]);
-        $clienteId = $banco->getCliente()->getId();
+        $local = $this->localRepository->find($args["id-local-modal"]);
+        $clienteId = $local->getCliente()->getId();
 
-        $banco->setBanco($args['banco']);
-        $banco->setAgencia($args['agencia']);
-        $banco->setConta($args['conta']);
+        $local->setDescricao($args['descricao-local-modal']);
+        $local->setCep($args['cep-local-modal']);
+        $local->setLogradouro($args['logradouro-local-modal']);
+        $local->setNumero($args['numero-local-modal']);
+        $local->setComplemento($args['complemento-endereco-local-modal']);
+        $local->setBairro($args['bairro-local-modal']);
+        $local->setCidade($args['cidade-local-modal']);
+        $local->setUf($args['uf-local-modal']);
+        $local->setLatitude($args['latitude-local-modal']);
+        $local->setLongitude($args['longitude-local-modal']);
+        $local->setAreaTotal((float) $args['area-total-local-modal']);
+        $local->setAreaConstruida((float) $args['area-construida-local-modal']);
+        $local->setContato($args['contato-local-modal']);
+        $local->setTelefone($args['tel-contato-local-modal']);
 
-        if ($this->localRepository->update($banco)) {
+        if ($this->localRepository->update($local)) {
             header("Location: /clientes/detalhe?id={$clienteId}");
             exit;
         } else
@@ -79,9 +90,9 @@ class LocalController
      */
     public function remove(array $args = []): void
     {
-        $banco = $this->localRepository->find($args["id"]);
-        $clienteId = $banco->getCliente()->getId();
-        if($this->localRepository->delete($banco)) {
+        $local = $this->localRepository->find($args["id"]);
+        $clienteId = $local->getCliente()->getId();
+        if($this->localRepository->delete($local)) {
             header("Location: /clientes/detalhe?id={$clienteId}");
             exit;
         } else

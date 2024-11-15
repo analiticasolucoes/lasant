@@ -55,14 +55,26 @@ class LocalRepository
     {
         $parametros = [
             'id_cliente' => $data['cliente-id'],
+            'ds_clienteLocal' => $data['descricao-local'],
+            'cep' => $data['cep-local'],
+            'rua' => $data['logradouro-local'],
+            'numero' => $data['numero-local'],
+            'complemento_endereco' => $data['complemento-endereco-local'],
+            'bairro' => $data['bairro-local'],
+            'cidade' => $data['cidade-local'],
+            'uf' => $data['uf-local'],
+            'contato' => $data['contato-local'],
+            'tel_contato' => $data['tel-contato-local'],
+            'latitude' => $data['latitude-local'],
+            'longitude' => $data['longitude-local'],
+            'inclinacao' => "",
+            'area_construida' => (float) $data['area-construida-local'],
+            'area_total' => (float) $data['area-total-local'],
+            'valor_local' => 0.0
         ];
 
         if ($this->db->inserir($this->table, $parametros)) {
-            $local = new Local();
-            $data['id'] = $this->db->getLastInsertId();
-            $data['id_cliente'] = $data['cliente-id'];
-            $this->setAttributes($local, $data);
-            $this->local = $local;
+            $this->local = $this->find($this->db->getLastInsertId());
             return true;
         }
         return false;
@@ -72,7 +84,24 @@ class LocalRepository
     {
         try {
             $dados = [
+                'id' => $local->getId(),
                 'id_cliente' => $local->getCliente()->getId(),
+                'ds_clienteLocal' => $local->getDescricao(),
+                'cep' => $local->getCep(),
+                'rua' => $local->getLogradouro(),
+                'numero' => $local->getNumero(),
+                'complemento_endereco' => $local->getComplemento(),
+                'bairro' => $local->getBairro(),
+                'cidade' => $local->getCidade(),
+                'uf' => $local->getUF(),
+                'contato' => $local->getContato(),
+                'tel_contato' => $local->getTelefone(),
+                'latitude' => $local->getLatitude(),
+                'longitude' => $local->getLongitude(),
+                'inclinacao' => $local->getInclinacao(),
+                'area_construida' => $local->getAreaConstruida(),
+                'area_total' => $local->getAreaTotal(),
+                'valor_local' => $local->getValorLocal()
             ];
 
             $condicao = ['id' => $local->getId()];
