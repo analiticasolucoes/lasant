@@ -10,7 +10,8 @@ use App\Repositories\{BancoRepository,
     LocalRepository,
     ModeloImpressaoRepository,
     PavimentoRepository,
-    ProfissionalRepository};
+    ProfissionalRepository,
+    SetorRepository};
 use App\Views\ViewController;
 
 class ClienteController
@@ -71,7 +72,8 @@ class ClienteController
         $pavimentoRepository = new PavimentoRepository($this->conn);
         $pavimentos = $pavimentoRepository->findBy("id_cliente", $args['id']);
 
-        $setores = [];
+        $setorRepository = new SetorRepository($this->conn);
+        $setores = $setorRepository->findBy("id_cliente", $args['id']);
 
         $this->view->render('dashboard/clientes/detalhe', [
             'cliente' => $cliente,

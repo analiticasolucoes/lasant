@@ -897,7 +897,7 @@ $esfera = $row_esf['ds_esfera'];
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
-                        <form id="clientes-setores-add-form" action="clientes/pavimentos/incluir" method="post" enctype="multipart/form-data" target="_self">
+                        <form id="clientes-setores-add-form" action="clientes/setores/incluir" method="post" enctype="multipart/form-data" target="_self">
                             <div class="row">
                                 <input type="hidden" name="cliente-id" value="<?= $cliente->getId() ?>" />
                                 <div class="col-md-6">
@@ -954,15 +954,16 @@ $esfera = $row_esf['ds_esfera'];
                                 </div>
                             </div>
                         </form>
-                        <form method="post" enctype="multipart/form-data" target="_self" id="form_div_setor">
+                        <form method="post" enctype="multipart/form-data" target="_self" id="setor">
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-11">
                                     <div class="form-group">
-                                        <label for="nm_setor">Pesquisar Setor</label>
-                                        <input class="form-control" type="text" id="nm_setor" name="nm_setor" placeholder="Setor" />
+                                        <label for="nome-setor">Pesquisar Setor</label>
+                                        <input class="form-control" type="text" id="nome-setor" name="nome-setor" placeholder="Nome" />
                                     </div>
                                 </div>
-                                <div class="col-md-12">
+                                <div class="col-md-1">
+                                    <label>&nbsp;</label>
                                     <button type="button" class="btn btn-primary pull-right" onclick="PesquisaSetor()"><span class="fa fa-search"></span> Pesquisar</button>
                                 </div>
                                 <div class="col-md-12">
@@ -977,7 +978,6 @@ $esfera = $row_esf['ds_esfera'];
                                                     <th></th>
                                                 </tr>
                                             </thead>
-
                                             <tbody>
                                             <?php foreach ($setores as $setor): ?>
                                                 <tr>
@@ -987,37 +987,42 @@ $esfera = $row_esf['ds_esfera'];
                                                     <td><?php if($setor->isStatus()) echo "Ativo"; else echo "Inativo"; ?></td>
                                                     <td>
                                                         <a
-                                                                href="javascript:void(0);"
-                                                                title="Editar"
-                                                                class="btn btn-primary update-link"
-                                                                data-toggle="modal"
-                                                                data-update-modal="update-modal-setores"
-                                                                data-dados='<?= json_encode([
-                                                                    "id" => $setor->getId(),
-                                                                    "local" => $setor->getLocal()->getId(),
-                                                                    "descricao" => $setor->getDescricao()]) ?>'
+                                                            href="javascript:void(0);"
+                                                            title="Editar"
+                                                            class="btn btn-primary update-link"
+                                                            data-toggle="modal"
+                                                            data-update-modal="update-modal-setores"
+                                                            data-dados='<?= json_encode([
+                                                                "id" => $setor->getId(),
+                                                                "descricao" => $setor->getDescricao(),
+                                                                "pavimento" => $setor->getPavimento()->getLocal()->getId(),
+                                                                "ocupantesFixos" => $setor->getOcupantesFixos(),
+                                                                "ocupantesFlutuantes" => $setor->getOcupantesFlutuantes(),
+                                                                "largura" => $setor->getLargura(),
+                                                                "comprimento" => $setor->getComprimento(),
+                                                                "altura" => $setor->getAltura()]) ?>'
                                                         >
                                                             <i class="fa fa-pencil"></i>
                                                         </a>
                                                         <a
-                                                                href="javascript:void(0);"
-                                                                title="Excluir"
-                                                                class="btn btn-danger delete-link"
-                                                                data-toggle="modal"
-                                                                data-action="clientes/setores/excluir"
-                                                                data-id="<?= $setor->getId() ?>"
-                                                                data-descricao="<?= "Setor: " . $setor->getDescricao() ?>"
+                                                            href="javascript:void(0);"
+                                                            title="Excluir"
+                                                            class="btn btn-danger delete-link"
+                                                            data-toggle="modal"
+                                                            data-action="clientes/setores/excluir"
+                                                            data-id="<?= $setor->getId() ?>"
+                                                            data-descricao="<?= "Setor: " . $setor->getDescricao() ?>"
                                                         >
                                                             <i class="fa fa-trash"></i>
                                                         </a>
                                                         <a
                                                             <?php if($setor->isStatus()) echo "href=\"javascript:void(0);\""; else echo "href=\"#\" aria-disabled=\"true\" style=\"pointer-events: none; color: gray;\""; ?>
-                                                                class="btn btn-warning disable-link"
-                                                                title="Desativar"
-                                                                data-toggle="modal"
-                                                                data-action="clientes/setores/desativar"
-                                                                data-id="<?= $setor->getId() ?>"
-                                                                data-descricao="<?= "Setor: " . $setor->getDescricao() ?>"
+                                                            class="btn btn-warning disable-link"
+                                                            title="Desativar"
+                                                            data-toggle="modal"
+                                                            data-action="clientes/setores/desativar"
+                                                            data-id="<?= $setor->getId() ?>"
+                                                            data-descricao="<?= "Setor: " . $setor->getDescricao() ?>"
                                                         >
                                                             <i class="fa fa-ban"></i>
                                                         </a>
@@ -1754,6 +1759,80 @@ $esfera = $row_esf['ds_esfera'];
         <!-- /.modal-dialog -->
     </form>
 </div>
+<!-- Setor Modal Update -->
+<div class="modal fade" id="update-modal-setores">
+    <form id="clientes-setores-update-form" action="clientes/setores/atualizar" method="post" enctype="multipart/form-data" target="_self">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">Editar Setor</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <input type="hidden" name="id-setor-modal" value="" />
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="pavimento-setor-modal">Pavimento</label>
+                                <select class="form-control" id="pavimento-setor-modal" name="pavimento-setor-modal" required>
+                                    <option value="" selected>Selecione</option>
+                                    <?php foreach($pavimentos as $pavimento): ?>
+                                        <?php if($pavimento->isStatus()): ?>
+                                            <option value="<?= $pavimento->getId() ?>"><?= $pavimento->getDescricao() ?></option>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="descricao-setor-modal">Setor</label>
+                                <input type="text" id="descricao-setor-modal" name="descricao-setor-modal" class="form-control" placeholder="Nome do setor" required/>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="ocupantes-fixos-setor-modal">Ocupantes Fixos (quantidade)</label>
+                                <input type="number" id="ocupantes-fixos-setor-modal" name="ocupantes-fixos-setor-modal" class="form-control" min="0" step="1" placeholder="Ocupantes Fixos" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="ocupantes-flutuantes-setor-modal">Ocupantes Flutuantes (quantidade)</label>
+                                <input type="number" id="ocupantes-flutuantes-setor-modal" name="ocupantes-flutuantes-setor-modal" class="form-control" min="0" step="1" placeholder="Ocupantes Flutuantes" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="largura-setor-modal">Largura (metros)</label>
+                                <input type="number" id="largura-setor-modal" name="largura-setor-modal" class="form-control" min="0" step="0.1" placeholder="Largura" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="comprimento-setor-modal">Comprimento (metros)</label>
+                                <input type="number" id="comprimento-setor-modal" name="comprimento-setor-modal" class="form-control" min="0" step="0.1"  placeholder="Comprimento" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="altura-setor-modal">Altura (metros)</label>
+                                <input type="number" id="altura-setor-modal" name="altura-setor-modal" class="form-control" min="0" step="0.1" placeholder="Altura" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Fechar</button>
+                    <input type="submit" value="Atualizar" class="btn btn-primary" />
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </form>
+</div>
 </body>
 <script>
     function formatarCampo(input) {
@@ -1980,6 +2059,18 @@ $esfera = $row_esf['ds_esfera'];
                     id: 'input[name="id-pavimento-modal"]',
                     descricao: 'input[name="descricao-pavimento-modal"]',
                     local: 'select[name="local-pavimento-modal"]',
+                };
+            }
+            if(modal === "update-modal-setores") {
+                campos = {
+                    id: 'input[name="id-setor-modal"]',
+                    descricao: 'input[name="descricao-setor-modal"]',
+                    pavimento: 'select[name="pavimento-setor-modal"]',
+                    ocupantesFixos: 'input[name="ocupantes-fixos-setor-modal"]',
+                    ocupantesFlutuantes: 'input[name="ocupantes-flutuantes-setor-modal"]',
+                    largura: 'input[name="largura-setor-modal"]',
+                    comprimento: 'input[name="comprimento-setor-modal"]',
+                    altura: 'input[name="altura-setor-modal"]',
                 };
             }
             carregarDados(dados, campos, modal);
