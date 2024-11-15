@@ -425,13 +425,13 @@ $esfera = $row_esf['ds_esfera'];
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group">
-                                        <label for="cep">CEP <sup>*</sup></label>
+                                        <label for="cep-local">CEP <sup>*</sup></label>
                                         <input type="text" id="cep-local" name="cep-local" class="form-control" placeholder="12345-678" required/>
                                     </div>
                                 </div>
                                 <div class="col-md-8">
                                     <div class="form-group">
-                                        <label for="logradouro">Logradouro <sup>*</sup></label>
+                                        <label for="logradouro-local">Logradouro <sup>*</sup></label>
                                         <input type="text" id="logradouro-local" name="logradouro-local" class="form-control" placeholder="Ex.: Avenida Delfim Moreira" required/>
                                     </div>
                                 </div>
@@ -526,7 +526,7 @@ $esfera = $row_esf['ds_esfera'];
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="tel-contato-local">Tel Contato</label>
+                                        <label for="tel-contato-local">Telefone Contato</label>
                                         <input type="text" id="tel-contato-local" name="tel-contato-local" class="form-control" placeholder="Ex.: XX 12345678" />
                                     </div>
                                 </div>
@@ -613,55 +613,55 @@ $esfera = $row_esf['ds_esfera'];
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
-                        <form method="post" enctype="multipart/form-data" target="_self" id="form_local_entrega">
+                        <form id="clientes-local-entrega-add-form" action="clientes/locais-entrega/incluir" method="post" enctype="multipart/form-data" target="_self">
                             <div class="row">
                                 <input type="hidden" name="cliente-id" value="<?= $cliente->getId() ?>" />
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>Local</label>
-                                        <input type="text" name="ds_clienteLocal" class="form-control" placeholder="Nome do local" />
+                                        <label for="descricao-local-entrega">Local</label>
+                                        <input type="text" id="descricao-local-entrega" name="descricao-local-entrega" class="form-control" placeholder="Nome do local" />
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group">
-                                        <label for="cep">CEP <sup>*</sup></label>
-                                        <input type="text" name="cep" class="form-control" placeholder="12345-678" id="cep" required/>
+                                        <label for="cep-local-entrega">CEP <sup>*</sup></label>
+                                        <input type="text" id="cep-local-entrega" name="cep-local-entrega" class="form-control" placeholder="12345-678" required/>
                                     </div>
                                 </div>
                                 <div class="col-md-8">
                                     <div class="form-group">
-                                        <label for="logradouro">Logradouro <sup>*</sup></label>
-                                        <input type="text" name="logradouro" id="logradouro" class="form-control" placeholder="Ex.: Avenida Delfim Moreira" required/>
+                                        <label for="logradouro-local-entrega">Logradouro <sup>*</sup></label>
+                                        <input type="text" id="logradouro-local-entrega" name="logradouro-local-entrega" class="form-control" placeholder="Ex.: Avenida Delfim Moreira" required/>
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group">
-                                        <label for="numero">Nº <sup>*</sup></label>
-                                        <input type="text" name="numero" id="numero" class="form-control" placeholder="Ex.: 101A" required />
+                                        <label for="numero-local-entrega">Nº <sup>*</sup></label>
+                                        <input type="text" id="numero-local-entrega" name="numero-local-entrega" class="form-control" placeholder="Ex.: 101A" required />
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Complemento</label>
-                                        <input type="text" name="complemento-endereco" id="complemento-endereco" class="form-control" placeholder="Ex.: Apartamento 201" />
+                                        <label for="complemento-endereco-local-entrega">Complemento</label>
+                                        <input type="text" id="complemento-endereco-local-entrega" name="complemento-endereco-local-entrega" class="form-control" placeholder="Ex.: Apartamento 201" />
                                     </div>
                                 </div>
                                 <div class="col-md-8">
                                     <div class="form-group">
-                                        <label for="bairro">Bairro <sup>*</sup></label>
-                                        <input type="text" name="bairro" id="bairro" class="form-control" placeholder="Ex.: Leblon" required />
+                                        <label for="bairro-local-entrega">Bairro <sup>*</sup></label>
+                                        <input type="text" id="bairro-local-entrega" name="bairro-local-entrega" class="form-control" placeholder="Ex.: Leblon" required />
                                     </div>
                                 </div>
                                 <div class="col-md-11">
                                     <div class="form-group">
-                                        <label for="cidade">Cidade <sup>*</sup></label>
-                                        <input type="text" name="cidade" id="cidade" class="form-control" placeholder="Ex.: Rio de Janeiro" required/>
+                                        <label for="cidade-local-entrega">Cidade <sup>*</sup></label>
+                                        <input type="text" id="cidade-local-entrega" name="cidade-local-entrega" class="form-control" placeholder="Ex.: Rio de Janeiro" required/>
                                     </div>
                                 </div>
                                 <div class="col-md-1">
                                     <div class="form-group">
-                                        <label for="uf">UF <sup>*</sup></label>
-                                        <select name="uf" class="form-control" id="uf" required>
+                                        <label for="uf-local-entrega">UF <sup>*</sup></label>
+                                        <select id="uf-local-entrega" name="uf-local-entrega" class="form-control" required>
                                             <option selected="selected" value="">UF</option>
                                             <option value="AC">AC</option>
                                             <option value="AL">AL</option>
@@ -695,14 +695,14 @@ $esfera = $row_esf['ds_esfera'];
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Contato</label>
-                                        <input type="text" name="contato" id="contato" class="form-control" placeholder="Nome da pessoa de contato" />
+                                        <label for="contato-local-entrega">Contato</label>
+                                        <input type="text" id="contato-local-entrega" name="contato-local-entrega" class="form-control" placeholder="Nome da pessoa de contato" />
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Tel Contato</label>
-                                        <input type="text" name="tel_contato" id="tel_contato" class="form-control" placeholder="Ex.: XX 12345678" />
+                                        <label for="tel-contato-local-entrega">Telefone Contato</label>
+                                        <input type="text" id="tel-contato-local-entrega" name="tel-contato-local-entrega" class="form-control" placeholder="Ex.: XX 12345678" />
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -715,52 +715,55 @@ $esfera = $row_esf['ds_esfera'];
                                 <div class="box-body table-responsive no-padding">
                                     <table class="table table-hover">
                                         <thead>
-                                            <tr>
-                                                <th>Local</th>
-                                                <th>Bairro</th>
-                                                <th>Cidade</th>
-                                                <th></th>
-                                            </tr>
+                                        <tr>
+                                            <th>Local</th>
+                                            <th>Bairro</th>
+                                            <th>Cidade</th>
+                                            <th></th>
+                                        </tr>
                                         </thead>
                                         <tbody>
-                                        <?php /*
-                                        $sql_consult = mysql_query("SELECT * FROM ta_cliente_local_entrega WHERE id_cliente='".$_GET['id']."' ORDER BY local ASC") or die (mysql_error());
-                                        while ($dados = mysql_fetch_array($sql_consult)) {
-                                            */ ?>
+                                        <?php foreach($locaisEntrega as $localEntrega): ?>
                                             <tr>
-                                                <td><?php /* echo $dados['local'] */ ?></td>
-                                                <td><?php /* echo $dados['bairro'] */ ?></td>
-                                                <td><?php /* echo $dados['cidade'] */ ?></td>
+                                                <td><?= $localEntrega->getDescricao() ?></td>
+                                                <td><?= $localEntrega->getBairro() ?></td>
+                                                <td><?= $localEntrega->getCidade() ?></td>
                                                 <td>
-                                                    <a data-toggle="modal" data-target="#modal_local_entrega_<?php /* echo $dados['id'] */ ?>" ><button class="btn btn-primary"><span class="fa fa-pencil"></span></button></a>
-                                                    <a data-toggle="modal" data-target="#pop_local_entrega_excluir_<?php /* echo $dados['id'] */ ?>"><button class="btn btn-danger"><span class="fa fa-trash"></span></button></a>
+                                                    <a
+                                                        href="javascript:void(0);"
+                                                        title="Editar"
+                                                        class="btn btn-primary update-link"
+                                                        data-toggle="modal"
+                                                        data-update-modal="update-modal-locais-entrega"
+                                                        data-dados='<?= json_encode([
+                                                            "id" => $localEntrega->getId(),
+                                                            "descricao" => $localEntrega->getDescricao(),
+                                                            "cep" => $localEntrega->getCep(),
+                                                            "logradouro" => $localEntrega->getLogradouro(),
+                                                            "numero" => $localEntrega->getNumero(),
+                                                            "complemento" => $localEntrega->getComplemento(),
+                                                            "bairro" => $localEntrega->getBairro(),
+                                                            "cidade" => $localEntrega->getCidade(),
+                                                            "uf" => $localEntrega->getUf(),
+                                                            "contato" => $localEntrega->getContato(),
+                                                            "telContato" => $localEntrega->getTelefone()]) ?>'
+                                                    >
+                                                        <i class="fa fa-pencil"></i>
+                                                    </a>
+                                                    <a
+                                                        href="javascript:void(0);"
+                                                        title="Excluir"
+                                                        class="btn btn-danger delete-link"
+                                                        data-toggle="modal"
+                                                        data-action="clientes/locais-entrega/excluir"
+                                                        data-id="<?= $localEntrega->getId() ?>"
+                                                        data-descricao="<?= "Local: " . $localEntrega->getDescricao() ?>"
+                                                    >
+                                                        <i class="fa fa-trash"></i>
+                                                    </a>
                                                 </td>
                                             </tr>
-                                            <div class="modal" id="pop_local_entrega_excluir_<?php /* echo $dados['id'] */ ?>">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true">×</span></button>
-                                                            <h4 class="modal-title">Excluir Local Entrega</h4>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <div class="row">
-                                                                <div class="col-md-12">
-                                                                    <p>Tem certeza que deseja Excluir o Local <b><?php /* echo $dados['local'] */ ?></b>?</p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Fechar</button>
-                                                            <a id_local_entrega="<?php /* echo $dados['id'] */ ?>" class="btn btn-primary pull-right del_local_entrega">Sim</a>
-                                                        </div>
-                                                    </div>
-                                                    <!-- /.modal-content -->
-                                                </div>
-                                                <!-- /.modal-dialog -->
-                                            </div>
-                                        <?php /* } */ ?>
+                                        <?php endforeach; ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -786,8 +789,8 @@ $esfera = $row_esf['ds_esfera'];
                                 <input type="hidden" name="cliente-id" value="<?= $cliente->getId() ?>" />
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="cliente-local">Local</label>
-                                        <select class="form-control" id="cliente-local" name="cliente-local" required>
+                                        <label for="cliente-local-pavimento">Local</label>
+                                        <select class="form-control" id="cliente-local-pavimento" name="cliente-local-pavimento" required>
                                             <option value="" selected>Selecione</option>
                                             <?php foreach($locais as $local): ?>
                                             <option value="<?= $local->getId() ?>"><?= $local->getDescricao() ?></option>
@@ -814,83 +817,66 @@ $esfera = $row_esf['ds_esfera'];
                                             <tr>
                                                 <th>Local</th>
                                                 <th>Pavimento</th>
+                                                <th>Status</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        <?php /*
-                                        $sql_consult = mysql_query("SELECT * FROM ta_cliente_pavimento WHERE id_cliente='".$_GET['id']."' ORDER BY id ASC") or die (mysql_error());
-                                        while ($dados = mysql_fetch_array($sql_consult)) {
-
-                                            $sql_local = mysql_query("SELECT * FROM ta_cliente_local WHERE id='".$dados['id_clienteLocal']."'") or die (mysql_error());
-                                            $row_local = mysql_fetch_assoc($sql_local);
-                                            $local = $row_local['ds_clienteLocal'];
-                                            */ ?>
+                                        <?php foreach ($pavimentos as $pavimento): ?>
                                             <tr>
-                                                <td><?php /* echo $local */ ?></td>
-                                                <td><?php /* echo $dados['ds_clientePavimento'] */ ?></td>
+                                                <td><?= $pavimento->getLocal()->getDescricao() ?></td>
+                                                <td><?= $pavimento->getDescricao() ?></td>
+                                                <td><?php if($pavimento->isStatus()) echo "Ativo"; else echo "Inativo"; ?></td>
                                                 <td>
-                                                    <a title="Editar" data-toggle="modal" data-target="#modal_pav_<?php /* echo $dados['id'] */ ?>" ><button class="btn btn-primary"><span class="fa fa-pencil"></span></button></a>
-                                                    <a title="Excluir" data-toggle="modal" data-target="#pop_pav_excluir_<?php /* echo $dados['id'] */ ?>"><button class="btn btn-danger"><span class="fa fa-trash"></span></button></a>
-                                                <?php /* if($dados['status'] == 0) { */ ?>
-                                                    <a title="Desativar" data-toggle="modal" data-target="#pop_pav_desa_<?php /* echo $dados['id'] */ ?>"><button class="btn btn-warning"><span class="fa fa-ban"></span> Desativar</button></a>
-                                                <?php /* } */ ?>
-                                                <?php /* if($dados['status'] == 1) { */ ?>
-                                                    <a title="Ativar" data-toggle="modal" data-target="#pop_pav_ativ_<?php /* echo $dados['id'] */ ?>"><button class="btn btn-success"><span class="fa fa-check"></span> Ativar</button></a>
+                                                    <a
+                                                        href="javascript:void(0);"
+                                                        title="Editar"
+                                                        class="btn btn-primary update-link"
+                                                        data-toggle="modal"
+                                                        data-update-modal="update-modal-pavimentos"
+                                                        data-dados='<?= json_encode([
+                                                            "id" => $pavimento->getId(),
+                                                            "local" => $pavimento->getLocal()->getId(),
+                                                            "descricao" => $pavimento->getDescricao()]) ?>'
+                                                    >
+                                                        <i class="fa fa-pencil"></i>
+                                                    </a>
+                                                    <a
+                                                        href="javascript:void(0);"
+                                                        title="Excluir"
+                                                        class="btn btn-danger delete-link"
+                                                        data-toggle="modal"
+                                                        data-action="clientes/pavimentos/excluir"
+                                                        data-id="<?= $pavimento->getId() ?>"
+                                                        data-descricao="<?= "Pavimento: " . $pavimento->getDescricao() ?>"
+                                                    >
+                                                        <i class="fa fa-trash"></i>
+                                                    </a>
+                                                    <a
+                                                        <?php if($pavimento->isStatus()) echo "href=\"javascript:void(0);\""; else echo "href=\"#\" aria-disabled=\"true\" style=\"pointer-events: none; color: gray;\""; ?>
+                                                        class="btn btn-warning disable-link"
+                                                        title="Desativar"
+                                                        data-toggle="modal"
+                                                        data-action="clientes/pavimentos/desativar"
+                                                        data-id="<?= $pavimento->getId() ?>"
+                                                        data-descricao="<?= "Pavimento: " . $pavimento->getDescricao() ?>"
+                                                    >
+                                                        <i class="fa fa-ban"></i>
+                                                    </a>
+                                                    <a
+                                                        <?php if(!$pavimento->isStatus()) echo "href=\"javascript:void(0);\""; else echo "href=\"#\" aria-disabled=\"true\" style=\"pointer-events: none; color: gray;\""; ?>
+                                                        class="btn btn-success active-link"
+                                                        title="Ativar"
+                                                        data-toggle="modal"
+                                                        data-action="clientes/pavimentos/ativar"
+                                                        data-id="<?= $pavimento->getId() ?>"
+                                                        data-descricao="<?= "Pavimento: " . $pavimento->getDescricao() ?>"
+                                                    >
+                                                        <i class="fa fa-check"></i>
+                                                    </a>
                                                 </td>
-                                                <?php /* } */ ?>
                                             </tr>
-                                            <div class="modal" id="pop_pav_desa_<?php /* echo $dados['id'] */ ?>">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true">×</span>
-                                                            </button>
-                                                            <h4 class="modal-title">Desativar Pavimento</h4>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <div class="row">
-                                                                <div class="col-md-12">
-                                                                    <p>Tem certeza que deseja Desativar o Pavimento <b><?php /* echo $dados['ds_clientePavimento'] */ ?></b>?</p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Fechar</button>
-                                                            <a id_pavimento="<?php /* echo $dados['id'] */ ?>" class="btn btn-primary pull-right desa_pavimento">Sim</a>
-                                                        </div>
-                                                    </div>
-                                                    <!-- /.modal-content -->
-                                                </div>
-                                                <!-- /.modal-dialog -->
-                                            </div>
-                                            <div class="modal" id="pop_pav_ativ_<?php /* echo $dados['id'] */ ?>">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true">×</span>
-                                                            </button>
-                                                            <h4 class="modal-title">Ativar Pavimento</h4>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <div class="row">
-                                                                <div class="col-md-12">
-                                                                    <p>Tem certeza que deseja Ativar o Pavimento <b><?php /* echo $dados['ds_clientePavimento'] */ ?></b>?</p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Fechar</button>
-                                                            <a id_pavimento="<?php /* echo $dados['id'] */ ?>" class="btn btn-primary pull-right ativ_pavimento">Sim</a>
-                                                        </div>
-                                                    </div>
-                                                    <!-- /.modal-content -->
-                                                </div>
-                                                <!-- /.modal-dialog -->
-                                            </div>
-                                        <?php /* } */ ?>
+                                        <?php endforeach; ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -911,61 +897,56 @@ $esfera = $row_esf['ds_esfera'];
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
-                        <form method="post" enctype="multipart/form-data" target="_self" id="form_setor">
+                        <form id="clientes-setores-add-form" action="clientes/pavimentos/incluir" method="post" enctype="multipart/form-data" target="_self">
                             <div class="row">
                                 <input type="hidden" name="cliente-id" value="<?= $cliente->getId() ?>" />
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="id_clientePavimento">Pavimento</label>
-                                        <select class="form-control" id="id_clientePavimento" name="id_clientePavimento">
+                                        <label for="cliente-pavimento-setor">Pavimento</label>
+                                        <select class="form-control" id="cliente-pavimento-setor" name="cliente-pavimento-setor" required>
                                             <option value="" selected>Selecione</option>
-                                            <?php /*
-                                            $sql_grupo = mysql_query("SELECT * FROM ta_cliente_pavimento WHERE id_cliente='".$_GET['id']."' ORDER BY ds_clientePavimento") or die (mysql_error());
-                                            while ($row_grupo = mysql_fetch_array($sql_grupo)) {
-                                                $sql_local = mysql_query("SELECT * FROM ta_cliente_local WHERE id='".$row_grupo['id_clienteLocal']."'") or die (mysql_error());
-                                                $row_local = mysql_fetch_assoc($sql_local);
-                                                */ ?>
-                                                <option value="<?php /* echo $row_grupo['id'] */ ?>">(<?php /* echo $row_local['ds_clienteLocal'] */ ?>) <?php /* echo $row_grupo['ds_clientePavimento'] */ ?></option>
-                                                <?php /*
-                                            }
-                                            */ ?>
+                                            <?php foreach($pavimentos as $pavimento): ?>
+                                            <?php if($pavimento->isStatus()): ?>
+                                            <option value="<?= $pavimento->getId() ?>"><?= $pavimento->getDescricao() ?></option>
+                                            <?php endif; ?>
+                                            <?php endforeach; ?>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Setor</label>
-                                        <input type="text" name="ds_clienteSetor" class="form-control" placeholder="Nome do setor" id="ds_clienteSetor" />
+                                        <label for="descricao-setor">Setor</label>
+                                        <input type="text" id="descricao-setor" name="descricao-setor" class="form-control" placeholder="Nome do setor" required/>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Ocupantes Fixos (quantidade)</label>
-                                        <input type="text" name="ocupantes_fixos" class="form-control" placeholder="Ocupantes Fixos" id="ocupantes_fixos" />
+                                        <label for="ocupantes-fixos-setor">Ocupantes Fixos (quantidade)</label>
+                                        <input type="number" id="ocupantes-fixos-setor" name="ocupantes-fixos-setor" class="form-control" min="0" step="1" placeholder="Ocupantes Fixos" />
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Ocupantes Flutuantes (quantidade)</label>
-                                        <input type="text" name="ocupantes_flutuantes" class="form-control" placeholder="Ocupantes Flutuantes" id="ocupantes_flutuantes" />
+                                        <label for="ocupantes-flutuantes-setor">Ocupantes Flutuantes (quantidade)</label>
+                                        <input type="number" id="ocupantes-flutuantes-setor" name="ocupantes-flutuantes-setor" class="form-control" min="0" step="1" placeholder="Ocupantes Flutuantes" />
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Largura (metros)</label>
-                                        <input type="text" name="largura" class="form-control" placeholder="Largura" id="largura" />
+                                        <label for="largura-setor">Largura (metros)</label>
+                                        <input type="number" id="largura-setor" name="largura-setor" class="form-control" min="0" step="0.1" placeholder="Largura" />
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Comprimento (metros)</label>
-                                        <input type="text" name="comprimento" class="form-control" placeholder="Comprimento" id="comprimento" />
+                                        <label for="comprimento-setor">Comprimento (metros)</label>
+                                        <input type="number" id="comprimento-setor" name="comprimento-setor" class="form-control" min="0" step="0.1"  placeholder="Comprimento" />
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Altura (metros)</label>
-                                        <input type="text" name="altura" class="form-control" placeholder="Altura" id="altura" />
+                                        <label for="altura-setor">Altura (metros)</label>
+                                        <input type="number" id="altura-setor" name="altura-setor" class="form-control" min="0" step="0.1" placeholder="Altura" />
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -987,119 +968,73 @@ $esfera = $row_esf['ds_esfera'];
                                 <div class="col-md-12">
                                     <div class="box-body table-responsive no-padding">
                                         <table class="table table-hover">
-                                            <tbody>
+                                            <thead>
                                                 <tr>
                                                     <th>Local</th>
                                                     <th>Pavimento</th>
                                                     <th>Setor</th>
-                                                    <th></th>
-                                                    <th></th>
-                                                    <th></th>
+                                                    <th>Status</th>
                                                     <th></th>
                                                 </tr>
-                                                    <?php /*
-                                                    $sql_consult = mysql_query("SELECT cs.*,cp.ds_clientePavimento, cl.ds_clienteLocal FROM ta_cliente_setor cs, ta_cliente_pavimento cp, ta_cliente_local cl WHERE cs.id_clientePavimento = cp.id AND cs.id_cliente='".$_GET['id']."' AND cs.id = 0 ORDER BY cs.id ASC") or die (mysql_error());
+                                            </thead>
 
-                                                    //                            if($_POST['nm_setor'] == ''){
-                                                    //                                $sql_consult = mysql_query("SELECT * FROM ta_cliente_setor WHERE id_cliente='".$_GET['id']."' AND id = 0 ORDER BY id ASC") or die (mysql_error());
-                                                    //                            }
-                                                    //                            else{
-                                                    //                                $sql_consult = mysql_query("SELECT * FROM ta_cliente_setor WHERE id_cliente='".$_GET['id']."' AND ds_clienteSetor like '%".$_POST['nm_setor']."%' ORDER BY id ASC") or die (mysql_error());
-                                                    //                            }
-
-                                                    //$sql_consult = mysql_query("SELECT * FROM ta_cliente_setor WHERE id_cliente='".$_GET['id']."' ORDER BY id ASC") or die (mysql_error());
-                                                    while ($dados = mysql_fetch_array($sql_consult)) {
-
-                                                    //                          $sql_pav = mysql_query("SELECT * FROM ta_cliente_pavimento WHERE id='".$dados['id_clientePavimento']."'") or die (mysql_error());
-                                                    //                          $row_pav = mysql_fetch_assoc($sql_pav);
-                                                    //                          $pavimento = $row_pav['ds_clientePavimento'];
-                                                    */ ?>
+                                            <tbody>
+                                            <?php foreach ($setores as $setor): ?>
                                                 <tr>
-                                                    <td><?php /* echo $dados['ds_clienteLocal'] */ ?></td>
-                                                    <td><?php /* echo $dados['ds_clientePavimento'] */ ?></td>
-                                                    <td><?php /* echo $dados['ds_clienteSetor'] */ ?></td>
-                                                    <td><a data-toggle="modal" data-target="#modal_set_<?php /* echo $dados['id'] */ ?>" ><button class="btn btn-primary"><span class="fa fa-search"></span></button></a></td>
-                                                    <td><a data-toggle="modal" data-target="#pop_set_excluir_<?php /* echo $dados['id'] */ ?>"><button class="btn btn-danger"><span class="fa fa-trash"></span></button></a></td>
-                                                    <?php /* if($dados['status'] == 0) { */ ?>
-                                                        <td><a data-toggle="modal" data-target="#pop_set_desa_<?php /* echo $dados['id'] */ ?>"><button class="btn btn-warning"><span class="fa fa-ban"></span> Desativar</button></a></td>
-                                                    <?php /* } */ ?>
-                                                    <?php /* if($dados['status'] == 1) { */ ?>
-                                                        <td><a data-toggle="modal" data-target="#pop_set_ativ_<?php /* echo $dados['id'] */ ?>"><button class="btn btn-success"><span class="fa fa-check"></span> Ativar</button></a></td>
-                                                    <?php /* } */ ?>
+                                                    <td><?= $setor->getPavimento()->getLocal()->getDescricao() ?></td>
+                                                    <td><?= $setor->getPavimento()->getDescricao() ?></td>
+                                                    <td><?= $setor->getDescricao() ?></td>
+                                                    <td><?php if($setor->isStatus()) echo "Ativo"; else echo "Inativo"; ?></td>
+                                                    <td>
+                                                        <a
+                                                                href="javascript:void(0);"
+                                                                title="Editar"
+                                                                class="btn btn-primary update-link"
+                                                                data-toggle="modal"
+                                                                data-update-modal="update-modal-setores"
+                                                                data-dados='<?= json_encode([
+                                                                    "id" => $setor->getId(),
+                                                                    "local" => $setor->getLocal()->getId(),
+                                                                    "descricao" => $setor->getDescricao()]) ?>'
+                                                        >
+                                                            <i class="fa fa-pencil"></i>
+                                                        </a>
+                                                        <a
+                                                                href="javascript:void(0);"
+                                                                title="Excluir"
+                                                                class="btn btn-danger delete-link"
+                                                                data-toggle="modal"
+                                                                data-action="clientes/setores/excluir"
+                                                                data-id="<?= $setor->getId() ?>"
+                                                                data-descricao="<?= "Setor: " . $setor->getDescricao() ?>"
+                                                        >
+                                                            <i class="fa fa-trash"></i>
+                                                        </a>
+                                                        <a
+                                                            <?php if($setor->isStatus()) echo "href=\"javascript:void(0);\""; else echo "href=\"#\" aria-disabled=\"true\" style=\"pointer-events: none; color: gray;\""; ?>
+                                                                class="btn btn-warning disable-link"
+                                                                title="Desativar"
+                                                                data-toggle="modal"
+                                                                data-action="clientes/setores/desativar"
+                                                                data-id="<?= $setor->getId() ?>"
+                                                                data-descricao="<?= "Setor: " . $setor->getDescricao() ?>"
+                                                        >
+                                                            <i class="fa fa-ban"></i>
+                                                        </a>
+                                                        <a
+                                                            <?php if(!$setor->isStatus()) echo "href=\"javascript:void(0);\""; else echo "href=\"#\" aria-disabled=\"true\" style=\"pointer-events: none; color: gray;\""; ?>
+                                                                class="btn btn-success active-link"
+                                                                title="Ativar"
+                                                                data-toggle="modal"
+                                                                data-action="clientes/setores/ativar"
+                                                                data-id="<?= $setor->getId() ?>"
+                                                                data-descricao="<?= "Setor: " . $setor->getDescricao() ?>"
+                                                        >
+                                                            <i class="fa fa-check"></i>
+                                                        </a>
+                                                    </td>
                                                 </tr>
-                                                <div class="modal" id="pop_set_ativ_<?php /* echo $dados['id'] */ ?>">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                    <span aria-hidden="true">×</span></button>
-                                                                <h4 class="modal-title">Ativar Setor</h4>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <div class="row">
-                                                                    <div class="col-md-12">
-                                                                        <p>Tem certeza que deseja Ativar o Setor <b><?php /* echo $dados['ds_clienteSetor'] */ ?></b>?</p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Fechar</button>
-                                                                <a id_setor="<?php /* echo $dados['id'] */ ?>" class="btn btn-primary pull-right ativ_setor">Sim</a>
-                                                            </div>
-                                                        </div>
-                                                        <!-- /.modal-content -->
-                                                    </div>
-                                                    <!-- /.modal-dialog -->
-                                                </div>
-                                                <div class="modal" id="pop_set_desa_<?php /* echo $dados['id'] */ ?>">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                    <span aria-hidden="true">×</span></button>
-                                                                <h4 class="modal-title">Desativar Setor</h4>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <div class="row">
-                                                                    <div class="col-md-12">
-                                                                        <p>Tem certeza que deseja Desativar o Setor <b><?php /* echo $dados['ds_clienteSetor'] */ ?></b>?</p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Fechar</button>
-                                                                <a id_setor="<?php /* echo $dados['id'] */ ?>" class="btn btn-primary pull-right desa_setor">Sim</a>
-                                                            </div>
-                                                        </div>
-                                                        <!-- /.modal-content -->
-                                                    </div>
-                                                    <!-- /.modal-dialog -->
-                                                </div>
-                                                <div class="modal" id="pop_set_excluir_<?php /* echo $dados['id'] */ ?>">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                    <span aria-hidden="true">×</span></button>
-                                                                <h4 class="modal-title">Excluir Setor</h4>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <div class="row">
-                                                                    <div class="col-md-12">
-                                                                        <p>Tem certeza que deseja Excluir o Setor <b><?php /* echo $dados['ds_clienteSetor'] */ ?></b>?</p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Fechar</button>
-                                                                <a id_setor="<?php /* echo $dados['id'] */ ?>" class="btn btn-primary pull-right del_setor">Sim</a>
-                                                            </div>
-                                                        </div>
-                                                        <!-- /.modal-content -->
-                                                    </div>
-                                                    <!-- /.modal-dialog -->
-                                                </div>
-                                            <?php /* } */ ?>
+                                            <?php endforeach; ?>
                                             </tbody>
                                         </table>
                                     </div>
@@ -1394,7 +1329,7 @@ $esfera = $row_esf['ds_esfera'];
     <!-- /.content-wrapper -->
     <?php include __DIR__ . '/../../templates/footer.php'; ?>
 <!-- Modal's -->
-<!-- Modal Delete -->
+<!-- Modal Delete Item -->
 <div class="modal fade" id="delete-modal">
     <form id="modal-delete-form" action="" method="post" enctype="multipart/form-data" target="_self">
         <div class="modal-dialog">
@@ -1421,7 +1356,67 @@ $esfera = $row_esf['ds_esfera'];
         </div>
     </form>
 </div>
-<!-- Update Modal -->
+<!-- Modal Active Item -->
+<div class="modal fade" id="active-modal">
+    <form id="modal-active-form" action="" method="post" enctype="multipart/form-data" target="_self">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title">Ativar</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <input type="hidden" id="id" name="id" value="" />
+                        <div class="col-md-12">
+                            <p>Deseja <strong>ativar</strong> este item?</p>
+                            <p><b></b></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Não</button>
+                    <input type="submit" value="Sim" class="btn btn-success" />
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </form>
+</div>
+<!-- Modal Disable Item -->
+<div class="modal fade" id="disable-modal">
+    <form id="modal-disable-form" action="" method="post" enctype="multipart/form-data" target="_self">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title">Desativar</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <input type="hidden" id="id" name="id" value="" />
+                        <div class="col-md-12">
+                            <p>Tem certeza de que deseja <strong>desativar</strong> este item?</p>
+                            <p><b></b></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Não</button>
+                    <input type="submit" value="Sim" class="btn btn-warning" />
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </form>
+</div>
+<!-- Update Modals -->
 <!-- Informacoes Financeiras Modal Update -->
 <div class="modal fade" id="update-modal-informacoes-financeiras">
     <form id="clientes-informacoes-financeiras-update-form" action="clientes/informacoes-financeiras/atualizar" method="post" enctype="multipart/form-data" target="_self">
@@ -1603,6 +1598,162 @@ $esfera = $row_esf['ds_esfera'];
         <!-- /.modal-dialog -->
     </form>
 </div>
+<!-- Locais de Entrega Modal Update -->
+<div class="modal fade" id="update-modal-locais-entrega">
+    <form id="clientes-locais-entrega-update-form" action="clientes/locais-entrega/atualizar" method="post" enctype="multipart/form-data" target="_self">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">Editar Local de Entrega</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <input type="hidden" id="id-local-entrega-modal" name="id-local-entrega-modal" value="" />
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="descricao-local-entrega-modal">Local</label>
+                                <input type="text" id="descricao-local-entrega-modal" name="descricao-local-entrega-modal" class="form-control" placeholder="Nome do local" />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="cep-local-entrega-modal">CEP <sup>*</sup></label>
+                                <input type="text" id="cep-local-entrega-modal" name="cep-local-entrega-modal" class="form-control" placeholder="12345-678" required/>
+                            </div>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="form-group">
+                                <label for="logradouro-local-entrega-modal">Logradouro <sup>*</sup></label>
+                                <input type="text" id="logradouro-local-entrega-modal" name="logradouro-local-entrega-modal" class="form-control" placeholder="Ex.: Avenida Delfim Moreira" required/>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="numero-local-entrega-modal">Nº <sup>*</sup></label>
+                                <input type="text" id="numero-local-entrega-modal" name="numero-local-entrega-modal" class="form-control" placeholder="Ex.: 101A" required />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="complemento-endereco-local-entrega-modal">Complemento</label>
+                                <input type="text" id="complemento-endereco-local-entrega-modal" name="complemento-endereco-local-entrega-modal" class="form-control" placeholder="Ex.: Apartamento 201" />
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label for="bairro-local-entrega-modal">Bairro <sup>*</sup></label>
+                                <input type="text" id="bairro-local-entrega-modal" name="bairro-local-entrega-modal" class="form-control" placeholder="Ex.: Leblon" required />
+                            </div>
+                        </div>
+                        <div class="col-md-10">
+                            <div class="form-group">
+                                <label for="cidade-local-entrega-modal">Cidade <sup>*</sup></label>
+                                <input type="text" id="cidade-local-entrega-modal" name="cidade-local-entrega-modal" class="form-control" placeholder="Ex.: Rio de Janeiro" required/>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="uf-local-entrega-modal">UF <sup>*</sup></label>
+                                <select id="uf-local-entrega-modal" name="uf-local-entrega-modal" class="form-control" required>
+                                    <option selected="selected" value="">UF</option>
+                                    <option value="AC">AC</option>
+                                    <option value="AL">AL</option>
+                                    <option value="AM">AM</option>
+                                    <option value="AP">AP</option>
+                                    <option value="BA">BA</option>
+                                    <option value="CE">CE</option>
+                                    <option value="DF">DF</option>
+                                    <option value="ES">ES</option>
+                                    <option value="GO">GO</option>
+                                    <option value="MA">MA</option>
+                                    <option value="MG">MG</option>
+                                    <option value="MS">MS</option>
+                                    <option value="MT">MT</option>
+                                    <option value="PA">PA</option>
+                                    <option value="PB">PB</option>
+                                    <option value="PE">PE</option>
+                                    <option value="PI">PI</option>
+                                    <option value="PR">PR</option>
+                                    <option value="RJ">RJ</option>
+                                    <option value="RN">RN</option>
+                                    <option value="RO">RO</option>
+                                    <option value="RR">RR</option>
+                                    <option value="RS">RS</option>
+                                    <option value="SC">SC</option>
+                                    <option value="SE">SE</option>
+                                    <option value="SP">SP</option>
+                                    <option value="TO">TO</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="contato-local-entrega-modal">Contato</label>
+                                <input type="text" id="contato-local-entrega-modal" name="contato-local-entrega-modal" class="form-control" placeholder="Nome da pessoa de contato" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="tel-contato-local-entrega-modal">Telefone Contato</label>
+                                <input type="text" id="tel-contato-local-entrega-modal" name="tel-contato-local-entrega-modal" class="form-control" placeholder="Ex.: XX 12345678" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Fechar</button>
+                    <input type="submit" value="Atualizar" class="btn btn-primary" />
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </form>
+</div>
+<!-- Pavimento Modal Update -->
+<div class="modal fade" id="update-modal-pavimentos">
+    <form id="clientes-pavimentos-update-form" action="clientes/pavimentos/atualizar" method="post" enctype="multipart/form-data" target="_self">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">Editar Pavimento</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <input type="hidden" name="id-pavimento-modal" value="" />
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="local-pavimento-modal">Local</label>
+                                <select class="form-control" id="local-pavimento-modal" name="local-pavimento-modal" required>
+                                    <option value="" selected>Selecione</option>
+                                    <?php foreach($locais as $local): ?>
+                                    <option value="<?= $local->getId() ?>"><?= $local->getDescricao() ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="descricao-pavimento-modal">Pavimento</label>
+                                <input type="text" id="descricao-pavimento-modal" name="descricao-pavimento-modal" class="form-control" placeholder="Pavimento" required/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Fechar</button>
+                    <input type="submit" value="Atualizar" class="btn btn-primary" />
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </form>
+</div>
 </body>
 <script>
     function formatarCampo(input) {
@@ -1712,6 +1863,50 @@ $esfera = $row_esf['ds_esfera'];
     });
 </script>
 <script>
+    $(document).ready(function() {
+        // Quando o link de exclusão for clicado
+        $('.active-link').on('click', function() {
+            var id = $(this).data('id');
+            var descricao = $(this).data('descricao');
+            var action = $(this).data('action');
+
+            // Preenche o campo oculto do formulário no modal com o ID
+            $('#active-modal input[name="id"]').val(id);
+
+            // Atualiza o texto do modal para incluir o ID ou o nome do item
+            $('#active-modal .modal-body p b').text(descricao);
+
+            // Define o action do formulário no modal com o URL específico
+            $('#modal-active-form').attr('action', action);
+
+            // Exibe o modal
+            $('#active-modal').modal('show');
+        });
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        // Quando o link de exclusão for clicado
+        $('.disable-link').on('click', function() {
+            var id = $(this).data('id');
+            var descricao = $(this).data('descricao');
+            var action = $(this).data('action');
+
+            // Preenche o campo oculto do formulário no modal com o ID
+            $('#disable-modal input[name="id"]').val(id);
+
+            // Atualiza o texto do modal para incluir o ID ou o nome do item
+            $('#disable-modal .modal-body p b').text(descricao);
+
+            // Define o action do formulário no modal com o URL específico
+            $('#modal-disable-form').attr('action', action);
+
+            // Exibe o modal
+            $('#disable-modal').modal('show');
+        });
+    });
+</script>
+<script>
     function carregarDados(dados, campos, modal) {
         // Itera sobre as chaves e valores de dados
         Object.entries(dados).forEach(([chave, item]) => {
@@ -1743,9 +1938,10 @@ $esfera = $row_esf['ds_esfera'];
         $('.update-link').on('click', function() {
             var dados = $(this).data('dados');
             var modal = $(this).data('update-modal');
+            var campos = {};
 
             if(modal === "update-modal-locais") {
-                var campos = {
+                campos = {
                     id: 'input[name="id-local-modal"]',
                     descricao: 'input[name="descricao-local-modal"]',
                     cep: 'input[name="cep-local-modal"]',
@@ -1764,6 +1960,29 @@ $esfera = $row_esf['ds_esfera'];
                 };
                 carregarDados(dados, campos, modal);
             }
+            if(modal === "update-modal-locais-entrega") {
+                campos = {
+                    id: 'input[name="id-local-entrega-modal"]',
+                    descricao: 'input[name="descricao-local-entrega-modal"]',
+                    cep: 'input[name="cep-local-entrega-modal"]',
+                    logradouro: 'input[name="logradouro-local-entrega-modal"]',
+                    numero: 'input[name="numero-local-entrega-modal"]',
+                    complemento: 'input[name="complemento-endereco-local-entrega-modal"]',
+                    bairro: 'input[name="bairro-local-entrega-modal"]',
+                    cidade: 'input[name="cidade-local-entrega-modal"]',
+                    uf: 'select[name="uf-local-entrega-modal"]',
+                    contato: 'input[name="contato-local-entrega-modal"]',
+                    telContato: 'input[name="tel-contato-local-entrega-modal"]'
+                };
+            }
+            if(modal === "update-modal-pavimentos") {
+                campos = {
+                    id: 'input[name="id-pavimento-modal"]',
+                    descricao: 'input[name="descricao-pavimento-modal"]',
+                    local: 'select[name="local-pavimento-modal"]',
+                };
+            }
+            carregarDados(dados, campos, modal);
         });
     });
 </script>

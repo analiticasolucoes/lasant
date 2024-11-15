@@ -6,8 +6,10 @@ use App\Database\Database;
 use App\Repositories\{BancoRepository,
     ClienteRepository,
     EsferaRepository,
+    LocalEntregaRepository,
     LocalRepository,
     ModeloImpressaoRepository,
+    PavimentoRepository,
     ProfissionalRepository};
 use App\Views\ViewController;
 
@@ -63,13 +65,24 @@ class ClienteController
         $localRepository = new LocalRepository($this->conn);
         $locais = $localRepository->findBy("id_cliente", $args['id']);
 
+        $localEntregaRepository = new LocalEntregaRepository($this->conn);
+        $locaisEntrega = $localEntregaRepository->findBy("id_cliente", $args['id']);
+
+        $pavimentoRepository = new PavimentoRepository($this->conn);
+        $pavimentos = $pavimentoRepository->findBy("id_cliente", $args['id']);
+
+        $setores = [];
+
         $this->view->render('dashboard/clientes/detalhe', [
             'cliente' => $cliente,
             'esferas' => $esferas,
             'modelosImpressaoOS' => $modelosImpressaoOS,
             'bancos' => $bancos,
             'locais' => $locais,
-            'profissionais' => $profissionais
+            "locaisEntrega" => $locaisEntrega,
+            'profissionais' => $profissionais,
+            'pavimentos' => $pavimentos,
+            'setores' => $setores
         ]);
     }
 
