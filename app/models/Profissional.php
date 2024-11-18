@@ -28,14 +28,14 @@ class Profissional
     private ?int $qtdPassagem3;
 
     public function __construct(
-        int  $id,
-        string   $folha,
-        int  $idAvaliacaoProfissional,
-        string   $nome,
-        string   $cpf,
-        string   $dtNascimento,
-        string   $telefone,
-        string   $status,
+        int  $id = 0,
+        string   $folha = "",
+        int  $idAvaliacaoProfissional = 0,
+        string   $nome = "",
+        string   $cpf = "",
+        string   $dtNascimento = "",
+        string   $telefone = "",
+        string   $status = "",
         ?Cargo    $cargo = new Cargo(0, ""),
         ?string  $tamanhoCalcado = null,
         ?string  $tamanhoCalca = null,

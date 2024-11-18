@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Database\Database;
 use App\Repositories\{BancoRepository,
+    ClienteHasProfissionalRepository,
     ClienteRepository,
     EsferaRepository,
     LocalEntregaRepository,
@@ -56,7 +57,7 @@ class ClienteController
         $modelosImpressaoOS = $modeloOSRepository->all();
 
         $profissionalRepository = new ProfissionalRepository($this->conn);
-        $profissionais = $profissionalRepository->actives();
+        $profissionais = $profissionalRepository->all();
 
         $cliente = $this->clienteRepository->find($args['id']);
 
@@ -75,6 +76,9 @@ class ClienteController
         $setorRepository = new SetorRepository($this->conn);
         $setores = $setorRepository->findBy("id_cliente", $args['id']);
 
+        $clienteHasProfissionalRepository = new ClienteHasProfissionalRepository($this->conn);
+        $profissionaisDoCliente = $clienteHasProfissionalRepository->findBy("id_cliente", $args['id']);
+
         $this->view->render('dashboard/clientes/detalhe', [
             'cliente' => $cliente,
             'esferas' => $esferas,
@@ -84,7 +88,8 @@ class ClienteController
             "locaisEntrega" => $locaisEntrega,
             'profissionais' => $profissionais,
             'pavimentos' => $pavimentos,
-            'setores' => $setores
+            'setores' => $setores,
+            'profissionaisDoCliente' => $profissionaisDoCliente
         ]);
     }
 

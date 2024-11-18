@@ -1061,13 +1061,13 @@ $esfera = $row_esf['ds_esfera'];
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
-                        <form method="post" enctype="multipart/form-data" target="_self" id="form_profissional">
+                        <form id="clientes-profissionais-add-form" action="clientes/profissionais/incluir" method="post" enctype="multipart/form-data" target="_self">
                             <div class="row">
                                 <input type="hidden" name="cliente-id" value="<?= $cliente->getId() ?>" />
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="profissional-id">Profissional</label>
-                                        <select class="form-control" id="profissional-id" name="profissional-id">
+                                        <label for="id-profissional">Profissional</label>
+                                        <select class="form-control" id="id-profissional" name="id-profissional">
                                             <option value="" selected>Selecione</option>
                                             <?php foreach ($profissionais as $profissional): ?>
                                             <option value="<?= $profissional->getId() ?>"><?= $profissional->getNome() ?></option>
@@ -1077,20 +1077,20 @@ $esfera = $row_esf['ds_esfera'];
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Data de Início</label>
-                                        <input class="form-control data" type="date" id="dt_inicio" name="dt_inicio" placeholder="Data de Início" />
+                                        <label for="data-inicio-profissional">Data de Início</label>
+                                        <input class="form-control data" type="date" id="data-inicio-profissional" name="data-inicio-profissional" value="<?= date('Y-m-d') ?>" placeholder="Data de Início" />
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Data de Término</label>
-                                        <input class="form-control data" type="date" id="dt_termino" name="dt_termino" placeholder="Data de Término" />
+                                        <label for="data-termino-profissional">Data de Término</label>
+                                        <input class="form-control data" type="date" id="data-termino-profissional" name="data-termino-profissional" placeholder="Data de Término" />
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="status">Status</label>
-                                        <select class="form-control" id="status" name="status">
+                                        <label for="status-profissional">Status</label>
+                                        <select class="form-control" id="status-profissional" name="status-profissional">
                                             <option value="Ativo" selected>Ativo</option>
                                             <option value="Inativo">Inativo</option>
                                         </select>
@@ -1105,58 +1105,52 @@ $esfera = $row_esf['ds_esfera'];
                             <div class="col-md-12">
                                 <div class="box-body table-responsive no-padding">
                                     <table class="table table-hover">
-                                        <tbody><tr>
-                                            <th>Nome</th>
-                                            <th>Data Início</th>
-                                            <th>Data Término</th>
-                                            <th>Status</th>
-                                            <th></th>
-                                            <th></th>
-                                        </tr>
-                                        <?php /*
-                                        $sql_consult = mysql_query("SELECT * FROM ta_cliente_profissional WHERE id_cliente='".$_GET['id']."' ORDER BY id ASC") or die (mysql_error());
-                                        while ($dados = mysql_fetch_array($sql_consult)) {
-
-                                            $sql_pav = mysql_query("SELECT * FROM ta_profissional WHERE id='".$dados['id_profissional']."'") or die (mysql_error());
-                                            $row_pav = mysql_fetch_assoc($sql_pav);
-                                            $nome_profissional = $row_pav['nm_profissional'];
-
-                                            $dt_inicio = implode("/",array_reverse(explode("-",$dados['dt_inicio'])));
-                                            $dt_termino = implode("/",array_reverse(explode("-",$dados['dt_termino'])));
-                                            */ ?>
+                                        <thead>
                                             <tr>
-                                                <td><?php /* echo $nome_profissional */ ?></td>
-                                                <td><?php /* echo $dt_inicio */ ?></td>
-                                                <td><?php /* echo $dt_termino */ ?></td>
-                                                <td><?php /* echo $dados['status'] */ ?></td>
-                                                <td><a data-toggle="modal" data-target="#modal_profi_<?php /* echo $dados['id'] */ ?>" ><button class="btn btn-primary"><span class="fa fa-search"></span></button></a></td>
-                                                <td><a data-toggle="modal" data-target="#pop_profi_excluir_<?php /* echo $dados['id'] */ ?>"><button class="btn btn-danger"><span class="fa fa-trash"></span></button></a></td>
+                                                <th>Nome</th>
+                                                <th>Data Início</th>
+                                                <th>Data Término</th>
+                                                <th>Status</th>
+                                                <th></th>
                                             </tr>
-                                            <div class="modal" id="pop_profi_excluir_<?php /* echo $dados['id'] */ ?>">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true">×</span></button>
-                                                            <h4 class="modal-title">Excluir Profissional</h4>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <div class="row">
-                                                                <div class="col-md-12">
-                                                                    <p>Tem certeza que deseja Excluir o Profissional <b><?php /* echo $nome_profissional */ ?></b>?</p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Fechar</button>
-                                                            <a id_profissional="<?php /* echo $dados['id'] */ ?>" class="btn btn-primary pull-right del_profissional">Sim</a>
-                                                        </div>
-                                                    </div>
-                                                    <!-- /.modal-content -->
-                                                </div>
-                                                <!-- /.modal-dialog -->
-                                            </div>
-                                        <?php /* } */ ?>
+                                        </thead>
+                                        <tbody>
+                                        <?php foreach($profissionaisDoCliente as $profissionalDoCliente): ?>
+                                            <?php if($profissionalDoCliente->isStatus()) $status = 1; else $status = 0; ?>
+                                            <tr>
+                                                <td><?= $profissionalDoCliente->getProfissional()->getNome() ?></td>
+                                                <td><?= $profissionalDoCliente->getDataInicio()->format('d/m/Y') ?></td>
+                                                <td><?= $profissionalDoCliente->getDataTermino()->format('d/m/Y') ?></td>
+                                                <td><?php if($status) echo "Ativo"; else echo "Inativo"; ?></td>
+                                                <td>
+                                                    <a
+                                                        href="javascript:void(0);"
+                                                        title="Editar"
+                                                        class="btn btn-primary update-link"
+                                                        data-toggle="modal"
+                                                        data-update-modal="update-modal-profissionais"
+                                                        data-dados='<?= json_encode([
+                                                            "id" => $profissionalDoCliente->getId(),
+                                                            "profissional" => $profissionalDoCliente->getProfissional()->getId(),
+                                                            "dataInicio" => $profissionalDoCliente->getDataInicio()->format("Y-m-d"),
+                                                            "dataTermino" => $profissionalDoCliente->getDataTermino()->format("Y-m-d"),
+                                                            "status" => $status]) ?>'
+                                                    >
+                                                        <i class="fa fa-pencil"></i>
+                                                    </a>
+                                                    <a
+                                                        href="javascript:void(0);"
+                                                        title="Excluir"
+                                                        class="btn btn-danger delete-link"
+                                                        data-toggle="modal"
+                                                        data-action="clientes/profissionais/excluir"
+                                                        data-id="<?= $profissionalDoCliente->getId() ?>"
+                                                        data-descricao="<?= "Profissional: " . $profissionalDoCliente->getProfissional()->getNome() ?>"
+                                                    >
+                                                        <i class="fa fa-trash"></i>
+                                                    </a>
+                                            </tr>
+                                        <?php endforeach; ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -1236,9 +1230,9 @@ $esfera = $row_esf['ds_esfera'];
                                             <?php /*
                                             $sql_grupo = mysql_query("SELECT * FROM i0_sco GROUP BY mes_i0_sco ORDER BY mes_i0_sco") or die (mysql_error());
                                             while ($row_grupo = mysql_fetch_array($sql_grupo)) {
-                                                */ ?>
-                                                <option value="<?php /* echo $row_grupo['mes_i0_sco'] */ ?>"><?php /* echo $row_grupo['mes_i0_sco'] */ ?></option>
-                                                <?php /*
+                                            */ ?>
+                                            <option value="<?php /* echo $row_grupo['mes_i0_sco'] */ ?>"><?php /* echo $row_grupo['mes_i0_sco'] */ ?></option>
+                                            <?php /*
                                             }
                                             */ ?>
                                         </select>
@@ -1252,9 +1246,9 @@ $esfera = $row_esf['ds_esfera'];
                                             <?php /*
                                             $sql_grupo = mysql_query("SELECT * FROM i0_sco GROUP BY ano_i0_sco ORDER BY ano_i0_sco") or die (mysql_error());
                                             while ($row_grupo = mysql_fetch_array($sql_grupo)) {
-                                                */ ?>
-                                                <option value="<?php /* echo $row_grupo['ano_i0_sco'] */ ?>"><?php /* echo $row_grupo['ano_i0_sco'] */ ?></option>
-                                                <?php /*
+                                            */ ?>
+                                            <option value="<?php /* echo $row_grupo['ano_i0_sco'] */ ?>"><?php /* echo $row_grupo['ano_i0_sco'] */ ?></option>
+                                            <?php /*
                                             }
                                             */ ?>
                                         </select>
@@ -1269,14 +1263,17 @@ $esfera = $row_esf['ds_esfera'];
                             <div class="col-md-12">
                                 <div class="box-body table-responsive no-padding">
                                     <table class="table table-hover">
-                                        <tbody><tr>
-                                            <th>Nº</th>
-                                            <th>Data Início</th>
-                                            <th>Data Fim</th>
-                                            <th>SCO</th>
-                                            <th></th>
-                                            <th></th>
-                                        </tr>
+                                        <thead>
+                                            <tr>
+                                                <th>Nº</th>
+                                                <th>Data Início</th>
+                                                <th>Data Fim</th>
+                                                <th>SCO</th>
+                                                <th></th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
                                         <?php /*
                                         $sql_consult = mysql_query("SELECT * FROM ta_contrato WHERE id_cliente='".$_GET['id']."' ORDER BY id ASC") or die (mysql_error());
                                         while ($dados = mysql_fetch_array($sql_consult)) {
@@ -1291,30 +1288,6 @@ $esfera = $row_esf['ds_esfera'];
                                                 <td><a data-toggle="modal" data-target="#modal_contra_<?php /* echo $dados['id'] */ ?>" ><button class="btn btn-primary"><span class="fa fa-search"></span></button></a></td>
                                                 <td><a data-toggle="modal" data-target="#pop_contra_excluir_<?php /* echo $dados['id'] */ ?>"><button class="btn btn-danger"><span class="fa fa-trash"></span></button></a></td>
                                             </tr>
-                                            <div class="modal" id="pop_contra_excluir_<?php /* echo $dados['id'] */ ?>">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true">×</span></button>
-                                                            <h4 class="modal-title">Excluir Contrato</h4>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <div class="row">
-                                                                <div class="col-md-12">
-                                                                    <p>Tem certeza que deseja Excluir o Contrato <b><?php /* echo $dados['numero'] */ ?></b>?</p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Fechar</button>
-                                                            <a id_contrato="<?php /* echo $dados['id'] */ ?>" class="btn btn-primary pull-right del_contrato">Sim</a>
-                                                        </div>
-                                                    </div>
-                                                    <!-- /.modal-content -->
-                                                </div>
-                                                <!-- /.modal-dialog -->
-                                            </div>
                                         <?php /* } */ ?>
                                         </tbody>
                                     </table>
@@ -1717,7 +1690,7 @@ $esfera = $row_esf['ds_esfera'];
         <!-- /.modal-dialog -->
     </form>
 </div>
-<!-- Pavimento Modal Update -->
+<!-- Pavimentos Modal Update -->
 <div class="modal fade" id="update-modal-pavimentos">
     <form id="clientes-pavimentos-update-form" action="clientes/pavimentos/atualizar" method="post" enctype="multipart/form-data" target="_self">
         <div class="modal-dialog">
@@ -1759,7 +1732,7 @@ $esfera = $row_esf['ds_esfera'];
         <!-- /.modal-dialog -->
     </form>
 </div>
-<!-- Setor Modal Update -->
+<!-- Setores Modal Update -->
 <div class="modal fade" id="update-modal-setores">
     <form id="clientes-setores-update-form" action="clientes/setores/atualizar" method="post" enctype="multipart/form-data" target="_self">
         <div class="modal-dialog">
@@ -1778,9 +1751,9 @@ $esfera = $row_esf['ds_esfera'];
                                 <select class="form-control" id="pavimento-setor-modal" name="pavimento-setor-modal" required>
                                     <option value="" selected>Selecione</option>
                                     <?php foreach($pavimentos as $pavimento): ?>
-                                        <?php if($pavimento->isStatus()): ?>
-                                            <option value="<?= $pavimento->getId() ?>"><?= $pavimento->getDescricao() ?></option>
-                                        <?php endif; ?>
+                                    <?php if($pavimento->isStatus()): ?>
+                                    <option value="<?= $pavimento->getId() ?>"><?= $pavimento->getDescricao() ?></option>
+                                    <?php endif; ?>
                                     <?php endforeach; ?>
                                 </select>
                             </div>
@@ -1819,6 +1792,63 @@ $esfera = $row_esf['ds_esfera'];
                             <div class="form-group">
                                 <label for="altura-setor-modal">Altura (metros)</label>
                                 <input type="number" id="altura-setor-modal" name="altura-setor-modal" class="form-control" min="0" step="0.1" placeholder="Altura" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Fechar</button>
+                    <input type="submit" value="Atualizar" class="btn btn-primary" />
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </form>
+</div>
+<!-- Profissionais Modal Update -->
+<div class="modal fade" id="update-modal-profissionais">
+    <form id="clientes-profissionais-update-form" action="clientes/profissionais/atualizar" method="post" enctype="multipart/form-data" target="_self">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">Editar Profissional</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <input type="hidden" name="id-profissional-modal" value="" />
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="profissional-modal">Profissional</label>
+                                <select class="form-control" id="profissional-modal" name="profissional-modal" disabled>
+                                    <option value="" selected>Selecione</option>
+                                    <?php foreach ($profissionais as $profissional): ?>
+                                    <option value="<?= $profissional->getId() ?>"><?= $profissional->getNome() ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="data-inicio-profissional-modal">Data de Início</label>
+                                <input class="form-control data" type="date" id="data-inicio-profissional-modal" name="data-inicio-profissional-modal" value="<?= date('Y-m-d') ?>" placeholder="Data de Início" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="data-termino-profissional-modal">Data de Término</label>
+                                <input class="form-control data" type="date" id="data-termino-profissional-modal" name="data-termino-profissional-modal" placeholder="Data de Término" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="status-profissional-modal">Status</label>
+                                <select class="form-control" id="status-profissional-modal" name="status-profissional-modal">
+                                    <option value="1" selected>Ativo</option>
+                                    <option value="0">Inativo</option>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -2071,6 +2101,15 @@ $esfera = $row_esf['ds_esfera'];
                     largura: 'input[name="largura-setor-modal"]',
                     comprimento: 'input[name="comprimento-setor-modal"]',
                     altura: 'input[name="altura-setor-modal"]',
+                };
+            }
+            if(modal === "update-modal-profissionais") {
+                campos = {
+                    id: 'input[name="id-profissional-modal"]',
+                    profissional: 'select[name="profissional-modal"]',
+                    dataInicio: 'input[name="data-inicio-profissional-modal"]',
+                    dataTermino: 'input[name="data-termino-profissional-modal"]',
+                    status: 'select[name="status-profissional-modal"]',
                 };
             }
             carregarDados(dados, campos, modal);
