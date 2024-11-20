@@ -49,16 +49,16 @@
                 <div class="box-body table-responsive">
                     <table id="clientes-table" class="table table-bordered table-striped table-responsive">
                         <thead>
-                        <tr>
-                            <th>Nome</th>
-                            <th>CNPJ</th>
-                            <th>Telefone</th>
-                            <th>E-mail</th>
-                            <th>Cidade</th>
-                            <th>UF</th>
-                            <th></th>
-                            <th></th>
-                        </tr>
+                            <tr>
+                                <th>Nome</th>
+                                <th>CNPJ</th>
+                                <th>Telefone</th>
+                                <th>E-mail</th>
+                                <th>Cidade</th>
+                                <th>UF</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
                         </thead>
                         <tbody>
                         <?php
