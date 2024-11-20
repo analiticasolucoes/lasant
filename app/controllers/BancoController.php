@@ -8,7 +8,7 @@ use App\views\ViewController;
 
 class BancoController
 {
-    private BancoRepository $caixinhaRepository;
+    private BancoRepository $bancoRepository;
     private ViewController $view;
     private Database $conn;
 
@@ -60,12 +60,12 @@ class BancoController
      */
     public function alter(array $args = []): void
     {
-        $banco = $this->bancoRepository->find($args["id"]);
+        $banco = $this->bancoRepository->find($args["id-informacoes-financeiras-modal"]);
         $clienteId = $banco->getCliente()->getId();
 
-        $banco->setBanco($args['banco']);
-        $banco->setAgencia($args['agencia']);
-        $banco->setConta($args['conta']);
+        $banco->setBanco($args['banco-informacoes-financeiras-modal']);
+        $banco->setAgencia($args['agencia-informacoes-financeiras-modal']);
+        $banco->setConta($args['conta-informacoes-financeiras-modal']);
 
         if ($this->bancoRepository->update($banco)) {
             header("Location: /clientes/detalhe?id={$clienteId}");

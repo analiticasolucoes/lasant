@@ -1,21 +1,3 @@
-<?php /*
-$sql_cliente = mysql_query("SELECT * FROM ta_cliente_fornecedor WHERE id='".$_GET['id']."'") or die (mysql_error());
-$row_cliente = mysql_fetch_assoc($sql_cliente);
-
-$sql_model = mysql_query("SELECT * FROM ta_modelo_impressao_os WHERE id='".$row_cliente['modelo_os']."'") or die (mysql_error());
-$row_model = mysql_fetch_assoc($sql_model);
-
-$modelo_os = $row_model['titulo'];
-
-if($row_cliente['tipo'] == 1) { $tipo = "Cliente"; }
-if($row_cliente['tipo'] == 2) { $tipo = "Fornecedor"; }
-
-$dt_inicontrato = implode("/",array_reverse(explode("-",$row_cliente['dt_inicontrato'])));
-
-$sql_esf = mysql_query("SELECT * FROM ta_esfera WHERE id='".$row_cliente['id_esfera']."'") or die (mysql_error());
-$row_esf = mysql_fetch_assoc($sql_esf);
-$esfera = $row_esf['ds_esfera'];
-*/ ?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -45,6 +27,7 @@ $esfera = $row_esf['ds_esfera'];
     <script defer src="assets/fontawesome/js/fontawesome.js"></script>
     <!-- Bootstrap 3.3.5 JS -->
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/script.js"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <!-- Site wrapper -->
@@ -117,7 +100,7 @@ $esfera = $row_esf['ds_esfera'];
                                     <label for="modelo-os">Modelo de OS <sup>*</sup></label>
                                     <select class="form-control" id="modelo-os" name="modelo-os" required="required">
                                         <?php foreach($modelosImpressaoOS as $modelo): ?>
-                                            <option value="<?= $modelo->getId()?>" <?php if($cliente->getModeloOS() === $modelo->getId()) echo "selected" ?>><?= $modelo->getTitulo()?></option>
+                                        <option value="<?= $modelo->getId()?>" <?php if($cliente->getModeloOS() === $modelo->getId()) echo "selected" ?>><?= $modelo->getTitulo()?></option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
@@ -128,7 +111,7 @@ $esfera = $row_esf['ds_esfera'];
                                     <select class="form-control" id="esfera" name="esfera">
                                         <?php if(!$cliente->getEsfera()->getId()) echo "<option value=\"\" selected>Selecione</option>"; ?>
                                         <?php foreach($esferas as $esfera): ?>
-                                            <option value="<?= $esfera->getId()?>" <?php if($cliente->getEsfera() && $cliente->getEsfera()->getId() === $esfera->getId()) echo "selected" ?>><?= $esfera->getDescricao()?></option>
+                                        <option value="<?= $esfera->getId()?>" <?php if($cliente->getEsfera() && $cliente->getEsfera()->getId() === $esfera->getId()) echo "selected" ?>><?= $esfera->getDescricao()?></option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
@@ -372,10 +355,11 @@ $esfera = $row_esf['ds_esfera'];
                                                     class="btn btn-primary update-link"
                                                     data-toggle="modal"
                                                     data-update-modal="update-modal-informacoes-financeiras"
-                                                    data-id="<?= $banco->getId() ?>"
-                                                    data-banco="<?= $banco->getBanco() ?>"
-                                                    data-agencia="<?= $banco->getAgencia() ?>"
-                                                    data-conta="<?= $banco->getConta() ?>"
+                                                    data-dados='<?= json_encode([
+                                                        "id" => $banco->getId(),
+                                                        "banco" => $banco->getBanco(),
+                                                        "agencia" => $banco->getAgencia(),
+                                                        "conta" => $banco->getConta()]) ?>'
                                                 >
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
@@ -922,31 +906,31 @@ $esfera = $row_esf['ds_esfera'];
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="ocupantes-fixos-setor">Ocupantes Fixos (quantidade)</label>
-                                        <input type="number" id="ocupantes-fixos-setor" name="ocupantes-fixos-setor" class="form-control" min="0" step="1" placeholder="Ocupantes Fixos" />
+                                        <input type="number" id="ocupantes-fixos-setor" name="ocupantes-fixos-setor" class="form-control" min="0" step="1" value="0" />
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="ocupantes-flutuantes-setor">Ocupantes Flutuantes (quantidade)</label>
-                                        <input type="number" id="ocupantes-flutuantes-setor" name="ocupantes-flutuantes-setor" class="form-control" min="0" step="1" placeholder="Ocupantes Flutuantes" />
+                                        <input type="number" id="ocupantes-flutuantes-setor" name="ocupantes-flutuantes-setor" class="form-control" min="0" step="1" value="0" />
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="largura-setor">Largura (metros)</label>
-                                        <input type="number" id="largura-setor" name="largura-setor" class="form-control" min="0" step="0.1" placeholder="Largura" />
+                                        <input type="number" id="largura-setor" name="largura-setor" class="form-control" min="0" step="0.1" value="0" />
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="comprimento-setor">Comprimento (metros)</label>
-                                        <input type="number" id="comprimento-setor" name="comprimento-setor" class="form-control" min="0" step="0.1"  placeholder="Comprimento" />
+                                        <input type="number" id="comprimento-setor" name="comprimento-setor" class="form-control" min="0" step="0.1" value="0" />
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="altura-setor">Altura (metros)</label>
-                                        <input type="number" id="altura-setor" name="altura-setor" class="form-control" min="0" step="0.1" placeholder="Altura" />
+                                        <input type="number" id="altura-setor" name="altura-setor" class="form-control" min="0" step="0.1" value="0" />
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -956,19 +940,9 @@ $esfera = $row_esf['ds_esfera'];
                         </form>
                         <form method="post" enctype="multipart/form-data" target="_self" id="setor">
                             <div class="row">
-                                <div class="col-md-11">
-                                    <div class="form-group">
-                                        <label for="nome-setor">Pesquisar Setor</label>
-                                        <input class="form-control" type="text" id="nome-setor" name="nome-setor" placeholder="Nome" />
-                                    </div>
-                                </div>
-                                <div class="col-md-1">
-                                    <label>&nbsp;</label>
-                                    <button type="button" class="btn btn-primary pull-right" onclick="PesquisaSetor()"><span class="fa fa-search"></span> Pesquisar</button>
-                                </div>
                                 <div class="col-md-12">
                                     <div class="box-body table-responsive no-padding">
-                                        <table class="table table-hover">
+                                        <table id="setores-table" class="table table-hover">
                                             <thead>
                                                 <tr>
                                                     <th>Local</th>
@@ -1149,6 +1123,7 @@ $esfera = $row_esf['ds_esfera'];
                                                     >
                                                         <i class="fa fa-trash"></i>
                                                     </a>
+                                                </td>
                                             </tr>
                                         <?php endforeach; ?>
                                         </tbody>
@@ -1171,86 +1146,76 @@ $esfera = $row_esf['ds_esfera'];
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
-                        <form method="post" enctype="multipart/form-data" target="_self" id="form_contrato">
+                        <form id="clientes-contratos-add-form" action="clientes/contratos/incluir" method="post" enctype="multipart/form-data" target="_self">
                             <div class="row">
                                 <input type="hidden" name="cliente-id" value="<?= $cliente->getId() ?>" />
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>Nº Contrato</label>
-                                        <input type="text" name="numero" class="form-control" placeholder="Nº Contrato" />
+                                        <label for="numero-contrato">Nº Contrato</label>
+                                        <input type="text" id="numero-contrato" name="numero-contrato" class="form-control" placeholder="Nº Contrato" />
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>Descrição</label>
-                                        <textarea rows="5" name="ds_contrato" class="form-control" placeholder="Descrição"></textarea>
+                                        <label for="descricao-contrato">Descrição</label>
+                                        <textarea rows="5" id="descricao-contrato" name="descricao-contrato" class="form-control" placeholder="Descrição"></textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Data de Início</label>
-                                        <input class="form-control data" type="date" id="dt_inicio" name="dt_inicio" placeholder="Data de Início" />
+                                        <label for="data-inicio-contrato">Data de Início</label>
+                                        <input type="date" id="data-inicio-contrato" name="data-inicio-contrato" class="form-control data" placeholder="Data de Início" />
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Data de Encerramento</label>
-                                        <input class="form-control data" type="date" id="dt_fim" name="dt_fim" placeholder="Data de Encerramento" />
+                                        <label for="data-encerramento-contrato">Data de Encerramento</label>
+                                        <input type="date" id="data-encerramento-contrato" name="data-encerramento-contrato" class="form-control data" placeholder="Data de Encerramento" />
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>BDI</label>
-                                        <input class="form-control" type="text" id="BDI" name="BDI" placeholder="BDI" onkeypress="FormataValor(this.id, 10, event)" />
+                                        <label for="bdi-contrato">BDI</label>
+                                        <input type="number" id="bdi-contrato" name="bdi-contrato" class="form-control" min="0" step="0.0001" value="0.0000" />
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Valor Base (R$)</label>
-                                        <input class="form-control" type="text" id="valor_base" name="valor_base" placeholder="Valor Base" onkeypress="FormataValor(this.id, 10, event)" />
+                                        <label for="valor-base-1-contrato">Valor Base (R$)</label>
+                                        <input type="number" id="valor-base-1-contrato" name="valor-base-1-contrato" class="form-control" min="0" step="0.01" value="0.00" />
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Valor Base 2 (R$)</label>
-                                        <input class="form-control" type="text" id="valor_base2" name="valor_base2" placeholder="Valor Base" onkeypress="FormataValor(this.id, 10, event)" />
+                                        <label for="valor-base-2-contrato">Valor Base 2 (R$)</label>
+                                        <input type="number" id="valor-base-2-contrato" name="valor-base-2-contrato" class="form-control" min="0" step="0.01" value="0.00" />
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Valor Base 3 (R$)</label>
-                                        <input class="form-control" type="text" id="valor_base3" name="valor_base3" placeholder="Valor Base" onkeypress="FormataValor(this.id, 10, event)" />
+                                        <label for="valor-base-3-contrato">Valor Base 3 (R$)</label>
+                                        <input type="number" id="valor-base-3-contrato" name="valor-base-3-contrato" class="form-control" min="0" step="0.01" value="0.00" />
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Mês SCO</label>
-                                        <select class="form-control" id="mes-sco" name="mes-sco" required="required">
+                                        <label for="mes-sco-contrato">Mês SCO</label>
+                                        <select id="mes-sco-contrato" name="mes-sco-contrato" class="form-control" required>
                                             <option value="" selected>Selecione</option>
-                                            <?php /*
-                                            $sql_grupo = mysql_query("SELECT * FROM i0_sco GROUP BY mes_i0_sco ORDER BY mes_i0_sco") or die (mysql_error());
-                                            while ($row_grupo = mysql_fetch_array($sql_grupo)) {
-                                            */ ?>
-                                            <option value="<?php /* echo $row_grupo['mes_i0_sco'] */ ?>"><?php /* echo $row_grupo['mes_i0_sco'] */ ?></option>
-                                            <?php /*
-                                            }
-                                            */ ?>
+                                            <?php foreach ($datasSCO as $dataSCO): ?>
+                                            <option value="<?= $dataSCO['mes'] ?>"><?= $dataSCO['mes'] ?></option>
+                                            <?php endforeach; ?>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Ano SCO</label>
-                                        <select class="form-control" id="ano-sco" name="ano-sco" required="required">
+                                        <label for="ano-sco-contrato">Ano SCO</label>
+                                        <select id="ano-sco-contrato" name="ano-sco-contrato" class="form-control" required>
                                             <option value="" selected>Selecione</option>
-                                            <?php /*
-                                            $sql_grupo = mysql_query("SELECT * FROM i0_sco GROUP BY ano_i0_sco ORDER BY ano_i0_sco") or die (mysql_error());
-                                            while ($row_grupo = mysql_fetch_array($sql_grupo)) {
-                                            */ ?>
-                                            <option value="<?php /* echo $row_grupo['ano_i0_sco'] */ ?>"><?php /* echo $row_grupo['ano_i0_sco'] */ ?></option>
-                                            <?php /*
-                                            }
-                                            */ ?>
+                                            <?php foreach ($datasSCO as $dataSCO): ?>
+                                            <option value="<?= $dataSCO['ano'] ?>"><?= $dataSCO['ano'] ?></option>
+                                            <?php endforeach; ?>
                                         </select>
                                     </div>
                                 </div>
@@ -1270,24 +1235,51 @@ $esfera = $row_esf['ds_esfera'];
                                                 <th>Data Fim</th>
                                                 <th>SCO</th>
                                                 <th></th>
-                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        <?php /*
-                                        $sql_consult = mysql_query("SELECT * FROM ta_contrato WHERE id_cliente='".$_GET['id']."' ORDER BY id ASC") or die (mysql_error());
-                                        while ($dados = mysql_fetch_array($sql_consult)) {
-                                            $dt_inicio = implode("/",array_reverse(explode("-",$dados['dt_inicio'])));
-                                            $dt_fim = implode("/",array_reverse(explode("-",$dados['dt_fim'])));
-                                            */ ?>
+                                        <?php foreach($contratos as $contrato): ?>
                                             <tr>
-                                                <td><?php /* echo $dados['numero'] */ ?></td>
-                                                <td><?php /* echo $dt_inicio */ ?></td>
-                                                <td><?php /* echo $dt_fim */ ?></td>
-                                                <td><?php /* echo $dados['mes_sco'] */ ?> / <?php /* echo $dados['ano_sco'] */ ?></td>
-                                                <td><a data-toggle="modal" data-target="#modal_contra_<?php /* echo $dados['id'] */ ?>" ><button class="btn btn-primary"><span class="fa fa-search"></span></button></a></td>
-                                                <td><a data-toggle="modal" data-target="#pop_contra_excluir_<?php /* echo $dados['id'] */ ?>"><button class="btn btn-danger"><span class="fa fa-trash"></span></button></a></td>
+                                                <td><?= $contrato->getNumero() ?></td>
+                                                <td><?= $contrato->getDataInicio()->format("d/m/Y") ?></td>
+                                                <td><?= $contrato->getDataEncerramento()->format("d/m/Y") ?></td>
+                                                <td><?= $contrato->getMesSco() ?> / <?= $contrato->getAnoSco() ?></td>
+                                                <td>
+                                                    <a
+                                                        href="javascript:void(0);"
+                                                        title="Editar"
+                                                        class="btn btn-primary update-link"
+                                                        data-toggle="modal"
+                                                        data-update-modal="update-modal-contratos"
+                                                        data-dados='<?= json_encode([
+                                                            "id" => $contrato->getId(),
+                                                            "numero" => $contrato->getNumero(),
+                                                            "descricao" => $contrato->getDescricao(),
+                                                            "dataInicio" => $contrato->getDataInicio()->format("Y-m-d"),
+                                                            "dataFim" => $contrato->getDataEncerramento()->format("Y-m-d"),
+                                                            "bdi" => $contrato->getBdi(),
+                                                            "valorBase1" => $contrato->getValorBase(),
+                                                            "valorBase2" => $contrato->getValorBase2(),
+                                                            "valorBase3" => $contrato->getValorBase3(),
+                                                            "mesSCO" => $contrato->getMesSCO(),
+                                                            "anoSCO" => $contrato->getAnoSCO()]) ?>'
+                                                    >
+                                                        <i class="fa fa-pencil"></i>
+                                                    </a>
+                                                    <a
+                                                        href="javascript:void(0);"
+                                                        title="Excluir"
+                                                        class="btn btn-danger delete-link"
+                                                        data-toggle="modal"
+                                                        data-action="clientes/contratos/excluir"
+                                                        data-id="<?= $contrato->getId() ?>"
+                                                        data-descricao="<?= "Contrato: " . $contrato->getNumero() ?>"
+                                                    >
+                                                        <i class="fa fa-trash"></i>
+                                                    </a>
+                                                </td>
                                             </tr>
+                                        <?php endforeach; ?>
                                         <?php /* } */ ?>
                                         </tbody>
                                     </table>
@@ -1407,23 +1399,23 @@ $esfera = $row_esf['ds_esfera'];
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <input type="hidden" name="id" value="" />
+                        <input type="hidden" name="id-informacoes-financeiras-modal" value="" />
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="banco">Banco</label>
-                                <input type="text" id="banco" name="banco" class="form-control" placeholder="Ex.: Banco do Brasil" />
+                                <label for="banco-informacoes-financeiras-modal">Banco</label>
+                                <input type="text" id="banco-informacoes-financeiras-modal" name="banco-informacoes-financeiras-modal" class="form-control" placeholder="Ex.: Banco do Brasil" />
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="agencia">Agência</label>
-                                <input type="text" id="agencia" name="agencia" class="form-control" placeholder="Ex.: 1234" />
+                                <label for="agencia-informacoes-financeiras-modal">Agência</label>
+                                <input type="text" id="agencia-informacoes-financeiras-modal" name="agencia-informacoes-financeiras-modal" class="form-control" placeholder="Ex.: 1234" />
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="conta">Conta</label>
-                                <input type="text" id="conta" name="conta" class="form-control" placeholder="Ex.: 123456-8" />
+                                <label for="conta-informacoes-financeiras-modal">Conta</label>
+                                <input type="text" id="conta-informacoes-financeiras-modal" name="conta-informacoes-financeiras-modal" class="form-control" placeholder="Ex.: 123456-8" />
                             </div>
                         </div>
                     </div>
@@ -1863,58 +1855,105 @@ $esfera = $row_esf['ds_esfera'];
         <!-- /.modal-dialog -->
     </form>
 </div>
+<!-- Contratos Modal Update -->
+<div class="modal fade" id="update-modal-contratos">
+    <form id="clientes-contratos-update-form" action="clientes/contratos/atualizar" method="post" enctype="multipart/form-data" target="_self">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">Editar Contrato</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <input type="hidden" name="id-contrato-modal" value="" />
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="numero-contrato-modal">Nº Contrato</label>
+                                <input type="text" id="numero-contrato-modal" name="numero-contrato-modal" class="form-control" placeholder="Nº Contrato" />
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="descricao-contrato-modal">Descrição</label>
+                                <textarea rows="5" id="descricao-contrato-modal" name="descricao-contrato-modal" class="form-control" placeholder="Descrição"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="data-inicio-contrato-modal">Data de Início</label>
+                                <input type="date" id="data-inicio-contrato-modal" name="data-inicio-contrato-modal" class="form-control data" placeholder="Data de Início" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="data-encerramento-contrato-modal">Data de Encerramento</label>
+                                <input type="date" id="data-encerramento-contrato-modal" name="data-encerramento-contrato-modal" class="form-control data" placeholder="Data de Encerramento" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="bdi-contrato-modal">BDI</label>
+                                <input type="text" id="bdi-contrato-modal" name="bdi-contrato-modal" class="form-control" placeholder="BDI" onkeypress="FormataValor(this.id, 10, event)" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="valor-base-1-contrato-modal">Valor Base (R$)</label>
+                                <input type="text" id="valor-base-1-contrato-modal" name="valor-base-1-contrato-modal" class="form-control" placeholder="Valor Base" onkeypress="FormataValor(this.id, 10, event)" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="valor-base-2-contrato-modal">Valor Base 2 (R$)</label>
+                                <input type="text" id="valor-base-2-contrato-modal" name="valor-base-2-contrato-modal" class="form-control" placeholder="Valor Base" onkeypress="FormataValor(this.id, 10, event)" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="valor-base-3-contrato-modal">Valor Base 3 (R$)</label>
+                                <input type="text" id="valor-base-3-contrato-modal" name="valor-base-3-contrato-modal" class="form-control" placeholder="Valor Base" onkeypress="FormataValor(this.id, 10, event)" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="mes-sco-contrato-modal">Mês SCO</label>
+                                <select id="mes-sco-contrato-modal" name="mes-sco-contrato-modal" class="form-control" required>
+                                    <option value="" selected>Selecione</option>
+                                    <?php foreach ($datasSCO as $dataSCO): ?>
+                                        <option value="<?= $dataSCO['mes'] ?>"><?= $dataSCO['mes'] ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="ano-sco-contrato-modal">Ano SCO</label>
+                                <select id="ano-sco-contrato-modal" name="ano-sco-contrato-modal" class="form-control" required>
+                                    <option value="" selected>Selecione</option>
+                                    <?php foreach ($datasSCO as $dataSCO): ?>
+                                        <option value="<?= $dataSCO['ano'] ?>"><?= $dataSCO['ano'] ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Fechar</button>
+                    <input type="submit" value="Atualizar" class="btn btn-primary" />
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </form>
+</div>
 </body>
 <script>
-    function formatarCampo(input) {
-        $(input).on('input', function() {
-            // Permite apenas números, hífen e vírgula
-            this.value = this.value.replace(/[^0-9\-,\.]/g, '');
-        });
-    }
-    function formatarCelular(input) {
-        $(input).keyup(function() {
-            var celular = $(this).val().replace(/\D/g, '');
-
-            // Formata o telefone para 11 dígitos (DDD + 9 dígitos)
-            celular = celular.replace(/(\d{2})(\d{5})(\d{4})/, "$1 $2-$3");
-
-            // Atualiza o valor do campo
-            $(this).val(celular);
-        });
-    }
-    function formatarTelefone(input) {
-        $(input).keyup(function() {
-            var telefone = $(this).val().replace(/\D/g, '');
-
-            // Formata o telefone para 11 dígitos (DDD + 9 dígitos)
-            telefone = telefone.replace(/(\d{2})(\d{4})(\d{4})/, "$1 $2-$3");
-
-            // Atualiza o valor do campo
-            $(this).val(telefone);
-        });
-    }
-    function formatarCEP(input) {
-        $(input).keyup(function() {
-            var cep = $(this).val().replace(/\D/g, ''); // Remove todos os caracteres não numéricos
-
-            // Formata o CEP para 8 dígitos com hífen
-            cep = cep.replace(/(\d{5})(\d{3})/, '$1-$2');
-
-            // Atualiza o valor do campo
-            $(this).val(cep);
-        });
-    }
     $(document).ready(function() {
-        $('#cnpj').keyup(function() {
-            // Remove todos os caracteres não numéricos
-            var cnpj = $(this).val().replace(/\D/g, '');
-
-            // Formata o CNPJ
-            cnpj = cnpj.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5");
-
-            // Atualiza o valor do campo
-            $(this).val(cnpj);
-        });
+        formatarCNPJ('$cnpj');
         formatarCelular('#telefone-celular');
         formatarTelefone('#telefone1');
         formatarTelefone('#telefone2');
@@ -1923,6 +1962,7 @@ $esfera = $row_esf['ds_esfera'];
         formatarCampo('#telefone-whatsapp');
         formatarCampo('#celulares');
         formatarCEP('#cep');
+
         /* Executa a requisição quando o campo CEP perder o foco */
         $('#cep').blur(function(){
             cep = $('#cep').val();
@@ -2019,18 +2059,20 @@ $esfera = $row_esf['ds_esfera'];
     function carregarDados(dados, campos, modal) {
         // Itera sobre as chaves e valores de dados
         Object.entries(dados).forEach(([chave, item]) => {
-            console.log(campos);
             if (campos[chave]) {
-                // Substitui o nome da chave para garantir que o campo no modal tenha o mesmo nome
+                // Seleciona o campo dentro do modal pelo seletor fornecido
                 let campo = $("#" + modal + " " + campos[chave]);
 
                 if (campo.length) {
-                    // Se o campo for um SELECT
+                    // Verifica o tipo de campo
                     if (campo.is('select')) {
-                        // Define a opção selecionada
+                        // Define a opção selecionada em campos SELECT
                         campo.val(item).change();
+                    } else if (campo.is('textarea')) {
+                        // Define o valor em campos TEXTAREA
+                        campo.text(item);
                     } else {
-                        // Para outros tipos de campo (input, textarea, etc.)
+                        // Define o valor em outros tipos de campos (input, etc.)
                         campo.val(item);
                     }
                 }
@@ -2049,6 +2091,15 @@ $esfera = $row_esf['ds_esfera'];
             var modal = $(this).data('update-modal');
             var campos = {};
 
+            if(modal === "update-modal-informacoes-financeiras") {
+                campos = {
+                    id: 'input[name="id-informacoes-financeiras-modal"]',
+                    banco: 'input[name="banco-informacoes-financeiras-modal"]',
+                    agencia: 'input[name="agencia-informacoes-financeiras-modal"]',
+                    conta: 'input[name="conta-informacoes-financeiras-modal"]'
+                };
+                carregarDados(dados, campos, modal);
+            }
             if(modal === "update-modal-locais") {
                 campos = {
                     id: 'input[name="id-local-modal"]',
@@ -2112,7 +2163,39 @@ $esfera = $row_esf['ds_esfera'];
                     status: 'select[name="status-profissional-modal"]',
                 };
             }
+            if(modal === "update-modal-contratos") {
+                campos = {
+                    id: 'input[name="id-contrato-modal"]',
+                    numero: 'input[name="numero-contrato-modal"]',
+                    descricao: 'textarea[name="descricao-contrato-modal"]',
+                    dataInicio: 'input[name="data-inicio-contrato-modal"]',
+                    dataFim: 'input[name="data-encerramento-contrato-modal"]',
+                    bdi: 'input[name="bdi-contrato-modal"]',
+                    valorBase1: 'input[name="valor-base-1-contrato-modal"]',
+                    valorBase2: 'input[name="valor-base-2-contrato-modal"]',
+                    valorBase3: 'input[name="valor-base-3-contrato-modal"]',
+                    mesSCO: 'select[name="mes-sco-contrato-modal"]',
+                    anoSCO: 'select[name="ano-sco-contrato-modal"]'
+                };
+            }
             carregarDados(dados, campos, modal);
+        });
+    });
+</script>
+<!-- DataTables JS -->
+<script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#setores-table').DataTable({
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": true,
+            language: {
+                url: '//cdn.datatables.net/plug-ins/2.1.8/i18n/pt-BR.json',
+            }
         });
     });
 </script>
