@@ -23,9 +23,9 @@ class ClienteRepository
 
     /**
      * Objeto acessório para recuperação de um cliente específico após consulta
-     * @var int
+     * @var Cliente
      */
-    private int $cliente;
+    private Cliente $cliente;
 
     public function __construct(Database $db)
     {
@@ -96,7 +96,7 @@ class ClienteRepository
         return false;
     }
 
-    public function update(int $cliente): bool
+    public function update(Cliente $cliente): bool
     {
         try {
             $dados = [
@@ -105,14 +105,14 @@ class ClienteRepository
                 'nome_empresa' => $cliente->getNomeEmpresa(),
                 'nome_fantasia' => $cliente->getNomeFantasia(),
                 'ds_cliente' => $cliente->getDescricao(),
-                'id_esfera' => $cliente->getEsfera(),
+                'id_esfera' => $cliente->getEsfera()->getId(),
                 'cnpj' => $cliente->getCNPJ(),
                 'email_engenharia' => $cliente->getEmailEngenharia(),
                 'email_os_cc' => $cliente->getEmailOSCC(),
                 'email_os_bcc' => $cliente->getEmailOSBCC(),
                 'email_ss_cc' => $cliente->getEmailSSCC(),
                 'email_ss_bcc' => $cliente->getEmailSSBCC(),
-                'dt_inicio_contrato' => $cliente->getDtInicioContrato(),
+                'dt_inicontrato' => $cliente->getDtInicioContrato(),
                 'rua' => $cliente->getLogradouro(),
                 'numero' => $cliente->getNumero(),
                 'complemento_endereco' => $cliente->getComplemento(),

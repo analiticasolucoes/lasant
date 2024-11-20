@@ -19,6 +19,8 @@
     <link rel="stylesheet" href="assets/datatables/2.1.8/datatables.css">
     <!-- jQuery 3.7.1 -->
     <script src="assets/jquery/3.7.1/jquery-3.7.1.min.js"></script>
+    <!-- jQuery Mask Plugin -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
     <!-- AdminLTE App -->
     <script src="assets/dist/js/app.min.js"></script>
     <!-- Font Awesome -->
@@ -43,6 +45,7 @@
         <!-- Main content -->
         <section class="content">
             <form id="clientes-update-form" action="clientes/atualizar" method="post" enctype="multipart/form-data" target="_self">
+                <input type="hidden" name="cliente-id" value="<?= $cliente->getId() ?>" />
                 <div class="box box-default">
                     <div class="box-header with-border">
                         <h3 class="box-title"><i class="fa fa-user"></i> Ficha Cliente</h3>
@@ -209,13 +212,13 @@
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label for="cep">CEP <sup>*</sup></label>
-                                    <input type="text" name="cep" class="form-control" placeholder="12345-678" id="cep" value="<?= $cliente->getCep() ?>" required/>
+                                    <input type="text" name="cep" class="form-control cep" placeholder="12345-678" id="cep" value="<?= $cliente->getCep() ?>" required/>
                                 </div>
                             </div>
                             <div class="col-md-8">
                                 <div class="form-group">
                                     <label for="logradouro">Logradouro <sup>*</sup></label>
-                                    <input type="text" name="logradouro" id="logradouro" class="form-control" placeholder="Ex.: Avenida Delfim Moreira" value="<?= $cliente->getLogradouro() ?>" required/>
+                                    <input type="text" name="logradouro" id="logradouro" class="form-control logradouro" placeholder="Ex.: Avenida Delfim Moreira" value="<?= $cliente->getLogradouro() ?>" required/>
                                 </div>
                             </div>
                             <div class="col-md-2">
@@ -233,19 +236,19 @@
                             <div class="col-md-8">
                                 <div class="form-group">
                                     <label for="bairro">Bairro <sup>*</sup></label>
-                                    <input type="text" name="bairro" id="bairro" class="form-control" placeholder="Ex.: Leblon" value="<?= $cliente->getBairro() ?>" required />
+                                    <input type="text" name="bairro" id="bairro" class="form-control bairro" placeholder="Ex.: Leblon" value="<?= $cliente->getBairro() ?>" required />
                                 </div>
                             </div>
                             <div class="col-md-11">
                                 <div class="form-group">
                                     <label for="cidade">Cidade <sup>*</sup></label>
-                                    <input type="text" name="cidade" id="cidade" class="form-control" placeholder="Ex.: Rio de Janeiro" value="<?= $cliente->getCidade() ?>" required/>
+                                    <input type="text" name="cidade" id="cidade" class="form-control cidade" placeholder="Ex.: Rio de Janeiro" value="<?= $cliente->getCidade() ?>" required/>
                                 </div>
                             </div>
                             <div class="col-md-1">
                                 <div class="form-group">
                                     <label for="uf">UF <sup>*</sup></label>
-                                    <select name="uf" class="form-control" id="uf" required>
+                                    <select name="uf" class="form-control uf" id="uf" required>
                                         <option value="AC" <?php if($cliente->getUf() === "AC")  echo "selected" ?>>AC</option>
                                         <option value="AL" <?php if($cliente->getUf() === "AL")  echo "selected" ?>>AL</option>
                                         <option value="AM" <?php if($cliente->getUf() === "AM")  echo "selected" ?>>AM</option>
@@ -410,13 +413,13 @@
                                 <div class="col-md-2">
                                     <div class="form-group">
                                         <label for="cep-local">CEP <sup>*</sup></label>
-                                        <input type="text" id="cep-local" name="cep-local" class="form-control" placeholder="12345-678" required/>
+                                        <input type="text" id="cep-local" name="cep-local" class="form-control cep" placeholder="12345-678" required/>
                                     </div>
                                 </div>
                                 <div class="col-md-8">
                                     <div class="form-group">
                                         <label for="logradouro-local">Logradouro <sup>*</sup></label>
-                                        <input type="text" id="logradouro-local" name="logradouro-local" class="form-control" placeholder="Ex.: Avenida Delfim Moreira" required/>
+                                        <input type="text" id="logradouro-local" name="logradouro-local" class="form-control logradouro" placeholder="Ex.: Avenida Delfim Moreira" required/>
                                     </div>
                                 </div>
                                 <div class="col-md-2">
@@ -434,19 +437,19 @@
                                 <div class="col-md-8">
                                     <div class="form-group">
                                         <label for="bairro-local">Bairro <sup>*</sup></label>
-                                        <input type="text" id="bairro-local" name="bairro-local" class="form-control" placeholder="Ex.: Leblon" required />
+                                        <input type="text" id="bairro-local" name="bairro-local" class="form-control bairro" placeholder="Ex.: Leblon" required />
                                     </div>
                                 </div>
                                 <div class="col-md-11">
                                     <div class="form-group">
                                         <label for="cidade-local">Cidade <sup>*</sup></label>
-                                        <input type="text" id="cidade-local" name="cidade-local" class="form-control" placeholder="Ex.: Rio de Janeiro" required/>
+                                        <input type="text" id="cidade-local" name="cidade-local" class="form-control cidade" placeholder="Ex.: Rio de Janeiro" required/>
                                     </div>
                                 </div>
                                 <div class="col-md-1">
                                     <div class="form-group">
                                         <label for="uf-local">UF <sup>*</sup></label>
-                                        <select id="uf-local" name="uf-local" class="form-control" required>
+                                        <select id="uf-local" name="uf-local" class="form-control uf" required>
                                             <option selected="selected" value="">UF</option>
                                             <option value="AC">AC</option>
                                             <option value="AL">AL</option>
@@ -609,13 +612,13 @@
                                 <div class="col-md-2">
                                     <div class="form-group">
                                         <label for="cep-local-entrega">CEP <sup>*</sup></label>
-                                        <input type="text" id="cep-local-entrega" name="cep-local-entrega" class="form-control" placeholder="12345-678" required/>
+                                        <input type="text" id="cep-local-entrega" name="cep-local-entrega" class="form-control cep" placeholder="12345-678" required/>
                                     </div>
                                 </div>
                                 <div class="col-md-8">
                                     <div class="form-group">
                                         <label for="logradouro-local-entrega">Logradouro <sup>*</sup></label>
-                                        <input type="text" id="logradouro-local-entrega" name="logradouro-local-entrega" class="form-control" placeholder="Ex.: Avenida Delfim Moreira" required/>
+                                        <input type="text" id="logradouro-local-entrega" name="logradouro-local-entrega" class="form-control logradouro" placeholder="Ex.: Avenida Delfim Moreira" required/>
                                     </div>
                                 </div>
                                 <div class="col-md-2">
@@ -633,19 +636,19 @@
                                 <div class="col-md-8">
                                     <div class="form-group">
                                         <label for="bairro-local-entrega">Bairro <sup>*</sup></label>
-                                        <input type="text" id="bairro-local-entrega" name="bairro-local-entrega" class="form-control" placeholder="Ex.: Leblon" required />
+                                        <input type="text" id="bairro-local-entrega" name="bairro-local-entrega" class="form-control bairro" placeholder="Ex.: Leblon" required />
                                     </div>
                                 </div>
                                 <div class="col-md-11">
                                     <div class="form-group">
                                         <label for="cidade-local-entrega">Cidade <sup>*</sup></label>
-                                        <input type="text" id="cidade-local-entrega" name="cidade-local-entrega" class="form-control" placeholder="Ex.: Rio de Janeiro" required/>
+                                        <input type="text" id="cidade-local-entrega" name="cidade-local-entrega" class="form-control cidade" placeholder="Ex.: Rio de Janeiro" required/>
                                     </div>
                                 </div>
                                 <div class="col-md-1">
                                     <div class="form-group">
                                         <label for="uf-local-entrega">UF <sup>*</sup></label>
-                                        <select id="uf-local-entrega" name="uf-local-entrega" class="form-control" required>
+                                        <select id="uf-local-entrega" name="uf-local-entrega" class="form-control uf" required>
                                             <option selected="selected" value="">UF</option>
                                             <option value="AC">AC</option>
                                             <option value="AL">AL</option>
@@ -1280,7 +1283,6 @@
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>
-                                        <?php /* } */ ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -1292,7 +1294,6 @@
                     <div class="box-footer">
                     </div>
                 </div>
-            <?php /* } */ ?>
         </section>
         <!-- /.content -->
     </div>
@@ -1452,13 +1453,13 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="cep-local-modal">CEP <sup>*</sup></label>
-                                <input type="text" id="cep-local-modal" name="cep-local-modal" class="form-control" placeholder="12345-678" required/>
+                                <input type="text" id="cep-local-modal" name="cep-local-modal" class="form-control cep" placeholder="12345-678" required/>
                             </div>
                         </div>
                         <div class="col-md-7">
                             <div class="form-group">
                                 <label for="logradouro-local-modal">Logradouro <sup>*</sup></label>
-                                <input type="text" id="logradouro-local-modal" name="logradouro-local-modal" class="form-control" placeholder="Ex.: Avenida Delfim Moreira" required/>
+                                <input type="text" id="logradouro-local-modal" name="logradouro-local-modal" class="form-control logradouro" placeholder="Ex.: Avenida Delfim Moreira" required/>
                             </div>
                         </div>
                         <div class="col-md-2">
@@ -1476,19 +1477,19 @@
                         <div class="col-md-8">
                             <div class="form-group">
                                 <label for="bairro-local-modal">Bairro <sup>*</sup></label>
-                                <input type="text" id="bairro-local-modal" name="bairro-local-modal" class="form-control" placeholder="Ex.: Leblon" required />
+                                <input type="text" id="bairro-local-modal" name="bairro-local-modal" class="form-control bairro" placeholder="Ex.: Leblon" required />
                             </div>
                         </div>
                         <div class="col-md-10">
                             <div class="form-group">
                                 <label for="cidade-local-modal">Cidade <sup>*</sup></label>
-                                <input type="text" id="cidade-local-modal" name="cidade-local-modal" class="form-control" placeholder="Ex.: Rio de Janeiro" required/>
+                                <input type="text" id="cidade-local-modal" name="cidade-local-modal" class="form-control cidade" placeholder="Ex.: Rio de Janeiro" required/>
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label for="uf-local-modal">UF <sup>*</sup></label>
-                                <select id="uf-local-modal" name="uf-local-modal" class="form-control" required>
+                                <select id="uf-local-modal" name="uf-local-modal" class="form-control uf" required>
                                     <option selected="selected" value="">UF</option>
                                     <option value="AC">AC</option>
                                     <option value="AL">AL</option>
@@ -1590,13 +1591,13 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="cep-local-entrega-modal">CEP <sup>*</sup></label>
-                                <input type="text" id="cep-local-entrega-modal" name="cep-local-entrega-modal" class="form-control" placeholder="12345-678" required/>
+                                <input type="text" id="cep-local-entrega-modal" name="cep-local-entrega-modal" class="form-control cep" placeholder="12345-678" required/>
                             </div>
                         </div>
                         <div class="col-md-7">
                             <div class="form-group">
                                 <label for="logradouro-local-entrega-modal">Logradouro <sup>*</sup></label>
-                                <input type="text" id="logradouro-local-entrega-modal" name="logradouro-local-entrega-modal" class="form-control" placeholder="Ex.: Avenida Delfim Moreira" required/>
+                                <input type="text" id="logradouro-local-entrega-modal" name="logradouro-local-entrega-modal" class="form-control logradouro" placeholder="Ex.: Avenida Delfim Moreira" required/>
                             </div>
                         </div>
                         <div class="col-md-2">
@@ -1614,19 +1615,19 @@
                         <div class="col-md-8">
                             <div class="form-group">
                                 <label for="bairro-local-entrega-modal">Bairro <sup>*</sup></label>
-                                <input type="text" id="bairro-local-entrega-modal" name="bairro-local-entrega-modal" class="form-control" placeholder="Ex.: Leblon" required />
+                                <input type="text" id="bairro-local-entrega-modal" name="bairro-local-entrega-modal" class="form-control bairro" placeholder="Ex.: Leblon" required />
                             </div>
                         </div>
                         <div class="col-md-10">
                             <div class="form-group">
                                 <label for="cidade-local-entrega-modal">Cidade <sup>*</sup></label>
-                                <input type="text" id="cidade-local-entrega-modal" name="cidade-local-entrega-modal" class="form-control" placeholder="Ex.: Rio de Janeiro" required/>
+                                <input type="text" id="cidade-local-entrega-modal" name="cidade-local-entrega-modal" class="form-control cidade" placeholder="Ex.: Rio de Janeiro" required/>
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label for="uf-local-entrega-modal">UF <sup>*</sup></label>
-                                <select id="uf-local-entrega-modal" name="uf-local-entrega-modal" class="form-control" required>
+                                <select id="uf-local-entrega-modal" name="uf-local-entrega-modal" class="form-control uf" required>
                                     <option selected="selected" value="">UF</option>
                                     <option value="AC">AC</option>
                                     <option value="AL">AL</option>
@@ -1952,8 +1953,8 @@
 </div>
 </body>
 <script>
-    $(document).ready(function() {
-        formatarCNPJ('$cnpj');
+    $(document).ready(function () {
+        formatarCNPJ('#cnpj');
         formatarCelular('#telefone-celular');
         formatarTelefone('#telefone1');
         formatarTelefone('#telefone2');
@@ -1961,32 +1962,48 @@
         formatarTelefone('#telefone4');
         formatarCampo('#telefone-whatsapp');
         formatarCampo('#celulares');
-        formatarCEP('#cep');
 
-        /* Executa a requisição quando o campo CEP perder o foco */
-        $('#cep').blur(function(){
-            cep = $('#cep').val();
-            $.ajax({
-                url: `https://viacep.com.br/ws/${cep}/json/`,
-                dataType: 'json',
-                success: function(resposta) {
-                    if (!resposta.erro) {
-                        $('#logradouro').val(resposta.logradouro);
-                        $('#bairro').val(resposta.bairro);
-                        $('#cidade').val(resposta.localidade);
-                        $('#uf').append('<option value="'+resposta.uf+'" selected="selected">'+resposta.uf+'</option>');
-                    } else {
-                        alert('CEP não encontrado.');
-                        $('#logradouro').val('');
-                        $('#bairro').val('');
-                        $('#cidade').val('');
-                        $('#uf').append('<option value="" selected="selected"></option>');
-                        $('#cep').val('');
-                        return false;
+        // Aplica a máscara a todos os campos com a classe .cep
+        $('.cep').mask('00000-000');
+
+        // Função para buscar dados do CEP ao sair do campo
+        $(document).on('blur', '.cep', function () {
+            let $this = $(this); // O campo que disparou o evento
+            let cep = $this.val().replace(/\D/g, ''); // Remove caracteres não numéricos
+
+            if (cep.length === 8) { // Verifica se o CEP tem o tamanho correto
+                $.ajax({
+                    url: `https://viacep.com.br/ws/${cep}/json/`,
+                    dataType: 'json',
+                    success: function (resposta) {
+                        if (!resposta.erro) {
+                            // Atualiza os campos relacionados ao mesmo formulário
+                            let $form = $this.closest('form');
+                            $form.find('.logradouro').val(resposta.logradouro);
+                            $form.find('.bairro').val(resposta.bairro);
+                            $form.find('.cidade').val(resposta.localidade);
+                            $form.find('.uf').val(resposta.uf);
+                        } else {
+                            alert('CEP não encontrado.');
+                            limparCampos($this);
+                        }
+                    },
+                    error: function () {
+                        alert('Erro ao consultar o CEP.');
+                        limparCampos($this);
                     }
-                }
-            });
-        })
+                });
+            } else {
+                alert('CEP inválido.');
+                limparCampos($this);
+            }
+        });
+
+        // Função para limpar os campos relacionados
+        function limparCampos($cepField) {
+            let $form = $cepField.closest('form');
+            $form.find('.logradouro, .bairro, .cidade, .uf').val('');
+        }
     });
 </script>
 <script>
