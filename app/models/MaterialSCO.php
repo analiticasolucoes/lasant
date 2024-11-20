@@ -15,14 +15,14 @@ class MaterialSCO
     private array $i0SCO;
 
     public function __construct(
-        cliente $id,
-        cliente $idContrato,
-        cliente $codI0SCO,
-        cliente $idSCO,
+        int $id,
+        int $idContrato,
+        int $codI0SCO,
+        int $idSCO,
         string  $codSCO,
         string  $descricaoSCO,
         string  $unidade,
-        cliente $tipo,
+        int $tipo,
         array   $i0SCO
     ) {
         $this->id = $id;

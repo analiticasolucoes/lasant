@@ -11,7 +11,7 @@ class I0SCO
     private string $valor;
 
     public function __construct(
-        cliente $id,
+        int $id,
         ?string $codSCO,
         string  $mes,
         ?string $ano,

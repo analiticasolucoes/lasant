@@ -107,6 +107,7 @@ class MaterialSCORepository
             return [];
         }
     }
+
     private function generateObjectsList(array $scoList): array
     {
         $materialSCOs = [];

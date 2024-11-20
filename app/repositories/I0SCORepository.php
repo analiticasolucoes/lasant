@@ -15,6 +15,16 @@ class I0SCORepository
         $this->db = $db;
     }
 
+    public function all(): array
+    {
+        $sql = "SELECT * FROM $this->table";
+        $result = $this->db->consultar($sql, []);
+        if (count($result) > 0) {
+            return $this->generateObjectsList($result);
+        } else {
+            return [];
+        }
+    }
     public function find(int $id): ?I0SCO
     {
         $query = "SELECT * FROM $this->table WHERE id = :id";
@@ -37,6 +47,21 @@ class I0SCORepository
             return $this->generateObjectsList($resultado);
         } else {
             return [];
+        }
+    }
+
+    public function datasList(): array
+    {
+        $query = "SELECT DISTINCT mes_i0_sco AS mes, ano_i0_sco AS ano FROM $this->table";
+        $parametros = [];
+        $resultado = $this->db->consultar($query, $parametros);
+        if (count($resultado) > 0) {
+            return $resultado;
+        } else {
+            return [
+                'mes' => [],
+                'ano' => []
+            ];
         }
     }
 

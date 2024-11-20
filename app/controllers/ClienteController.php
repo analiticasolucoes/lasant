@@ -6,9 +6,12 @@ use App\Database\Database;
 use App\Repositories\{BancoRepository,
     ClienteHasProfissionalRepository,
     ClienteRepository,
+    ContratoRepository,
     EsferaRepository,
+    I0SCORepository,
     LocalEntregaRepository,
     LocalRepository,
+    MaterialSCORepository,
     ModeloImpressaoRepository,
     PavimentoRepository,
     ProfissionalRepository,
@@ -79,6 +82,12 @@ class ClienteController
         $clienteHasProfissionalRepository = new ClienteHasProfissionalRepository($this->conn);
         $profissionaisDoCliente = $clienteHasProfissionalRepository->findBy("id_cliente", $args['id']);
 
+        $i0SCORepository = new I0SCORepository($this->conn);
+        $datasSCO = $i0SCORepository->datasList();
+
+        $contratoRepository = new ContratoRepository($this->conn);
+        $contratos = $contratoRepository->findBy("id_cliente", $args['id']);
+
         $this->view->render('dashboard/clientes/detalhe', [
             'cliente' => $cliente,
             'esferas' => $esferas,
@@ -89,7 +98,9 @@ class ClienteController
             'profissionais' => $profissionais,
             'pavimentos' => $pavimentos,
             'setores' => $setores,
-            'profissionaisDoCliente' => $profissionaisDoCliente
+            'profissionaisDoCliente' => $profissionaisDoCliente,
+            'datasSCO' => $datasSCO,
+            'contratos' => $contratos,
         ]);
     }
 
