@@ -12,3 +12,6 @@
 
 #Ignorar diretorio de armazenamento de fotos
 /storage/app/profile/photo/
+
+#Ignorar diretorio de armazenamento de logomarcas
+/storage/app/logomarcas/
