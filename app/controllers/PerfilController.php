@@ -58,15 +58,14 @@ class PerfilController implements ControllerInterface
      */
     public function alter(array $args = []): void
     {
-        //echo "<pre>"; var_dump($_FILES['foto']['error'] === 0);die;
         if (!empty($_FILES) && $_FILES['foto']['error'] === 0) {
             $newFileName = $this->generateFileName($_FILES['foto']['name']);
-            //echo "<pre>"; var_dump($newFileName);die;
+
             if (!move_uploaded_file($_FILES['foto']['tmp_name'], ".." . $newFileName)) {
                 $this->view->render('error', [
                     "httpResponseCode" => 500,
                     "title" => "Erro: Atualizar Perfil",
-                    "message" => "Erro ao atualizar o foto de perfil! Não foi possível mover o arquivo."
+                    "message" => "Erro ao atualizar a foto de perfil! Não foi possível mover o arquivo."
                 ]);
             } else {
                 $this->usuarioRepository = new UsuarioRepository($this->conn);
@@ -75,7 +74,7 @@ class PerfilController implements ControllerInterface
                     $this->view->render('error', [
                         "httpResponseCode" => 500,
                         "title" => "Erro: Atualizar Perfil",
-                        "message" => "Erro ao atualizar o foto de perfil! Usuário não encontrado."
+                        "message" => "Erro ao atualizar a foto de perfil! Usuário não encontrado."
                     ]);
                 }
                 $usuario->setFoto(basename($newFileName));
@@ -83,15 +82,12 @@ class PerfilController implements ControllerInterface
                     $this->view->render('error', [
                         "httpResponseCode" => 500,
                         "title" => "Erro: Atualizar Perfil",
-                        "message" => "Erro ao atualizar o foto de perfil! Falha ao atualizar dados do usuário."
+                        "message" => "Erro ao atualizar a foto de perfil! Falha ao atualizar dados do usuário."
                     ]);
                 }
             }
         }
         if(!empty($args) && $args['nova-senha'] !== "" && $args['confirma-senha'] !== "") {
-//            echo"<pre>";
-//            var_dump($_SESSION['senha']);
-//            var_dump($args);
             $this->usuarioRepository = new UsuarioRepository($this->conn);
             $usuario = $this->usuarioRepository->find((int)$_SESSION["usuarioID"]);
             if (!$usuario) {
@@ -143,11 +139,9 @@ class PerfilController implements ControllerInterface
     {
         // Caminho físico do diretório onde estão as imagens de perfil
         $caminhoImagem = dirname(__DIR__) . DIRECTORY_SEPARATOR . ".." . self::FOTOS_FOLDER . basename($args['foto']);
-        //echo"<pre>";var_dump($caminhoImagem);die;
         if (!file_exists($caminhoImagem)) {
             $caminhoImagem = "assets" . DIRECTORY_SEPARATOR . "dist" . DIRECTORY_SEPARATOR . "img" . DIRECTORY_SEPARATOR . "avatar.png";
         }
-        //echo"<pre>";var_dump($caminhoImagem);die;
         // Define o cabeçalho de conteúdo para imagem e lê o arquivo
         header("Content-Type: image/jpeg"); // Ou ajuste para o tipo correto
         readfile($caminhoImagem);
