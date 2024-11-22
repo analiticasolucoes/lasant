@@ -4,18 +4,26 @@ namespace App\Controllers;
 
 use App\Database\Database;
 use App\interfaces\ControllerInterface;
+use App\Models\Usuario;
+use App\Repositories\ClienteRepository;
+use App\Repositories\FornecedorRepository;
 use App\Repositories\UsuarioRepository;
+use App\Services\UploadArquivos;
 use App\Views\ViewController;
+use Exception;
 
 class UsuarioController implements ControllerInterface
 {
+    const FOTOS_FOLDER = DIRECTORY_SEPARATOR . "storage" . DIRECTORY_SEPARATOR . "app" . DIRECTORY_SEPARATOR . "profile" . DIRECTORY_SEPARATOR . "photo" . DIRECTORY_SEPARATOR;
     private UsuarioRepository $usuarioRepository;
     private ViewController $view;
+    private Database $conn;
 
     public function __construct(Database $conn)
     {
         $this->usuarioRepository = new UsuarioRepository($conn);
         $this->view = new ViewController();
+        $this->conn = $conn;
     }
 
     public function index(array $args = []): void
@@ -26,7 +34,16 @@ class UsuarioController implements ControllerInterface
 
     public function new(array $args = []): void
     {
-        $this->view->render('dashboard/acessos/usuarios/novo');
+        $clienteRepository = new ClienteRepository($this->conn);
+        $clientes = $clienteRepository->all();
+
+        $fornecedorRepository = new FornecedorRepository($this->conn);
+        $fornecedores = $fornecedorRepository->all();
+
+        $this->view->render('dashboard/acessos/usuarios/novo', [
+            'clientes' => $clientes,
+            'fornecedores' => $fornecedores
+        ]);
     }
 
 
@@ -37,7 +54,26 @@ class UsuarioController implements ControllerInterface
      */
     public function add(array $args = []): void
     {
-        if ($this->usuarioRepository->create($args)) {
+        $novoUsuario = new Usuario();
+
+        $novoUsuario->setNome($args['nome']);
+        $novoUsuario->setSenha($args['senha']);
+        $novoUsuario->setUsuario($args['usuario']);
+        $novoUsuario->setIdCliente($args['clientes']);
+
+        if(isset($_FILES)) {
+            try {
+                $caminhoArquivo = UploadArquivos::processarUpload(
+                    $_FILES['foto'],
+                    dirname(__DIR__, 2) . self::FOTOS_FOLDER,
+                    null
+                );
+            $novoUsuario->setFoto($caminhoArquivo);
+            } catch (Exception $e) {
+                echo "Erro: " . $e->getMessage();
+            }
+        }
+        if ($this->usuarioRepository->create($novoUsuario)) {
             $this->index();
         }
     }

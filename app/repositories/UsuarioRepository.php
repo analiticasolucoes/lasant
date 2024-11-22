@@ -29,31 +29,22 @@ class UsuarioRepository
         return count($result) > 0 ? $this->generateObjectsList($result) : [];
     }
 
-    public function create(array $data): bool
+    public function create(Usuario $usuario): bool
     {
+        //echo"<pre>";var_dump($usuario, $_FILES);echo"</pre>";die;
         $parametros = [
-            'nome' => $data['nome'],
-            'usuario' => $data['usuario'],
-            'senha' => $data['senha'],
-            'codigo' => $data['codigo'],
-            'id_cliente' => $data['id_cliente'],
-            'aprovador' => $data['aprovador'],
-            'foto' => $data['foto'],
-            'limite' => $data['limite'],
+            'nome' => $usuario->getNome(),
+            'usuario' => $usuario->getUsuario(),
+            'senha' => $usuario->getSenha(),
+            'codigo' => $usuario->getCodigo(),
+            'id_cliente' => implode(", ", $usuario->getIdCliente()),
+            'aprovador' => $usuario->getAprovador(),
+            'foto' => $usuario->getFoto(),
+            'limite' => $usuario->getLimite(),
         ];
 
         if ($this->db->inserir($this->table, $parametros)) {
-            $usuario = new Usuario(
-                $this->db->getLastInsertId(),
-                $data['nome'],
-                $data['usuario'],
-                $data['senha'],
-                $data['codigo'],
-                $data['id_cliente'],
-                $data['aprovador'],
-                $data['foto'],
-                $data['limite']
-            );
+            $usuario->setId($this->db->getLastInsertId());
             $this->usuario = $usuario;
             return true;
         }
@@ -123,7 +114,8 @@ class UsuarioRepository
 
     private function generateObject(array $usuarioReg): Usuario
     {
-        $arrayIDCliente = $this->idClienteToArray($usuarioReg['id_cliente']);
+        $idClientesString = $usuarioReg['id_cliente'] ?? "";
+        $arrayIDCliente = $this->idClienteToArray($idClientesString);
         return new Usuario(
             $usuarioReg['id'],
             $usuarioReg['nome'],
@@ -137,16 +129,22 @@ class UsuarioRepository
         );
     }
 
-    private function idClienteToArray(string $idClientes = ""): array
+    private function idClienteToArray(string $idsClientesString = ""): array
     {
-        $array = [];
+        // Remover espaços em branco
+        $idsClientesString = str_replace(" ", "", $idsClientesString);
 
-        if($idClientes !== "") {
-            $array = explode(", ", $idClientes);
-
-            $array = array_map('intval', $array);
-            sort($array);
+        // Verificar se a string não está vazia
+        if ($idsClientesString === "") {
+            return [];
         }
+
+        // Separar os IDs por vírgula e converter para inteiros
+        $array = explode(",", $idsClientesString);
+        $array = array_map('intval', $array);
+
+        // Ordenar os IDs em ordem crescente
+        sort($array);
 
         return $array;
     }

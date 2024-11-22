@@ -3,9 +3,9 @@
 namespace App\Models;
 
 /**
- * Classe int
+ * Classe Cliente
  *
- * Representa um int ou fornecedor do sistema.
+ * Representa um cliente do sistema.
  */
 class Cliente
 {

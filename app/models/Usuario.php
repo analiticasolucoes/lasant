@@ -15,10 +15,10 @@ class Usuario
     private ?float $limite;
 
     public function __construct(
-        int $id,
-        string  $nome,
-        string  $usuario,
-        string  $senha,
+        int $id = 0,
+        string  $nome = "",
+        string  $usuario = "",
+        string  $senha = "",
         ?string $codigo = null,
         ?array  $idCliente = [],
         ?string $aprovador = null,
@@ -37,7 +37,10 @@ class Usuario
     }
 
     // Getters e Setters
-
+    public function setId(int $id): void
+    {
+        $this->id = $id;
+    }
     public function getId(): int
     {
         return $this->id;

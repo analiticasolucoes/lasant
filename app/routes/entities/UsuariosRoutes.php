@@ -19,6 +19,11 @@ class UsuariosRoutes implements RoutesInterface
                 'method' => 'new',
                 'public' => true
             ],
+            '/usuarios/incluir' => [
+                'controller' => 'UsuarioController',
+                'method' => 'add',
+                'public' => true
+            ],
             '/usuarios/detalhe' => [
                 'controller' => 'UsuarioController',
                 'method' => 'show',

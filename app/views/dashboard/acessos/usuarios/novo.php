@@ -49,29 +49,29 @@
                 <!-- /.box-header -->
                 <div class="box-body">
                     <div class="row">
-                        <form id="usuarios-add-form" action="usuarios/novo" method="post" enctype="multipart/form-data" target="_self">
+                        <form id="usuarios-add-form" action="usuarios/incluir" method="post" enctype="multipart/form-data" target="_self">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label>Nome</label>
-                                    <input type="text" class="form-control" name="nome" id="nome" placeholder="Nome" />
+                                    <label for="nome">Nome</label>
+                                    <input type="text" id="nome" name="nome" class="form-control" placeholder="Nome" />
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label>Usuário</label>
-                                    <input type="text" class="form-control" name="usuario" id="usuario" placeholder="Usuário" />
+                                    <label for="usuario">Usuário</label>
+                                    <input type="text" id="usuario" name="usuario" class="form-control" placeholder="Usuário" />
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label>Senha</label>
+                                    <label for="senha">Senha</label>
                                     <input type="password" class="form-control" name="senha" id="senha" placeholder="Senha" />
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label>Foto</label>
-                                    <input type="file" name="arquivo">
+                                    <label for="foto">Foto</label>
+                                    <input type="file" id="foto" name="foto">
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -87,55 +87,29 @@
                                     <table class="table table-bordered">
                                         <thead>
                                             <tr class="active text-uppercase">
-                                                <th><input type="checkbox" name="todos_clientes" value="1" class="marcar" /></th>
+                                                <th>
+                                                    <input type="checkbox" name="todos-clientes" value="1" class="marcar-todos" />
+                                                </th>
                                                 <th>Cliente</th>
                                                 <th>CNPJ</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                        <?php foreach($clientes as $cliente): ?>
                                             <tr>
-                                                <td><input type="checkbox" name="compras_cadastro" value="1" class="marcar" /></td>
-                                                <td>Nome do cliente</td>
-                                                <td>00.000.000/0001-00</td>
+                                                <td>
+                                                    <input type="checkbox" name="clientes[]" value="<?= $cliente->getId() ?>" class="marcar" />
+                                                </td>
+                                                <td><?= $cliente->getNomeEmpresa() ?></td>
+                                                <td><?= $cliente->getCNPJ() ?></td>
                                             </tr>
-                                            <tr>
-                                                <td><input type="checkbox" name="compras_cadastro" value="1" class="marcar" /></td>
-                                                <td>Nome do cliente</td>
-                                                <td>00.000.000/0001-00</td>
-                                            </tr>
-                                            <tr>
-                                                <td><input type="checkbox" name="compras_cadastro" value="1" class="marcar" /></td>
-                                                <td>Nome do cliente</td>
-                                                <td>00.000.000/0001-00</td>
-                                            </tr>
-                                            <tr>
-                                                <td><input type="checkbox" name="compras_cadastro" value="1" class="marcar" /></td>
-                                                <td>Nome do cliente</td>
-                                                <td>00.000.000/0001-00</td>
-                                            </tr>
-                                            <tr>
-                                                <td><input type="checkbox" name="compras_cadastro" value="1" class="marcar" /></td>
-                                                <td>Nome do cliente</td>
-                                                <td>00.000.000/0001-00</td>
-                                            </tr>
+                                        <?php endforeach; ?>
                                         </tbody>
                                     </table>
                                 </div>
-                                <?php /*
-                                $sql_consult3 = mysql_query("SELECT * FROM ta_cliente_fornecedor WHERE tipo='1' ORDER BY nome_empresa ASC") or die (mysql_error());
-                                $i = 0;
-                                while ($row = mysql_fetch_array($sql_consult3)) {
-                                    $i++;
-                                    */ ?>
-                                <!--<div class="col-md-6">
-                                    <input type="checkbox" name="id_cliente[]" value="<?php /*/* echo $row['id'] */?>" />  <?php /*/* echo $row['nome_empresa'] */ ?>
-                                </div>-->
-                                <?php /* if($i%2 == 0) { */ ?>
                                 <div class="col-md-12">
                                     <hr style="border-bottom:1px dotted #ccc;" />
                                 </div>
-                                <?php /* } */ ?>
-                                <?php /* } */ ?>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
@@ -147,64 +121,38 @@
                                     <table class="table table-bordered">
                                         <thead>
                                             <tr class="active text-uppercase">
-                                                <th><input type="checkbox" name="todos_clientes" value="1" class="marcar" /></th>
+                                                <th>
+                                                    <input type="checkbox" name="todos-fornecedores" value="1" class="marcar-todos" />
+                                                </th>
                                                 <th>Fornecedor</th>
                                                 <th>CNPJ</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                        <?php foreach($fornecedores as $fornecedor): ?>
                                             <tr>
-                                                <td><input type="checkbox" name="compras_cadastro" value="1" class="marcar" /></td>
-                                                <td>Nome do fornecedor</td>
-                                                <td>00.000.000/0001-00</td>
+                                                <td>
+                                                    <input type="checkbox" name="fornecedores[]" value="<?= $fornecedor->getId() ?>" class="marcar" />
+                                                </td>
+                                                <td><?= $fornecedor->getNomeEmpresa() ?></td>
+                                                <td><?= $fornecedor->getCNPJ() ?></td>
                                             </tr>
-                                            <tr>
-                                                <td><input type="checkbox" name="compras_cadastro" value="1" class="marcar" /></td>
-                                                <td>Nome do fornecedor</td>
-                                                <td>00.000.000/0001-00</td>
-                                            </tr>
-                                            <tr>
-                                                <td><input type="checkbox" name="compras_cadastro" value="1" class="marcar" /></td>
-                                                <td>Nome do fornecedor</td>
-                                                <td>00.000.000/0001-00</td>
-                                            </tr>
-                                            <tr>
-                                                <td><input type="checkbox" name="compras_cadastro" value="1" class="marcar" /></td>
-                                                <td>Nome do fornecedor</td>
-                                                <td>00.000.000/0001-00</td>
-                                            </tr>
-                                            <tr>
-                                                <td><input type="checkbox" name="compras_cadastro" value="1" class="marcar" /></td>
-                                                <td>Nome do fornecedor</td>
-                                                <td>00.000.000/0001-00</td>
-                                            </tr>
+                                        <?php endforeach; ?>
                                         </tbody>
                                     </table>
                                 </div>
-                                <?php /*
-                                $sql_consult3 = mysql_query("SELECT * FROM ta_cliente_fornecedor WHERE tipo='2' ORDER BY nome_empresa ASC") or die (mysql_error());
-                                $x = 0;
-                                while ($row = mysql_fetch_array($sql_consult3)) {
-                                    $x++;
-                                    */ ?>
-                                <!--<div class="col-md-6">
-                                    <input type="checkbox" name="id_cliente[]" value="<?php /*/* echo $row['id'] */?>" />  <?php /*/* echo $row['nome_empresa'] */?>
-                                </div>-->
-                                <?php /* if($x%2 == 0) { */ ?>
                                 <div class="col-md-12">
                                     <hr style="border-bottom:1px dotted #ccc;" />
                                 </div>
-                                <?php /* } */ ?>
-                                <?php /* } */ ?>
                             </div>
                             <div class="col-md-12" style="margin-top:10px;">
                                 <div class="form-group">
-                                    <label>Privilégios</label>
+                                    <label for="master">Privilégios</label>
                                 </div>
                             </div>
                             <div class="col-md-12" style="margin-bottom:10px;">
                                 <div class="col-md-3">
-                                    <input name="master" type="checkbox" id="master" value="1" class="marcar" onClick="check();" /> Master
+                                    <input name="master" type="checkbox" id="master" value="1" class="marcar-todos" /> Master
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -216,10 +164,22 @@
                                         <thead>
                                             <tr class="active text-uppercase">
                                                 <th>Funções</th>
-                                                <th>Visualizar</th>
-                                                <th>Cadastrar</th>
-                                                <th>Editar</th>
-                                                <th>Excluir</th>
+                                                <th>
+                                                    <input id="visualizar-todos" name="visualizar-todos" type="checkbox" value="1" class="check-visualizar-todos" />
+                                                    <label for="visualizar-todos">Visualizar</label>
+                                                </th>
+                                                <th>
+                                                    <input id="cadastrar-todos" name="cadastrar-todos" type="checkbox" value="1" class="check-cadastrar-todos" />
+                                                    <label for="cadastrar-todos">Cadastrar</label>
+                                                </th>
+                                                <th>
+                                                    <input id="editar-todos" name="editar-todos" type="checkbox" value="1" class="check-editar-todos" />
+                                                    <label for="editar-todos">Editar</label>
+                                                </th>
+                                                <th>
+                                                    <input id="excluir-todos" name="excluir-todos" type="checkbox" value="1" class="check-excluir-todos" />
+                                                    <label for="excluir-todos">Excluir</label>
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -229,17 +189,17 @@
                                             </tr>
                                             <tr>
                                                 <td>Solicitações</td>
-                                                <td><input type="checkbox" name="compras_visualizacao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="compras_cadastro" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="compras_edicao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="compras_exclusao" value="1" class="marcar" /></td>
+                                                <td><input type="checkbox" name="compras_visualizacao" value="1" class="marcar check-visualizar" /></td>
+                                                <td><input type="checkbox" name="compras_cadastro" value="1" class="marcar check-cadastrar" /></td>
+                                                <td><input type="checkbox" name="compras_edicao" value="1" class="marcar check-editar" /></td>
+                                                <td><input type="checkbox" name="compras_exclusao" value="1" class="marcar check-excluir" /></td>
                                             </tr>
                                             <tr>
                                                 <td>Levantamentos</td>
-                                                <td><input type="checkbox" name="compras_visualizacao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="compras_cadastro" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="compras_edicao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="compras_exclusao" value="1" class="marcar" /></td>
+                                                <td><input type="checkbox" name="compras_visualizacao" value="1" class="marcar check-visualizar" /></td>
+                                                <td><input type="checkbox" name="compras_cadastro" value="1" class="marcar check-cadastrar" /></td>
+                                                <td><input type="checkbox" name="compras_edicao" value="1" class="marcar check-editar" /></td>
+                                                <td><input type="checkbox" name="compras_exclusao" value="1" class="marcar check-excluir" /></td>
                                             </tr>
                                             <!-- Cadastros Gerais -->
                                             <tr class="warning">
@@ -247,98 +207,98 @@
                                             </tr>
                                             <tr>
                                                 <td>Cargos</td>
-                                                <td><input type="checkbox" name="cargo_visualizacao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="cargo_cadastro" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="cargo_edicao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="cargo_exclusao" value="1" class="marcar" /></td>
+                                                <td><input type="checkbox" name="cargo_visualizacao" value="1" class="marcar check-visualizar" /></td>
+                                                <td><input type="checkbox" name="cargo_cadastro" value="1" class="marcar check-cadastrar" /></td>
+                                                <td><input type="checkbox" name="cargo_edicao" value="1" class="marcar check-editar" /></td>
+                                                <td><input type="checkbox" name="cargo_exclusao" value="1" class="marcar check-excluir" /></td>
                                             </tr>
                                             <!-- Categorias -->
                                             <tr>
                                                 <td>Categorias</td>
-                                                <td><input type="checkbox" name="categorias_visualizacao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="categorias_cadastro" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="categorias_edicao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="categorias_exclusao" value="1" class="marcar" /></td>
+                                                <td><input type="checkbox" name="categorias_visualizacao" value="1" class="marcar check-visualizar" /></td>
+                                                <td><input type="checkbox" name="categorias_cadastro" value="1" class="marcar check-cadastrar" /></td>
+                                                <td><input type="checkbox" name="categorias_edicao" value="1" class="marcar check-editar" /></td>
+                                                <td><input type="checkbox" name="categorias_exclusao" value="1" class="marcar check-excluir" /></td>
                                             </tr>
                                             <!-- Categorias de Serviço -->
                                             <tr>
                                                 <td>Categorias de Serviço</td>
-                                                <td><input type="checkbox" name="cateservico_visualizacao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="cateservico_cadastro" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="cateservico_edicao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="cateservico_exclusao" value="1" class="marcar" /></td>
+                                                <td><input type="checkbox" name="cateservico_visualizacao" value="1" class="marcar check-visualizar" /></td>
+                                                <td><input type="checkbox" name="cateservico_cadastro" value="1" class="marcar check-cadastrar" /></td>
+                                                <td><input type="checkbox" name="cateservico_edicao" value="1" class="marcar check-editar" /></td>
+                                                <td><input type="checkbox" name="cateservico_exclusao" value="1" class="marcar check-excluir" /></td>
                                             </tr>
                                             <!-- Esferas -->
                                             <tr>
                                                 <td>Esferas</td>
-                                                <td><input type="checkbox" name="esferas_visualizacao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="esferas_cadastro" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="esferas_edicao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="esferas_exclusao" value="1" class="marcar" /></td>
+                                                <td><input type="checkbox" name="esferas_visualizacao" value="1" class="marcar check-visualizar" /></td>
+                                                <td><input type="checkbox" name="esferas_cadastro" value="1" class="marcar check-cadastrar" /></td>
+                                                <td><input type="checkbox" name="esferas_edicao" value="1" class="marcar check-editar" /></td>
+                                                <td><input type="checkbox" name="esferas_exclusao" value="1" class="marcar check-excluir" /></td>
                                             </tr>
                                             <!-- Feriados -->
                                             <tr>
                                                 <td>Feriados</td>
-                                                <td><input type="checkbox" name="feriados_visualizacao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="feriados_cadastro" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="feriados_edicao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="feriados_exclusao" value="1" class="marcar" /></td>
+                                                <td><input type="checkbox" name="feriados_visualizacao" value="1" class="marcar check-visualizar" /></td>
+                                                <td><input type="checkbox" name="feriados_cadastro" value="1" class="marcar check-cadastrar" /></td>
+                                                <td><input type="checkbox" name="feriados_edicao" value="1" class="marcar check-editar" /></td>
+                                                <td><input type="checkbox" name="feriados_exclusao" value="1" class="marcar check-excluir" /></td>
                                             </tr>
                                             <!-- Tipos de OS -->
                                             <tr>
                                                 <td>Tipos de OS</td>
-                                                <td><input type="checkbox" name="tipo_os_visualizacao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="tipo_os_cadastro" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="tipo_os_edicao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="tipo_os_exclusao" value="1" class="marcar" /></td>
+                                                <td><input type="checkbox" name="tipo_os_visualizacao" value="1" class="marcar check-visualizar" /></td>
+                                                <td><input type="checkbox" name="tipo_os_cadastro" value="1" class="marcar check-cadastrar" /></td>
+                                                <td><input type="checkbox" name="tipo_os_edicao" value="1" class="marcar check-editar" /></td>
+                                                <td><input type="checkbox" name="tipo_os_exclusao" value="1" class="marcar check-excluir" /></td>
                                             </tr>
                                             <!-- Situações de SS -->
                                             <tr>
                                                 <td>Situações de SS</td>
-                                                <td><input type="checkbox" name="situacao_ss_visualizacao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="situacao_ss_cadastro" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="situacao_ss_edicao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="situacao_ss_exclusao" value="1" class="marcar" /></td>
+                                                <td><input type="checkbox" name="situacao_ss_visualizacao" value="1" class="marcar check-visualizar" /></td>
+                                                <td><input type="checkbox" name="situacao_ss_cadastro" value="1" class="marcar check-cadastrar" /></td>
+                                                <td><input type="checkbox" name="situacao_ss_edicao" value="1" class="marcar check-editar" /></td>
+                                                <td><input type="checkbox" name="situacao_ss_exclusao" value="1" class="marcar check-excluir" /></td>
                                             </tr>
                                             <!-- Situações de OS -->
                                             <tr>
                                                 <td>Situações de OS</td>
-                                                <td><input type="checkbox" name="situacao_os_visualizacao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="situacao_os_cadastro" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="situacao_os_edicao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="situacao_os_exclusao" value="1" class="marcar" /></td>
+                                                <td><input type="checkbox" name="situacao_os_visualizacao" value="1" class="marcar check-visualizar" /></td>
+                                                <td><input type="checkbox" name="situacao_os_cadastro" value="1" class="marcar check-cadastrar" /></td>
+                                                <td><input type="checkbox" name="situacao_os_edicao" value="1" class="marcar check-editar" /></td>
+                                                <td><input type="checkbox" name="situacao_os_exclusao" value="1" class="marcar check-excluir" /></td>
                                             </tr>
                                             <!-- Prioridades de OS -->
                                             <tr>
                                                 <td>Prioridades de OS</td>
-                                                <td><input type="checkbox" name="prioridade_os_visualizacao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="prioridade_os_cadastro" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="prioridade_os_edicao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="prioridade_os_exclusao" value="1" class="marcar" /></td>
+                                                <td><input type="checkbox" name="prioridade_os_visualizacao" value="1" class="marcar check-visualizar" /></td>
+                                                <td><input type="checkbox" name="prioridade_os_cadastro" value="1" class="marcar check-cadastrar" /></td>
+                                                <td><input type="checkbox" name="prioridade_os_edicao" value="1" class="marcar check-editar" /></td>
+                                                <td><input type="checkbox" name="prioridade_os_exclusao" value="1" class="marcar check-excluir" /></td>
                                             </tr>
                                             <!-- Cadastro de Relatórios -->
                                             <tr>
                                                 <td>Relatórios</td>
-                                                <td><input type="checkbox" name="cad_rel_visualizacao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="cad_rel_cadastro" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="cad_rel_edicao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="cad_rel_exclusao" value="1" class="marcar" /></td>
+                                                <td><input type="checkbox" name="cad_rel_visualizacao" value="1" class="marcar check-visualizar" /></td>
+                                                <td><input type="checkbox" name="cad_rel_cadastro" value="1" class="marcar check-cadastrar" /></td>
+                                                <td><input type="checkbox" name="cad_rel_edicao" value="1" class="marcar check-editar" /></td>
+                                                <td><input type="checkbox" name="cad_rel_exclusao" value="1" class="marcar check-excluir" /></td>
                                             </tr>
                                             <!-- Cadastro de Modelos de Impressão -->
                                             <tr>
                                                 <td>Modelos de Impressão</td>
-                                                <td><input type="checkbox" name="cad_mod_impr_visualizacao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="cad_mod_impr_cadastro" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="cad_mod_impr_edicao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="cad_mod_impr_exclusao" value="1" class="marcar" /></td>
+                                                <td><input type="checkbox" name="cad_mod_impr_visualizacao" value="1" class="marcar check-visualizar" /></td>
+                                                <td><input type="checkbox" name="cad_mod_impr_cadastro" value="1" class="marcar check-cadastrar" /></td>
+                                                <td><input type="checkbox" name="cad_mod_impr_edicao" value="1" class="marcar check-editar" /></td>
+                                                <td><input type="checkbox" name="cad_mod_impr_exclusao" value="1" class="marcar check-excluir" /></td>
                                             </tr>
                                             <!-- Cadastro de Formas de Pagamento -->
                                             <tr>
                                                 <td>Formas de Pagamento</td>
-                                                <td><input type="checkbox" name="cad_form-pag_visualizacao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="cad_form-pag_cadastro" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="cad_form-pag_edicao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="cad_form-pag_exclusao" value="1" class="marcar" /></td>
+                                                <td><input type="checkbox" name="cad_form-pag_visualizacao" value="1" class="marcar check-visualizar" /></td>
+                                                <td><input type="checkbox" name="cad_form-pag_cadastro" value="1" class="marcar check-cadastrar" /></td>
+                                                <td><input type="checkbox" name="cad_form-pag_edicao" value="1" class="marcar check-editar" /></td>
+                                                <td><input type="checkbox" name="cad_form-pag_exclusao" value="1" class="marcar check-excluir" /></td>
                                             </tr>
                                             <!-- Materiais -->
                                             <tr class="warning">
@@ -347,42 +307,42 @@
                                             <!-- Materiais -->
                                             <tr>
                                                 <td>Materiais</td>
-                                                <td><input type="checkbox" name="material_visualizacao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="material_cadastro" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="material_edicao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="material_exclusao" value="1" class="marcar" /></td>
+                                                <td><input type="checkbox" name="material_visualizacao" value="1" class="marcar check-visualizar" /></td>
+                                                <td><input type="checkbox" name="material_cadastro" value="1" class="marcar check-cadastrar" /></td>
+                                                <td><input type="checkbox" name="material_edicao" value="1" class="marcar check-editar" /></td>
+                                                <td><input type="checkbox" name="material_exclusao" value="1" class="marcar check-excluir" /></td>
                                             </tr>
                                             <!-- Unidades -->
                                             <tr>
                                                 <td>Unidades</td>
-                                                <td><input type="checkbox" name="unidades_visualizacao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="unidades_cadastro" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="unidades_edicao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="unidades_exclusao" value="1" class="marcar" /></td>
+                                                <td><input type="checkbox" name="unidades_visualizacao" value="1" class="marcar check-visualizar" /></td>
+                                                <td><input type="checkbox" name="unidades_cadastro" value="1" class="marcar check-cadastrar" /></td>
+                                                <td><input type="checkbox" name="unidades_edicao" value="1" class="marcar check-editar" /></td>
+                                                <td><input type="checkbox" name="unidades_exclusao" value="1" class="marcar check-excluir" /></td>
                                             </tr>
                                             <!-- Grupos Material -->
                                             <tr>
                                                 <td>Grupos de Material</td>
-                                                <td><input type="checkbox" name="grupos_material_visualizacao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="grupos_material_cadastro" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="grupos_material_edicao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="grupos_material_exclusao" value="1" class="marcar" /></td>
+                                                <td><input type="checkbox" name="grupos_material_visualizacao" value="1" class="marcar check-visualizar" /></td>
+                                                <td><input type="checkbox" name="grupos_material_cadastro" value="1" class="marcar check-cadastrar" /></td>
+                                                <td><input type="checkbox" name="grupos_material_edicao" value="1" class="marcar check-editar" /></td>
+                                                <td><input type="checkbox" name="grupos_material_exclusao" value="1" class="marcar check-excluir" /></td>
                                             </tr>
                                             <!-- Subgrupos Material -->
                                             <tr>
                                                 <td>Subgrupos de Material</td>
-                                                <td><input type="checkbox" name="subgrupos_material_visualizacao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="subgrupos_material_cadastro" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="subgrupos_material_edicao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="subgrupos_material_exclusao" value="1" class="marcar" /></td>
+                                                <td><input type="checkbox" name="subgrupos_material_visualizacao" value="1" class="marcar check-visualizar" /></td>
+                                                <td><input type="checkbox" name="subgrupos_material_cadastro" value="1" class="marcar check-cadastrar" /></td>
+                                                <td><input type="checkbox" name="subgrupos_material_edicao" value="1" class="marcar check-editar" /></td>
+                                                <td><input type="checkbox" name="subgrupos_material_exclusao" value="1" class="marcar check-excluir" /></td>
                                             </tr>
                                             <!-- Classes Material -->
                                             <tr>
                                                 <td>Classes de Material</td>
-                                                <td><input type="checkbox" name="classes_material_visualizacao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="classes_material_cadastro" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="classes_material_edicao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="classes_material_exclusao" value="1" class="marcar" /></td>
+                                                <td><input type="checkbox" name="classes_material_visualizacao" value="1" class="marcar check-visualizar" /></td>
+                                                <td><input type="checkbox" name="classes_material_cadastro" value="1" class="marcar check-cadastrar" /></td>
+                                                <td><input type="checkbox" name="classes_material_edicao" value="1" class="marcar check-editar" /></td>
+                                                <td><input type="checkbox" name="classes_material_exclusao" value="1" class="marcar check-excluir" /></td>
                                             </tr>
                                             <!-- Ferramentas -->
                                             <tr class="warning">
@@ -391,10 +351,10 @@
                                             <!-- Ferramentas -->
                                             <tr>
                                                 <td>Ferramentas</td>
-                                                <td><input type="checkbox" name="ferramenta_visualizacao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="ferramenta_cadastro" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="ferramenta_edicao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="ferramenta_exclusao" value="1" class="marcar" /></td>
+                                                <td><input type="checkbox" name="ferramenta_visualizacao" value="1" class="marcar check-visualizar" /></td>
+                                                <td><input type="checkbox" name="ferramenta_cadastro" value="1" class="marcar check-cadastrar" /></td>
+                                                <td><input type="checkbox" name="ferramenta_edicao" value="1" class="marcar check-editar" /></td>
+                                                <td><input type="checkbox" name="ferramenta_exclusao" value="1" class="marcar check-excluir" /></td>
                                             </tr>
                                             <!-- Equipamentos -->
                                             <tr class="warning">
@@ -403,59 +363,59 @@
                                             <!-- Equipamentos -->
                                             <tr>
                                                 <td>Equipamentos</td>
-                                                <td><input type="checkbox" name="equipamento_visualizacao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="equipamento_cadastro" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="equipamento_edicao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="equipamento_exclusao" value="1" class="marcar" /></td>
+                                                <td><input type="checkbox" name="equipamento_visualizacao" value="1" class="marcar check-visualizar" /></td>
+                                                <td><input type="checkbox" name="equipamento_cadastro" value="1" class="marcar check-cadastrar" /></td>
+                                                <td><input type="checkbox" name="equipamento_edicao" value="1" class="marcar check-editar" /></td>
+                                                <td><input type="checkbox" name="equipamento_exclusao" value="1" class="marcar check-excluir" /></td>
                                                 <!--<td><input type="checkbox" name="equipamento_validacao" value="1" class="marcar" /></td>-->
                                             </tr>
                                             <!-- Grupos de Equipamento -->
                                             <tr>
                                                 <td>Grupos</td>
-                                                <td><input type="checkbox" name="grupos_equipamento_visualizacao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="grupos_equipamento_cadastro" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="grupos_equipamento_edicao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="grupos_equipamento_exclusao" value="1" class="marcar" /></td>
+                                                <td><input type="checkbox" name="grupos_equipamento_visualizacao" value="1" class="marcar check-visualizar" /></td>
+                                                <td><input type="checkbox" name="grupos_equipamento_cadastro" value="1" class="marcar check-cadastrar" /></td>
+                                                <td><input type="checkbox" name="grupos_equipamento_edicao" value="1" class="marcar check-editar" /></td>
+                                                <td><input type="checkbox" name="grupos_equipamento_exclusao" value="1" class="marcar check-excluir" /></td>
                                             </tr>
                                             <!-- Subgrupos de Equipamento -->
                                             <tr>
                                                 <td>Subgrupos</td>
-                                                <td><input type="checkbox" name="subgrupos_equipamento_visualizacao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="subgrupos_equipamento_cadastro" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="subgrupos_equipamento_edicao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="subgrupos_equipamento_exclusao" value="1" class="marcar" /></td>
+                                                <td><input type="checkbox" name="subgrupos_equipamento_visualizacao" value="1" class="marcar check-visualizar" /></td>
+                                                <td><input type="checkbox" name="subgrupos_equipamento_cadastro" value="1" class="marcar check-cadastrar" /></td>
+                                                <td><input type="checkbox" name="subgrupos_equipamento_edicao" value="1" class="marcar check-editar" /></td>
+                                                <td><input type="checkbox" name="subgrupos_equipamento_exclusao" value="1" class="marcar check-excluir" /></td>
                                             </tr>
                                             <!-- Classes de Equipamento -->
                                             <tr>
                                                 <td>Classes</td>
-                                                <td><input type="checkbox" name="classes_equipamento_visualizacao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="classes_equipamento_cadastro" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="classes_equipamento_edicao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="classes_equipamento_exclusao" value="1" class="marcar" /></td>
+                                                <td><input type="checkbox" name="classes_equipamento_visualizacao" value="1" class="marcar check-visualizar" /></td>
+                                                <td><input type="checkbox" name="classes_equipamento_cadastro" value="1" class="marcar check-cadastrar" /></td>
+                                                <td><input type="checkbox" name="classes_equipamento_edicao" value="1" class="marcar check-editar" /></td>
+                                                <td><input type="checkbox" name="classes_equipamento_exclusao" value="1" class="marcar check-excluir" /></td>
                                             </tr>
                                             <!-- Situações de Equipamento -->
                                             <tr>
                                                 <td>Situações</td>
-                                                <td><input type="checkbox" name="situacao_equipamento_visualizacao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="situacao_equipamento_cadastro" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="situacao_equipamento_edicao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="situacao_equipamento_exclusao" value="1" class="marcar" /></td>
+                                                <td><input type="checkbox" name="situacao_equipamento_visualizacao" value="1" class="marcar check-visualizar" /></td>
+                                                <td><input type="checkbox" name="situacao_equipamento_cadastro" value="1" class="marcar check-cadastrar" /></td>
+                                                <td><input type="checkbox" name="situacao_equipamento_edicao" value="1" class="marcar check-editar" /></td>
+                                                <td><input type="checkbox" name="situacao_equipamento_exclusao" value="1" class="marcar check-excluir" /></td>
                                             </tr>
                                             <!-- Marcas de Equipamento -->
                                             <tr>
                                                 <td>Marcas</td>
-                                                <td><input type="checkbox" name="marcas_equipamento_visualizacao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="marcas_equipamento_cadastro" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="marcas_equipamento_edicao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="marcas_equipamento_exclusao" value="1" class="marcar" /></td>
+                                                <td><input type="checkbox" name="marcas_equipamento_visualizacao" value="1" class="marcar check-visualizar" /></td>
+                                                <td><input type="checkbox" name="marcas_equipamento_cadastro" value="1" class="marcar check-cadastrar" /></td>
+                                                <td><input type="checkbox" name="marcas_equipamento_edicao" value="1" class="marcar check-editar" /></td>
+                                                <td><input type="checkbox" name="marcas_equipamento_exclusao" value="1" class="marcar check-excluir" /></td>
                                             </tr>
                                             <!-- Modelos de Equipamento -->
                                             <tr>
                                                 <td>Modelos</td>
-                                                <td><input type="checkbox" name="modelos_equipamento_visualizacao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="modelos_equipamento_cadastro" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="modelos_equipamento_edicao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="modelos_equipamento_exclusao" value="1" class="marcar" /></td>
+                                                <td><input type="checkbox" name="modelos_equipamento_visualizacao" value="1" class="marcar check-visualizar" /></td>
+                                                <td><input type="checkbox" name="modelos_equipamento_cadastro" value="1" class="marcar check-cadastrar" /></td>
+                                                <td><input type="checkbox" name="modelos_equipamento_edicao" value="1" class="marcar check-editar" /></td>
+                                                <td><input type="checkbox" name="modelos_equipamento_exclusao" value="1" class="marcar check-excluir" /></td>
                                             </tr>
                                             <!-- Planos de Manutenção -->
                                             <tr class="warning">
@@ -464,10 +424,10 @@
                                             <!-- Planos de Manutenção -->
                                             <tr>
                                                 <td>Planos de Manutenção</td>
-                                                <td><input type="checkbox" name="plano_manut_visualizacao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="plano_manut_cadastro" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="plano_manut_edicao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="plano_manut_exclusao" value="1" class="marcar" /></td>
+                                                <td><input type="checkbox" name="plano_manut_visualizacao" value="1" class="marcar check-visualizar" /></td>
+                                                <td><input type="checkbox" name="plano_manut_cadastro" value="1" class="marcar check-cadastrar" /></td>
+                                                <td><input type="checkbox" name="plano_manut_edicao" value="1" class="marcar check-editar" /></td>
+                                                <td><input type="checkbox" name="plano_manut_exclusao" value="1" class="marcar check-excluir" /></td>
                                             </tr>
                                             <!-- Profissionais -->
                                             <tr class="warning">
@@ -476,10 +436,10 @@
                                             <!-- Profissionais -->
                                             <tr>
                                                 <td>Profissionais</td>
-                                                <td><input type="checkbox" name="profissional_visualizacao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="profissional_cadastro" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="profissional_edicao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="profissional_exclusao" value="1" class="marcar" /></td>
+                                                <td><input type="checkbox" name="profissional_visualizacao" value="1" class="marcar check-visualizar" /></td>
+                                                <td><input type="checkbox" name="profissional_cadastro" value="1" class="marcar check-cadastrar" /></td>
+                                                <td><input type="checkbox" name="profissional_edicao" value="1" class="marcar check-editar" /></td>
+                                                <td><input type="checkbox" name="profissional_exclusao" value="1" class="marcar check-excluir" /></td>
                                             </tr>
                                             <!-- Clientes -->
                                             <tr class="warning">
@@ -488,10 +448,10 @@
                                             <!-- Clientes -->
                                             <tr>
                                                 <td>Clientes</td>
-                                                <td><input type="checkbox" name="clientes_visualizacao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="clientes_cadastro" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="clientes_edicao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="clientes_exclusao" value="1" class="marcar" /></td>
+                                                <td><input type="checkbox" name="clientes_visualizacao" value="1" class="marcar check-visualizar" /></td>
+                                                <td><input type="checkbox" name="clientes_cadastro" value="1" class="marcar check-cadastrar" /></td>
+                                                <td><input type="checkbox" name="clientes_edicao" value="1" class="marcar check-editar" /></td>
+                                                <td><input type="checkbox" name="clientes_exclusao" value="1" class="marcar check-excluir" /></td>
                                             </tr>
                                             <!-- Solicitações de Serviço -->
                                             <tr class="warning">
@@ -500,9 +460,9 @@
                                             <!-- Solicitações de Serviço -->
                                             <tr>
                                                 <td>Solicitações de Serviço</td>
-                                                <td><input type="checkbox" name="ss_visualizacao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="ss_orcar" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="ss_exclusao" value="1" class="marcar" /></td>
+                                                <td><input type="checkbox" name="ss_visualizacao" value="1" class="marcar check-visualizar" /></td>
+                                                <td><input type="checkbox" name="ss_orcar" value="1" class="marcar check-editar" /></td>
+                                                <td><input type="checkbox" name="ss_exclusao" value="1" class="marcar check-excluir" /></td>
                                             </tr>
                                             <!-- Ordens de Serviço -->
                                             <tr class="warning">
@@ -511,10 +471,10 @@
                                             <!-- Ordens de Serviço -->
                                             <tr>
                                                 <td>Ordens de Serviço</td>
-                                                <td><input type="checkbox" name="os_visualizacao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="os_cadastro" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="os_edicao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="os_exclusao" value="1" class="marcar" /></td>
+                                                <td><input type="checkbox" name="os_visualizacao" value="1" class="marcar check-visualizar" /></td>
+                                                <td><input type="checkbox" name="os_cadastro" value="1" class="marcar check-cadastrar" /></td>
+                                                <td><input type="checkbox" name="os_edicao" value="1" class="marcar check-editar" /></td>
+                                                <td><input type="checkbox" name="os_exclusao" value="1" class="marcar check-excluir" /></td>
                                             </tr>
                                             <!-- Obras -->
                                             <tr class="warning">
@@ -523,26 +483,26 @@
                                             <!-- Responsável Técnico -->
                                             <tr>
                                                 <td>Responsável Técnico</td>
-                                                <td><input type="checkbox" name="resp_tec_visualizacao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="resp_tec_cadastro" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="resp_tec_edicao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="resp_tec_exclusao" value="1" class="marcar" /></td>
+                                                <td><input type="checkbox" name="resp_tec_visualizacao" value="1" class="marcar check-visualizar" /></td>
+                                                <td><input type="checkbox" name="resp_tec_cadastro" value="1" class="marcar check-cadastrar" /></td>
+                                                <td><input type="checkbox" name="resp_tec_edicao" value="1" class="marcar check-editar" /></td>
+                                                <td><input type="checkbox" name="resp_tec_exclusao" value="1" class="marcar check-excluir" /></td>
                                             </tr>
                                             <!-- Obras -->
                                             <tr>
                                                 <td>Obras</td>
-                                                <td><input type="checkbox" name="obras_visualizacao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="obras_cadastro" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="obras_edicao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="obras_exclusao" value="1" class="marcar" /></td>
+                                                <td><input type="checkbox" name="obras_visualizacao" value="1" class="marcar check-visualizar" /></td>
+                                                <td><input type="checkbox" name="obras_cadastro" value="1" class="marcar check-cadastrar" /></td>
+                                                <td><input type="checkbox" name="obras_edicao" value="1" class="marcar check-editar" /></td>
+                                                <td><input type="checkbox" name="obras_exclusao" value="1" class="marcar check-excluir" /></td>
                                             </tr>
                                             <!-- Borderôs -->
                                             <tr>
                                                 <td>Borderôs</td>
-                                                <td><input type="checkbox" name="bordero_visualizacao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="bordero_cadastro" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="bordero_edicao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="bordero_exclusao" value="1" class="marcar" /></td>
+                                                <td><input type="checkbox" name="bordero_visualizacao" value="1" class="marcar check-visualizar" /></td>
+                                                <td><input type="checkbox" name="bordero_cadastro" value="1" class="marcar check-cadastrar" /></td>
+                                                <td><input type="checkbox" name="bordero_edicao" value="1" class="marcar check-editar" /></td>
+                                                <td><input type="checkbox" name="bordero_exclusao" value="1" class="marcar check-excluir" /></td>
                                             </tr>
                                             <!-- Estoque -->
                                             <tr class="warning">
@@ -551,10 +511,10 @@
                                             <!-- Estoque -->
                                             <tr>
                                                 <td>Estoque</td>
-                                                <td><input type="checkbox" name="estoque_visualizacao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="estoque_cadastro" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="estoque_edicao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="estoque_exclusao" value="1" class="marcar" /></td>
+                                                <td><input type="checkbox" name="estoque_visualizacao" value="1" class="marcar check-visualizar" /></td>
+                                                <td><input type="checkbox" name="estoque_cadastro" value="1" class="marcar check-cadastrar" /></td>
+                                                <td><input type="checkbox" name="estoque_edicao" value="1" class="marcar check-editar" /></td>
+                                                <td><input type="checkbox" name="estoque_exclusao" value="1" class="marcar check-excluir" /></td>
                                             </tr>
                                             <!-- Relatórios -->
                                             <tr class="warning">
@@ -563,7 +523,7 @@
                                             <!-- Relatórios -->
                                             <tr>
                                                 <td>Relatórios</td>
-                                                <td><input type="checkbox" name="relatorios_visualizacao" value="1" class="marcar" /></td>
+                                                <td><input type="checkbox" name="relatorios_visualizacao" value="1" class="marcar check-visualizar" /></td>
                                             </tr>
                                             <!-- Acessos -->
                                             <tr class="warning">
@@ -572,18 +532,18 @@
                                             <!-- Usuários -->
                                             <tr>
                                                 <td>Usuários</td>
-                                                <td><input type="checkbox" name="usuario_visualizacao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="usuario_cadastro" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="usuario_edicao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="usuario_exclusao" value="1" class="marcar" /></td>
+                                                <td><input type="checkbox" name="usuario_visualizacao" value="1" class="marcar check-visualizar" /></td>
+                                                <td><input type="checkbox" name="usuario_cadastro" value="1" class="marcar check-cadastrar" /></td>
+                                                <td><input type="checkbox" name="usuario_edicao" value="1" class="marcar check-editar" /></td>
+                                                <td><input type="checkbox" name="usuario_exclusao" value="1" class="marcar check-excluir" /></td>
                                             </tr>
                                             <!-- Operadores -->
                                             <tr>
                                                 <td>Operadores</td>
-                                                <td><input type="checkbox" name="operador_visualizacao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="operador_cadastro" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="operador_edicao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="operador_exclusao" value="1" class="marcar" /></td>
+                                                <td><input type="checkbox" name="operador_visualizacao" value="1" class="marcar check-visualizar" /></td>
+                                                <td><input type="checkbox" name="operador_cadastro" value="1" class="marcar check-cadastrar" /></td>
+                                                <td><input type="checkbox" name="operador_edicao" value="1" class="marcar check-editar" /></td>
+                                                <td><input type="checkbox" name="operador_exclusao" value="1" class="marcar check-excluir" /></td>
                                             </tr>
                                             <!-- Caixinhas -->
                                             <tr class="warning">
@@ -592,10 +552,10 @@
                                             <!-- Caixinhas -->
                                             <tr>
                                                 <td>Caixinhas</td>
-                                                <td><input type="checkbox" name="caixinha_visualizacao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="caixinha_cadastro" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="caixinha_edicao" value="1" class="marcar" /></td>
-                                                <td><input type="checkbox" name="caixinha_exclusao" value="1" class="marcar" /></td>
+                                                <td><input type="checkbox" name="caixinha_visualizacao" value="1" class="marcar check-visualizar" /></td>
+                                                <td><input type="checkbox" name="caixinha_cadastro" value="1" class="marcar check-cadastrar" /></td>
+                                                <td><input type="checkbox" name="caixinha_edicao" value="1" class="marcar check-editar" /></td>
+                                                <td><input type="checkbox" name="caixinha_exclusao" value="1" class="marcar check-excluir" /></td>
                                             </tr>
                                         </tbody>
                                         <tfoot>
@@ -759,15 +719,6 @@
                         if ($row_pr['compras_exclusao'] == '0') {$checked_compras_exclusao = '';} else {$checked_compras_exclusao = 'checked="checked"';}
                         if ($row_pr['status_compra'] == '0') {$checked_compra_status = '';} else {$checked_compra_status = 'checked="checked"';}
                         */ ?>
-                    <script type="text/javascript">
-                        function check_<?php /* echo $dados_fax['id'] */ ?>(){
-                            if($('#master_<?php /* echo $dados_fax['id'] */ ?>').prop('checked') == true){ // se o checkbox estiver selecionado quando clicado
-                                $('.marcar_<?php /* echo $dados_fax['id'] */ ?>').prop('checked', true);  // seleciona toda a classe check
-                            }else{ // se não estiver selecionado
-                                $('.marcar_<?php /* echo $dados_fax['id'] */ ?>').prop('checked', false);  // desmarca a classe check
-                            }
-                        }
-                    </script>
                     <?php /* } */ ?>
                 </div>
                 <!-- /.box-body -->
@@ -778,4 +729,43 @@
     <!-- /.content-wrapper -->
     <?php include __DIR__ . '/../../../templates/footer.php'; ?>
 </body>
+<script>
+    $(document).ready(function() {
+        // Controle do checkbox "Master"
+        //$('#master').on('change', function() {
+            // Marca ou desmarca todos os checkboxes da tabela
+            //$('input[type="checkbox"]').prop('checked', $(this).is(':checked'));
+        //});
+        // Quando o checkbox "visualizar-todos" for marcado/desmarcado
+        $('#visualizar-todos').on('change', function() {
+            // Define o estado de todos os checkboxes da classe "check-visualizar"
+            $('.check-visualizar').prop('checked', $(this).is(':checked'));
+        });
+        // Quando o checkbox "cadastrar-todos" for marcado/desmarcado
+        $('#cadastrar-todos').on('change', function() {
+            // Define o estado de todos os checkboxes da classe "check-cadastrar"
+            $('.check-cadastrar').prop('checked', $(this).is(':checked'));
+        });
+        // Quando o checkbox "editar-todos" for marcado/desmarcado
+        $('#editar-todos').on('change', function() {
+            // Define o estado de todos os checkboxes da classe "check-editar"
+            $('.check-editar').prop('checked', $(this).is(':checked'));
+        });
+        // Quando o checkbox "excluir-todos" for marcado/desmarcado
+        $('#excluir-todos').on('change', function() {
+            // Define o estado de todos os checkboxes da classe "check-excluir"
+            $('.check-excluir').prop('checked', $(this).is(':checked'));
+        });
+    });
+    // Quando o checkbox "todos-clientes" for alterado
+    $('input[name="todos-clientes"]').on('change', function() {
+        // Marca ou desmarca todos os checkboxes com a classe "marcar"
+        $('input[name="clientes[]"]').prop('checked', $(this).is(':checked'));
+    });
+    // Quando o checkbox "todos-fornecedores" for alterado
+    $('input[name="todos-fornecedores"]').on('change', function() {
+        // Marca ou desmarca todos os checkboxes com a classe "marcar"
+        $('input[name="fornecedores[]"]').prop('checked', $(this).is(':checked'));
+    });
+</script>
 </html>

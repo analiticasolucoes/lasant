@@ -39,7 +39,7 @@ class ClienteRepository
 
     public function all(): array
     {
-        $sql = "SELECT * FROM $this->table WHERE tipo = 1";
+        $sql = "SELECT * FROM $this->table WHERE tipo = 1 ORDER BY nome_empresa ASC";
         $result = $this->db->consultar($sql, []);
         if (count($result) > 0) {
             return $this->generateClientesArray($result);
@@ -142,7 +142,7 @@ class ClienteRepository
         }
     }
 
-    public function delete(int $cliente): bool
+    public function delete(Cliente $cliente): bool
     {
         try {
             $condicao = "id = :id";
