@@ -4,9 +4,6 @@
 # Ignorar o diretório vendor
 /vendor/
 
-#Igonar o diretório com codigo legado
-/old/
-
 #Igonar o diretório de config da ide
 /.idea/
 
