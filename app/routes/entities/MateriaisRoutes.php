@@ -25,6 +25,11 @@ class MateriaisRoutes implements RoutesInterface
                 'method' => 'delete',
                 'public' => true
             ],
+            '/materiais/pesquisar' => [
+                'controller' => 'MaterialController',
+                'method' => 'search',
+                'public' => true
+            ],
         ];
     }
 }

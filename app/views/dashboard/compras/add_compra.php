@@ -11,7 +11,6 @@ $observacoes = $_POST['observacoes'];
 $insert = mysqli_query(
 "INSERT into
             tb_cotacao (
-                id,
                 id_cliente,
                 id_clienteLocal,
                 dt_solicitacao,
@@ -21,7 +20,6 @@ $insert = mysqli_query(
                 id_prioridade,
                 observacoes)
         VALUES (
-            '',
             '$id_cliente',
             '$id_clienteLocal',
             '$dt_solicitacao',
@@ -30,10 +28,10 @@ $insert = mysqli_query(
             '$id_materialGrupo',
             '$id_prioridade',
             '$observacoes')
-        ") or die (mysql_error());
+        ") or die (mysqli_error());
 
-$sql_consult = mysql_query("SELECT * FROM tb_cotacao WHERE id_cliente='$id_cliente' AND id_clienteLocal='$id_clienteLocal' ORDER BY id DESC LIMIT 1");
-$row_consult = mysql_fetch_assoc($sql_consult);
+$sql_consult = mysqli_query("SELECT * FROM tb_cotacao WHERE id_cliente='$id_cliente' AND id_clienteLocal='$id_clienteLocal' ORDER BY id DESC LIMIT 1");
+$row_consult = mysqli_fetch_assoc($sql_consult);
 $id_compra = $row_consult['id'];
 
 echo "<script> alert('Insira os materiais!'); window.location.href = 'cadastro_compra2.php?id=$id_compra'; </script>";

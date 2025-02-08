@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Database\Database;
 use App\interfaces\ControllerInterface;
+use App\Models\PrivilegioAcesso;
 use App\Models\Usuario;
 use App\Repositories\ClienteRepository;
 use App\Repositories\FornecedorRepository;
@@ -14,7 +15,7 @@ use Exception;
 
 class UsuarioController implements ControllerInterface
 {
-    const FOTOS_FOLDER = DIRECTORY_SEPARATOR . "storage" . DIRECTORY_SEPARATOR . "app" . DIRECTORY_SEPARATOR . "profile" . DIRECTORY_SEPARATOR . "photo" . DIRECTORY_SEPARATOR;
+    const FOTOS_FOLDER = DIRECTORY_SEPARATOR . "storage" . DIRECTORY_SEPARATOR . "app" . DIRECTORY_SEPARATOR . "profile" . DIRECTORY_SEPARATOR . "photo";
     private UsuarioRepository $usuarioRepository;
     private ViewController $view;
     private Database $conn;
@@ -59,20 +60,29 @@ class UsuarioController implements ControllerInterface
         $novoUsuario->setNome($args['nome']);
         $novoUsuario->setSenha($args['senha']);
         $novoUsuario->setUsuario($args['usuario']);
-        $novoUsuario->setIdCliente($args['clientes']);
+        $novoUsuario->setClientes($args['clientes']);
+        $novoUsuario->setFornecedores($args['fornecedores']);
 
-        if(isset($_FILES)) {
+        // upload foto de perfil
+        if(isset($_FILES) && $_FILES['foto']['error'] !== 4) {
             try {
                 $caminhoArquivo = UploadArquivos::processarUpload(
                     $_FILES['foto'],
                     dirname(__DIR__, 2) . self::FOTOS_FOLDER,
                     null
                 );
-            $novoUsuario->setFoto($caminhoArquivo);
+                $novoUsuario->setFoto(basename($caminhoArquivo));
             } catch (Exception $e) {
                 echo "Erro: " . $e->getMessage();
             }
         }
+
+        //privilegios de acesso
+        $privilegios = new PrivilegioAcesso();
+
+
+
+        echo"<pre>";var_dump($args['privilegios'],$novoUsuario);echo"</pre>";die;
         if ($this->usuarioRepository->create($novoUsuario)) {
             $this->index();
         }
@@ -91,7 +101,7 @@ class UsuarioController implements ControllerInterface
         $usuario->setUsuario($args['usuario']);
         $usuario->setSenha($args['senha']);
         $usuario->setCodigo($args['codigo']);
-        $usuario->setIdCliente($args['id_cliente']);
+        $usuario->setClientes($args['id_cliente']);
         $usuario->setAprovador($args['aprovador']);
         $usuario->setFoto($args['foto']);
         $usuario->setLimite($args['limite']);

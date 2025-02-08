@@ -15,19 +15,29 @@ class ComprasRoutes implements RoutesInterface
                 'method' => 'new',
                 'public' => true
             ],
+            '/compras/incluir' => [
+                'controller' => 'CompraController',
+                'method' => 'add',
+                'public' => true
+            ],
             '/compras' => [
                 'controller' => 'CompraController',
                 'method' => 'list',
                 'public' => true
             ],
-            '/compras/levantamentos/novo' => [
+            '/compras/solicitacoes/pesquisa' => [
                 'controller' => 'CompraController',
-                'method' => 'levantamento',
+                'method' => 'search',
                 'public' => true
             ],
-            '/compras/levantamentos' => [
+            '/compras/solicitacoes/detalhe' => [
                 'controller' => 'CompraController',
-                'method' => 'levantamentoList',
+                'method' => 'show',
+                'public' => true
+            ],
+            '/compras/solicitacoes/pedido/impressao' => [
+                'controller' => 'CompraController',
+                'method' => 'print',
                 'public' => true
             ],
         ];

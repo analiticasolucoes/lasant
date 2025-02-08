@@ -138,9 +138,9 @@ class PerfilController implements ControllerInterface
     public function getPhoto(array $args = []): void
     {
         // Caminho físico do diretório onde estão as imagens de perfil
-        $caminhoImagem = dirname(__DIR__) . DIRECTORY_SEPARATOR . ".." . self::FOTOS_FOLDER . basename($args['foto']);
+        $caminhoImagem = dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . self::FOTOS_FOLDER . basename($args['file']);
         if (!file_exists($caminhoImagem)) {
-            $caminhoImagem = "assets" . DIRECTORY_SEPARATOR . "dist" . DIRECTORY_SEPARATOR . "img" . DIRECTORY_SEPARATOR . "avatar.png";
+            $caminhoImagem = dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . "public_html" . DIRECTORY_SEPARATOR . "assets" . DIRECTORY_SEPARATOR . "dist" . DIRECTORY_SEPARATOR . "img" . DIRECTORY_SEPARATOR . "avatar.png";
         }
         // Define o cabeçalho de conteúdo para imagem e lê o arquivo
         header("Content-Type: image/jpeg"); // Ou ajuste para o tipo correto

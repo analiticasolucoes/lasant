@@ -17,6 +17,8 @@
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="assets/dist/css/skins/_all-skins.css">
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="assets/css/style.css">
     <!-- iCheck -->
     <link rel="stylesheet" href="assets/plugins/iCheck/flat/blue.css">
     <!-- Morris chart -->

@@ -119,6 +119,19 @@ class MaterialRepository
         }
     }
 
+    public function findBy(string $column, $value): ?array
+    {
+        $query = "SELECT * FROM $this->table WHERE $column = :{$column}";
+        $parametros = [$column => $value];
+        $resultado = $this->db->consultar($query, $parametros);
+
+        if (count($resultado) >= 1) {
+            return $this->generateObjectsList($resultado);
+        } else {
+            return [];
+        }
+    }
+
     private function generateObject(array $materialReg): Material
     {
         $grupoMaterialRepository = new GrupoMaterialRepository($this->db);

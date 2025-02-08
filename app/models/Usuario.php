@@ -9,7 +9,8 @@ class Usuario
     private string $usuario;
     private string $senha;
     private ?string $codigo;
-    private ?array $idCliente;
+    private ?array $clientes;
+    private ?array $fornecedores;
     private ?string $aprovador;
     private ?string $foto;
     private ?float $limite;
@@ -20,7 +21,8 @@ class Usuario
         string  $usuario = "",
         string  $senha = "",
         ?string $codigo = null,
-        ?array  $idCliente = [],
+        ?array  $clientes = [],
+        ?array  $fornecedores = [],
         ?string $aprovador = null,
         ?string $foto = null,
         ?float  $limite = null
@@ -30,7 +32,8 @@ class Usuario
         $this->usuario = $usuario;
         $this->senha = $senha;
         $this->codigo = $codigo;
-        $this->idCliente = $idCliente;
+        $this->clientes = $clientes;
+        $this->fornecedores = $fornecedores;
         $this->aprovador = $aprovador;
         $this->foto = $foto;
         $this->limite = $limite;
@@ -41,6 +44,7 @@ class Usuario
     {
         $this->id = $id;
     }
+
     public function getId(): int
     {
         return $this->id;
@@ -91,14 +95,26 @@ class Usuario
         $this->codigo = $codigo;
     }
 
-    public function getIdCliente(): ?array
+    public function getClientes(): ?array
     {
-        return $this->idCliente;
+        return $this->clientes;
     }
 
-    public function setIdCliente(?array $idCliente): void
+    public function setClientes(?array $clientes): void
     {
-        $this->idCliente = $idCliente;
+        sort($clientes);
+        $this->clientes = $clientes;
+    }
+
+    public function getFornecedores(): ?array
+    {
+        return $this->fornecedores;
+    }
+
+    public function setFornecedores(?array $fornecedores): void
+    {
+        sort($fornecedores);
+        $this->fornecedores = $fornecedores;
     }
 
     public function getAprovador(): ?string

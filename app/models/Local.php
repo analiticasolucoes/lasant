@@ -45,7 +45,7 @@ class Local
      */
     public function __construct(
         int $id = 0,
-        Cliente $cliente = new CLiente(),
+        Cliente $cliente = new Cliente(),
         string $descricao = "",
         string $cep = "",
         string $logradouro = "",

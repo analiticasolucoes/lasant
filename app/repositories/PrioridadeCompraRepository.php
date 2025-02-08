@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Database\Database;
 use App\Models\PrioridadeCompra;
+use Exception;
 
 class PrioridadeCompraRepository
 {
@@ -39,16 +40,18 @@ class PrioridadeCompraRepository
         ];
 
         if ($this->db->inserir($this->table, $parametros)) {
-            $prioridadeCompra = new PrioridadeCompra(
-                $this->db->getLastInsertId(),
-                $data['prioridade']
-            );
+            $prioridadeCompra = new PrioridadeCompra();
+            $prioridadeCompra->setId($this->db->getLastInsertId());
+            $prioridadeCompra->setPrioridade($data['prioridade']);
             $this->prioridadeCompra = $prioridadeCompra;
             return true;
         }
         return false;
     }
 
+    /**
+     * @throws Exception
+     */
     public function update(PrioridadeCompra $prioridadeCompra): bool
     {
         try {
@@ -63,6 +66,9 @@ class PrioridadeCompraRepository
         }
     }
 
+    /**
+     * @throws Exception
+     */
     public function delete(PrioridadeCompra $prioridadeCompra): bool
     {
         try {
@@ -74,6 +80,9 @@ class PrioridadeCompraRepository
         }
     }
 
+    /**
+     * @throws Exception
+     */
     public function find(int $id): ?PrioridadeCompra
     {
         $query = "SELECT * FROM $this->table WHERE id = :id";
@@ -102,10 +111,12 @@ class PrioridadeCompraRepository
 
     private function generateObject(array $prioridadeCompraReg): PrioridadeCompra
     {
-        return new PrioridadeCompra(
-            $prioridadeCompraReg['id'],
-            $prioridadeCompraReg['prioridade']
-        );
+        $prioridade =  new PrioridadeCompra();
+
+        $prioridade->setId($prioridadeCompraReg['id']);
+        $prioridade->setPrioridade($prioridadeCompraReg['prioridade']);
+
+        return $prioridade;
     }
 
     private function generateObjectsList(array $prioridadeCompraList): array

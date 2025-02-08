@@ -14,6 +14,8 @@
     <!-- AdminLTE Skins. Choose a skin from the css/skins folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="assets/dist/css/AdminLTE.css">
     <link rel="stylesheet" href="assets/dist/css/skins/_all-skins.css">
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <!-- jQuery 3.7.1 -->
     <script src="assets/jquery/3.7.1/jquery-3.7.1.min.js"></script>

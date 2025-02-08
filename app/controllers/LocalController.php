@@ -114,4 +114,31 @@ class LocalController
     {
 
     }
+
+    public function listByCliente(array $args): void
+    {
+        $locais = $this->localRepository->findBy('id_cliente', $args['cliente']);
+
+        // Iterar sobre os objetos e extrair os dados
+        $resultado = array_map([$this, 'extractLocal'], $locais);
+
+        // Converter o array associativo em JSON
+        $json = json_encode($resultado, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+
+        header('Content-Type: application/json');
+        echo $json;
+    }
+
+    private function extractLocal($locais): array
+    {
+        return [
+            'id' => $locais->getId(),
+            'cliente' => [
+                'id' => $locais->getCliente()->getId(),
+                'nome' => $locais->getCliente()->getNomeEmpresa(),
+                'descricao' => $locais->getDescricao()
+            ],
+            'descricao' => $locais->getDescricao()
+        ];
+    }
 }

@@ -15,6 +15,8 @@
     <!-- AdminLTE Skins. Choose a skin from the css/skins folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="assets/dist/css/AdminLTE.css">
     <link rel="stylesheet" href="assets/dist/css/skins/_all-skins.css">
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="assets/css/style.css">
     <!-- Font Awesome -->
     <script defer src="assets/fontawesome/js/brands.js"></script>
     <script defer src="assets/fontawesome/js/solid.js"></script>

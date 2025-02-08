@@ -35,6 +35,11 @@ class LocalRoutes implements RoutesInterface
                 'method' => 'remove',
                 'public' => true
             ],
+            '/clientes/locais/by-cliente' => [
+                'controller' => 'LocalController',
+                'method' => 'listByCliente',
+                'public' => true
+            ],
         ];
     }
 }

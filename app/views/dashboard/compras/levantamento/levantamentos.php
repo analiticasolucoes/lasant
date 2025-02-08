@@ -3,37 +3,33 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <title>Sistema Lasant - Administrativo</title>
     <base href="<?= BASE_URL ?>">
     <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 CSS -->
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/plugins/datatables/dataTables.bootstrap.css">
     <!-- AdminLTE Skins. Choose a skin from the css/skins folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="assets/dist/css/AdminLTE.css">
     <link rel="stylesheet" href="assets/dist/css/skins/_all-skins.css">
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
     <!-- DataTables CSS -->
     <link rel="stylesheet" href="assets/datatables/2.1.8/datatables.css">
+    <!-- jQuery 3.7.1 -->
+    <script src="assets/jquery/3.7.1/jquery-3.7.1.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="assets/dist/js/app.min.js"></script>
     <!-- Font Awesome -->
     <script defer src="assets/fontawesome/js/brands.js"></script>
     <script defer src="assets/fontawesome/js/solid.js"></script>
     <script defer src="assets/fontawesome/js/fontawesome.js"></script>
-    <!-- jQuery 3.7.1 -->
-    <script src="assets/jquery/3.7.1/jquery-3.7.1.min.js"></script>
     <!-- Bootstrap 3.3.5 JS -->
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <!-- AdminLTE App -->
-    <script src="assets/dist/js/app.min.js"></script>
-    <script src="assets/dist/js/valor.js"></script>
-    <!-- DataTables JS -->
-    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
-    <!-- JS Scripts -->
-    <script src="assets/js/script.js"></script>
 </head>
-
 <body class="hold-transition skin-blue sidebar-mini">
 <!-- Site wrapper -->
 <div class="wrapper">
@@ -62,7 +58,7 @@
                             <th>Operador</th>
                             <th>Prioridade</th>
                             <th>Situação</th>
-                            <th>&nbsp;</th>
+                            <th></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -124,10 +120,21 @@
     <!-- /.content-wrapper -->
     <?php include __DIR__ . '/../../../templates/footer.php'; ?>
 </div>
-</body>
+</body><!-- DataTables JS -->
+<script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
 <script>
     $(document).ready(function() {
-        dataTableInit("levantamentos-table");
+        $('#levantamentos-table').DataTable({
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": true,
+            language: {
+                url: '//cdn.datatables.net/plug-ins/2.1.8/i18n/pt-BR.json',
+            }
+        });
     });
 </script>
 </html>

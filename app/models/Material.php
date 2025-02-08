@@ -15,7 +15,7 @@ class Material
     private float $valor;
 
     public function __construct(
-        cliente          $id = 0,
+        int          $id = 0,
         GrupoMaterial    $grupo = null,
         SubGrupoMaterial $subgrupo = null,
         ClasseMaterial   $classe = null,

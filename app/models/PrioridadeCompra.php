@@ -6,12 +6,11 @@ class PrioridadeCompra {
     private int $id;
     private string $prioridade;
 
-    public function __construct(int $id = null, string $prioridade = null) {
-        $this->id = $id;
-        $this->prioridade = $prioridade;
+    public function __construct() {
+        $this->id = 0;
+        $this->prioridade = "";
     }
 
-    // Getters
     public function getId(): int {
         return $this->id;
     }
@@ -20,7 +19,6 @@ class PrioridadeCompra {
         return $this->prioridade;
     }
 
-    // Setters
     public function setId(int $id) {
         $this->id = $id;
     }

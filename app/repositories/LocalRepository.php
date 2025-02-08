@@ -172,7 +172,7 @@ class LocalRepository
     private function setAttributes(Local $local, array $data): void
     {
         $clienteRepository = new ClienteRepository($this->db);
-        $cliente = $clienteRepository->find($data['id_cliente']) ?? new Cliente(0, "", "");
+        $cliente = $clienteRepository->find($data['id_cliente']) ?? new Cliente();
 
         foreach($data as $key => $value)
             if(!$value) $data[$key] = "";

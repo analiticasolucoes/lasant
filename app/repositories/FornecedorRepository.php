@@ -172,7 +172,7 @@ class FornecedorRepository
 
     public function findBy(string $column, $value): ?array
     {
-        $query = "SELECT * FROM $this->table WHERE $column = :{$column}";
+        $query = "SELECT * FROM $this->table WHERE $column = :{$column} ORDER BY nome_empresa";
         $parametros = [$column => $value];
         $resultado = $this->db->consultar($query, $parametros);
 

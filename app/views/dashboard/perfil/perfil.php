@@ -14,6 +14,8 @@
     <!-- AdminLTE Skins. Choose a skin from the css/skins folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="assets/dist/css/AdminLTE.css">
     <link rel="stylesheet" href="assets/dist/css/skins/_all-skins.css">
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="assets/css/style.css">
     <!-- Font Awesome -->
     <script defer src="assets/fontawesome/js/brands.js"></script>
     <script defer src="assets/fontawesome/js/solid.js"></script>
@@ -58,11 +60,11 @@
                             <div class="col-md-12 text-center">
                                 <div class="form-group">
                                     <label>Usuário:</label>
-                                    <span class="perfil-usuario"><?= $_SESSION['usuarioLogin'] ?></span>
+                                    <span class="perfil-usuario"><?= $_SESSION['usuario']['login'] ?></span>
                                 </div>
                                 <div class="form-group">
                                     <label>Nome:</label>
-                                    <span class="perfil-nome">Leandro Souza Ferreira</span>
+                                    <span class="perfil-nome"><?= $_SESSION['usuario']['nome'] ?></span>
                                 </div>
                             </div>
 

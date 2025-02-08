@@ -3,6 +3,10 @@
 namespace App\Controllers;
 
 use App\Database\Database;
+use App\Models\Endereco;
+use App\Models\Teste;
+use App\Repositories\Repository;
+use App\Repositories\RepositoryTest;
 use App\Repositories\UsuarioRepository;
 use App\Services\Session;
 use App\Views\ViewController;
@@ -10,6 +14,7 @@ use App\Views\ViewController;
 class LoginController {
     private UsuarioRepository $userRepository;
     private ViewController $view;
+    private Database $conn;
     /**
      * Construtor da classe LoginController.
      * Inicializa o repositório de usuários utilizando a conexão fornecida.
@@ -18,6 +23,7 @@ class LoginController {
      */
     public function __construct(Database $conn)
     {
+        $this->conn = $conn;
         $this->userRepository = new UsuarioRepository($conn);
         $this->view = new ViewController();
     }
@@ -47,12 +53,24 @@ class LoginController {
      */
     public function login(array $args): void
     {
+        $test = new RepositoryTest($this->conn);
+
+        // Executar os testes
+        $test->testCreate();
+        $test->testUpdate();
+        $test->testDelete();
+        $test->testAll();
+        $test->testFind();
+        $test->testFindBy();
+        exit();
+
         $usuario = $this->userRepository->find(1);
-        $_SESSION['usuarioLogin'] = $usuario->getUsuario();
-        $_SESSION['usuarioNome'] = $usuario->getNome();
-        $_SESSION['senha'] = $usuario->getSenha();
-        $_SESSION['usuarioID'] = $usuario->getId();
-        $_SESSION['foto'] = $usuario->getFoto();
+        $_SESSION['usuario']['login'] = $usuario->getUsuario();
+        $_SESSION['usuario']['nome'] = $usuario->getNome();
+        $_SESSION['usuario']['id'] = $usuario->getId();
+        $_SESSION['usuario']['foto'] = $usuario->getFoto();
+        $_SESSION['usuario']['clientes'] = $usuario->getClientes();
+        $_SESSION['usuario']['fornecedores'] = $usuario->getFornecedores();
         header("Location: /dashboard");
         exit;
         // Sanitiza e valida o email

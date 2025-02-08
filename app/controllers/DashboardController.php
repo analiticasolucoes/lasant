@@ -82,7 +82,7 @@ class DashboardController
     public function index(array $arg = []): void
     {
         // Gera a URL para exibir a foto do perfil
-        $fotoUrl = "/perfil/foto?foto=" . urlencode($_SESSION['foto']);
+        $fotoUrl = "/perfil/foto?file=" . urlencode($_SESSION['usuario']['foto']);
 
         /*if($arg['nivel'] === "cliente")
             $this->view->render("dashboard/home/cliente");
@@ -92,7 +92,7 @@ class DashboardController
 
     public function perfil(array $args = []): void
     {
-        $fotoUrl = "/perfil/foto?foto=" . urlencode($_SESSION['foto']);
+        $fotoUrl = "/perfil/foto?file=" . urlencode($_SESSION['usuario']['foto']);
         $this->view->render("dashboard/perfil/perfil", ["foto" => $fotoUrl]);
     }
 

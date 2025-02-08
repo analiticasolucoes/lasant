@@ -14,6 +14,8 @@
     <!-- AdminLTE Skins. Choose a skin from the css/skins folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="assets/dist/css/AdminLTE.css">
     <link rel="stylesheet" href="assets/dist/css/skins/_all-skins.css">
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="assets/css/style.css">
     <!-- Font Awesome -->
     <script defer src="assets/fontawesome/js/brands.js"></script>
     <script defer src="assets/fontawesome/js/solid.js"></script>
@@ -39,7 +41,7 @@
         </section>
         <!-- Main content -->
         <section class="content">
-            <form action="add_levantamento.php" method="post" enctype="multipart/form-data" target="_self">
+            <form id="compras-add-form" action="compras/levantamentos/incluir" method="post" enctype="multipart/form-data" target="_self">
                 <div class="box box-default">
                     <div class="box-header with-border">
                         <h3 class="box-title"><i class="fa fa-legal"></i> Cadastro Levantamento</h3>
@@ -52,47 +54,36 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label>Cliente</label>
-                                    <select class="form-control" id="id_cliente" name="id_cliente" required="required">
+                                    <label for="cliente">Cliente</label>
+                                    <select class="form-control" id="cliente" name="cliente" required="required">
                                         <option value="" selected>Selecione</option>
-                                        <?php /*
-				foreach($clientes_listagem as $value) {
-				$sql_cliente = mysql_query("SELECT * FROM ta_cliente_fornecedor WHERE id='$value'") or die (mysql_error());
-				$row_cliente = mysql_fetch_assoc($sql_cliente);
-				*/ ?>
-                                        <option value="<?php /* echo $row_cliente['id'] */ ?>"><?php /* echo $row_cliente['nome_empresa'] */ ?></option>
-                                        <?php /*
-				}
-				*/ ?>
+                                        <?php foreach($clientes as $cliente): ?>
+                                        <option value="<?= $cliente->getId()?>"><?= $cliente->getNomeEmpresa()?></option>
+                                        <?php endforeach; ?>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label>Local</label>
-                                    <select class="form-control" id="id_clienteLocal" name="id_clienteLocal">
+                                    <label for="local">Local</label>
+                                    <select class="form-control" id="local" name="local" required disabled>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label>Prioridade</label>
-                                    <select class="form-control" id="id_prioridade" name="id_prioridade" required="required">
+                                    <label for="prioridade">Prioridade</label>
+                                    <select class="form-control" id="prioridade" name="prioridade" required="required">
                                         <option value="" selected>Selecione</option>
-                                        <?php /*
-				$sql_grupo = mysql_query("SELECT * FROM tb_prioridade_compra ORDER BY prioridade") or die (mysql_error());
-				while ($row_grupo = mysql_fetch_array($sql_grupo)) {
-				*/ ?>
-                                        <option value="<?php /* echo $row_grupo['id'] */ ?>"><?php /* echo $row_grupo['prioridade'] */ ?></option>
-                                        <?php /*
-				}
-				*/ ?>
+                                        <?php foreach($prioridades as $prioridade): ?>
+                                        <option value="<?= $prioridade->getId() ?>"><?= $prioridade->getPrioridade() ?></option>
+                                        <?php endforeach; ?>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label>Observações</label>
+                                    <label for="observacoes">Observações</label>
                                     <textarea name="observacoes" class="form-control" rows="4" id="observacoes" placeholder="Observações"></textarea>
                                 </div>
                             </div>
@@ -117,10 +108,39 @@
 </body>
 <script>
     $(document).ready(function() {
-        $('#id_cliente').change(function() {
-            var id_cliente = $(this).val();
-            $('#id_clienteLocal').load('listar_locais.php?id_cliente='+id_cliente);
-            $('#id_contrato').load('listar_contratos.php?id_cliente='+id_cliente);
+        $('#cliente').change(function() {
+            var clienteId = $(this).val();
+
+            // Verifica se algum cliente foi selecionado
+            if (clienteId) {
+                // Faz a requisição Ajax para obter os locais
+                $.ajax({
+                    url: '/clientes/locais/by-cliente', // URL da rota que vai retornar os locais
+                    type: 'POST',
+                    data: { cliente: clienteId }, // Envia o ID do grupo selecionado
+                    dataType: 'json',
+                    success: function(response) {
+                        // Habilita o campo de local
+                        $('#local').prop('disabled', false);
+                        $('#local').empty(); // Limpa o dropdown de local
+                        $('#local').append('<option value="" selected>Selecione</option>');
+
+                        // Popula o dropdown com os locais retornados
+                        $.each(response, function(index, local) {
+                            $('#local').append('<option value="' + local.id + '">' + local.descricao + '</option>');
+                        });
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Erro ao buscar locais: " + error);
+                        $('#local').prop('disabled', true); // Desabilita caso haja erro
+                    }
+                });
+            } else {
+                // Caso nenhum cliente seja selecionado, desabilita o campo de local
+                $('#local').prop('disabled', true);
+                $('#local').empty();
+                $('#local').append('<option value="" selected>Selecione</option>');
+            }
         });
     });
 </script>

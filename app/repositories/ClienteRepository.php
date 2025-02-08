@@ -211,7 +211,7 @@ class ClienteRepository
         $esfera = $esferaRepository->find($data['id_esfera']) ?? new Esfera(0, "", "");
 
         $cliente->setId($data['id']);
-        $cliente->setTipo($data['tipo']);
+        $cliente->setTipo((int) $data['tipo']);
         $cliente->setLogomarca($data['logomarca_clifor']);
         $cliente->setNomeEmpresa($data['nome_empresa']);
         $cliente->setNomeFantasia($data['nome_fantasia']);

@@ -16,6 +16,8 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-pv7dWjjeG1JrWeTA8Z5JqjUoZW5PIx3chVhuIlfhht7n/6WoR47HkvXw3cXHIIjh" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/dist/css/AdminLTE.css">
     <link rel="stylesheet" href="assets/dist/css/skins/_all-skins.css">
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body class="text-center">
 <main class="container text-center" style="height: 100vh; display: flex; justify-content: center; align-items: center;">

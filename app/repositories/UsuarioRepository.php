@@ -24,20 +24,22 @@ class UsuarioRepository
 
     public function all(): array
     {
-        $sql = "SELECT * FROM $this->table";
+        $sql = "SELECT * FROM $this->table ORDER BY nome ASC";
         $result = $this->db->consultar($sql, []);
         return count($result) > 0 ? $this->generateObjectsList($result) : [];
     }
 
+    /**
+     * @throws Exception
+     */
     public function create(Usuario $usuario): bool
     {
-        //echo"<pre>";var_dump($usuario, $_FILES);echo"</pre>";die;
         $parametros = [
             'nome' => $usuario->getNome(),
             'usuario' => $usuario->getUsuario(),
             'senha' => $usuario->getSenha(),
             'codigo' => $usuario->getCodigo(),
-            'id_cliente' => implode(", ", $usuario->getIdCliente()),
+            'id_cliente' => $this->listToString(array_merge($usuario->getClientes(), $usuario->getFornecedores())),
             'aprovador' => $usuario->getAprovador(),
             'foto' => $usuario->getFoto(),
             'limite' => $usuario->getLimite(),
@@ -51,6 +53,9 @@ class UsuarioRepository
         return false;
     }
 
+    /**
+     * @throws Exception
+     */
     public function update(Usuario $usuario): bool
     {
         try {
@@ -59,7 +64,7 @@ class UsuarioRepository
                 'usuario' => $usuario->getUsuario(),
                 'senha' => $usuario->getSenha(),
                 'codigo' => $usuario->getCodigo(),
-                'id_cliente' => $this->idClienteToString($usuario->getIdCliente()),
+                'id_cliente' => $this->listToString(array_merge($usuario->getClientes(), $usuario->getFornecedores())),
                 'aprovador' => $usuario->getAprovador(),
                 'foto' => $usuario->getFoto(),
                 'limite' => $usuario->getLimite(),
@@ -83,6 +88,9 @@ class UsuarioRepository
         }
     }
 
+    /**
+     * @throws Exception
+     */
     public function find(int $id): ?Usuario
     {
         $query = "SELECT * FROM $this->table WHERE id = :id";
@@ -95,6 +103,9 @@ class UsuarioRepository
         }
     }
 
+    /**
+     * @throws Exception
+     */
     public function findBy(string $column, $value): ?Usuario
     {
         $query = "SELECT * FROM $this->table WHERE $column = :{$column}";
@@ -103,6 +114,9 @@ class UsuarioRepository
         return count($resultado) == 1 ? $this->generateObject($resultado[0]) : null;
     }
 
+    /**
+     * @throws Exception
+     */
     private function generateObjectsList(array $usuariosList): array
     {
         $usuarios = [];
@@ -112,35 +126,51 @@ class UsuarioRepository
         return $usuarios;
     }
 
+    /**
+     * @throws Exception
+     */
     private function generateObject(array $usuarioReg): Usuario
     {
-        $idClientesString = $usuarioReg['id_cliente'] ?? "";
-        $arrayIDCliente = $this->idClienteToArray($idClientesString);
+        $stringListaClientesEFornecedores = $usuarioReg['id_cliente'] ?? "";
+        $arrayListaClientesEFornecedores = $this->listToArray($stringListaClientesEFornecedores);
+
+        $arrayListaClientes = [];
+        $arrayListaFornecedores = [];
+
+        $clienteRepository = new ClienteRepository($this->db);
+        $fornecedorRepository = new FornecedorRepository($this->db);
+
+        foreach($arrayListaClientesEFornecedores as $item){
+            if($clienteRepository->find($item)) $arrayListaClientes[] = $item;
+            if($fornecedorRepository->find($item)) $arrayListaFornecedores[] = $item;
+        }
+
         return new Usuario(
             $usuarioReg['id'],
             $usuarioReg['nome'],
             $usuarioReg['usuario'],
             $usuarioReg['senha'],
             $usuarioReg['codigo'] ?? null,
-            $arrayIDCliente,
+            array_unique($arrayListaClientes),
+            array_unique($arrayListaFornecedores),
             $usuarioReg['aprovador'] ?? null,
             $usuarioReg['foto'] ?? null,
             $usuarioReg['limite'] ?? null
         );
     }
 
-    private function idClienteToArray(string $idsClientesString = ""): array
+    private function listToArray(string $lista = ""): array
     {
         // Remover espaços em branco
-        $idsClientesString = str_replace(" ", "", $idsClientesString);
+        $lista = str_replace(" ", "", $lista);
 
         // Verificar se a string não está vazia
-        if ($idsClientesString === "") {
+        if ($lista === "") {
             return [];
         }
 
         // Separar os IDs por vírgula e converter para inteiros
-        $array = explode(",", $idsClientesString);
+        $array = explode(",", $lista);
         $array = array_map('intval', $array);
 
         // Ordenar os IDs em ordem crescente
@@ -149,8 +179,8 @@ class UsuarioRepository
         return $array;
     }
 
-    private function idClienteToString(array $idClientes = []): string
+    private function listToString(array $lista = []): string
     {
-        return implode(", ", $idClientes);
+        return implode(", ", $lista);
     }
 }

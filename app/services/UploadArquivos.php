@@ -26,7 +26,7 @@ class UploadArquivos
         }
 
         // Garantir que o diretório de destino termina com uma barra
-        $diretorioDestino = rtrim($diretorioDestino, '/') . '/';
+        $diretorioDestino = rtrim($diretorioDestino, '/') . DIRECTORY_SEPARATOR;
 
         // Criar o diretório se não existir
         if (!is_dir($diretorioDestino)) {

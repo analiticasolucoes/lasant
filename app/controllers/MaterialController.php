@@ -3,6 +3,8 @@
 namespace App\Controllers;
 
 use App\Database\Database;
+use App\Models\Material;
+use Exception;
 use App\Repositories\{MaterialRepository, GrupoMaterialRepository, SubGrupoMaterialRepository, ClasseMaterialRepository, MarcaMaterialRepository};
 
 class MaterialController
@@ -51,5 +53,62 @@ class MaterialController
         if ($this->materialRepository->delete($material)) {
             header("Location: /materiais/materiais");
         }
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function search(array $args = []): void
+    {
+        $materiais = [];
+
+        // Se o grupo estiver preenchido, buscar por ele
+        if (!empty($args['grupo'])) {
+            $materiais = $this->materialRepository->findBy('id_materialGrupo', $args['grupo']);
+        } else {
+            // Caso contrário, retornar todos os materiais ou lidar de forma genérica
+            throw new Exception('Grupo é obrigatório para realizar a pesquisa.');
+        }
+
+        // Filtrar pelos critérios de código ou descrição, se fornecidos
+        foreach ($materiais as $key => $material) {
+            // Filtra pelo código do material, se informado
+            if (!empty($args['codigo']) && !str_contains($material->getCodigo(), $args['codigo'])) {
+                unset($materiais[$key]);
+                continue;
+            }
+
+            // Filtra pela descrição do material, se informado
+            if (!empty($args['descricao']) && stripos($material->getDescricao(), $args['descricao']) === false) {
+                unset($materiais[$key]);
+            }
+        }
+
+        // Reorganiza os índices do array após a filtragem
+        $materiais = array_values($materiais);
+
+        // Mapeia os resultados em um formato adequado
+        $resultado = array_map([$this, 'extractMaterial'], $materiais);
+
+        // Retorna os resultados como JSON
+        $json = json_encode($resultado, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+
+        header('Content-Type: application/json');
+        echo $json;
+    }
+
+    /**
+     * Extrai as informações de um objeto Material para o formato desejado.
+     */
+    private function extractMaterial(Material $material): array
+    {
+        return [
+            'id' => $material->getId(),
+            'codigo' => $material->getCodigo(),
+            'descricao' => $material->getDescricao(),
+            'classe' => $material->getClasse() ? $material->getClasse()->getDescricao() : '',
+            'marca' => $material->getMarca() ? $material->getMarca()->getDescricao() : 'SEM MARCA',
+            'unidade' => $material->getUnidade() ? $material->getUnidade()->getDescricao() : ''
+        ];
     }
 }
